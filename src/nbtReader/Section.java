@@ -54,6 +54,8 @@ public class Section {
 	}
 
 	public void setHeight(int height) {
+		//only run until y=0 since negative numbers flip back to 255 under zero
+		if (height >= 251) height -= 256;
 		this.firstYPosition = height * Minecraft.SECTION_SIZE_Y;
 	}
 
@@ -68,17 +70,22 @@ public class Section {
 		Position higher = this.getConvertee()
 				.getHigher();
 		int yMappedToStart = lower.getY();
+
 		int absolutStartY = Math.max(this.getFirstYPosition(), lower.getY());
-		int absoluteEndY = Math.min(this.getFirstYPosition() + (Minecraft.SECTION_SIZE_Y - 1), higher.getY());
-		Position start = this.getConvertee()
-				.getLower();
-		start.setY(absolutStartY % Minecraft.SECTION_SIZE_Y);
-		Position end = this.getConvertee()
-				.getHigher();
-		end.setY(absoluteEndY % Minecraft.SECTION_SIZE_Y);
-		Position target = Position.subtract(this.getConvertee()
-				.getVmfStart(), start);
+		int absoluteEndY = Math.min(this.getFirstYPosition()
+				+ (Minecraft.SECTION_SIZE_Y - 1), higher.getY());
+
+		Position start = this.getConvertee().getLower();
+		start.setY((((absolutStartY % Minecraft.SECTION_SIZE_Y)
+				+ Minecraft.SECTION_SIZE_Y) % Minecraft.SECTION_SIZE_Y));
+
+		Position end = this.getConvertee().getHigher();
+		end.setY((((absoluteEndY % Minecraft.SECTION_SIZE_Y)
+				+ Minecraft.SECTION_SIZE_Y) % Minecraft.SECTION_SIZE_Y));
+
+		Position target = Position.subtract(this.getConvertee().getVmfStart(), start);
 		target.setY(absolutStartY - start.y - yMappedToStart + 1);
+
 		if (absolutStartY > absoluteEndY) {
 			start.y = 1;
 			end.y = 0;
@@ -91,18 +98,16 @@ public class Section {
 	}
 
 	private static final NamedTag Y = new NamedTag(NbtTag.BYTE, "Y");
-	private static final NamedTag PALETTE = new NamedTag(NbtTag.LIST, "Palette");
-	private static final NamedTag BLOCK_STATES = new NamedTag(NbtTag.LONG_ARRAY, "BlockStates");
+	private static final NamedTag PALETTE = new NamedTag(NbtTag.LIST, "palette");
+	private static final NamedTag BLOCK_STATES = new NamedTag(NbtTag.COMPOUND, "block_states");
+	private static final NamedTag BLOCK_STATES_DATA = new NamedTag(NbtTag.LONG_ARRAY, "data");
 
 	public Section readNbt(NbtReader reader) throws IOException {
 		reader.doCompound(NbtTasks.I.create()
-				.put(Y, () -> this.setHeight(reader.readByte()))
-				.put(BLOCK_STATES, () -> this.readBlocksRaw(reader))
-				.put(PALETTE, () -> reader.doListOfCompounds(pos -> {
-					this.addPalette(pos, this.readBlock(reader));
-				})));
+				.put(Y, () -> this.setHeight((reader.readByte())))
+				.put(BLOCK_STATES, () -> readBlockStates(reader)));
 		return this;
-	}
+}
 
 	private static final NamedTag PALETTE_NAME = new NamedTag(NbtTag.STRING, "Name");
 	private static final NamedTag PALETTE_PROPERTIES = new NamedTag(NbtTag.COMPOUND, "Properties");
@@ -116,5 +121,13 @@ public class Section {
 						template.addProperty(title, property);
 					})));
 		});
+	}
+
+	private void readBlockStates(NbtReader reader) throws IOException {
+			reader.doCompound(NbtTasks.I.create()
+					.put(BLOCK_STATES_DATA, () -> this.readBlocksRaw(reader))
+					.put(PALETTE, () -> reader.doListOfCompounds(pos -> {
+						this.addPalette(pos, this.readBlock(reader));
+					})));
 	}
 }

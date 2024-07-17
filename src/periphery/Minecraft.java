@@ -30,14 +30,14 @@ public class Minecraft {
 	public static final int CHUNK_SIZE_Z = 16;
 
 	public static final int SECTION_SIZE_Y = 16;
-	public static final int MAX_Y = 256;
+	public static final int MAX_Y = 384; // is this max height top to bottom or max build height??
 
 	public static final String ANVIL_ENDING = "mca";
 	public static final String DAT_ENDING = ".dat";
 	public static final String LEVEL_FILE_NAME = "level.dat";
 	public static final String PLAYERS_FOLDER = "players";
 
-	public static final int MAXIMUM_HEIGHT = 256;
+	public static final int MAXIMUM_HEIGHT = 320;
 
 	public static Path getMinecraftPath() {
 		return Periphery.CONFIG.getMinceraftSavePath();

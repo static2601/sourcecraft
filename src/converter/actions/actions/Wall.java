@@ -13,21 +13,12 @@ public class Wall extends Action {
 	@Override
 	public void add(Mapper context, Position p, Block material) {
 
-		Position end;
-		Position bestX = context.getCuboidFinder()
-				.getBestX(p, material);
 		Position bestY = context.getCuboidFinder()
 				.getBestY(p, material);
-		Position bestZ = context.getCuboidFinder()
-				.getBestZ(p, material);
 		Position bestXY = context.getCuboidFinder()
 				.getBestXY(p, material);
 		Position bestYZ = context.getCuboidFinder()
 				.getBestYZ(p, material);
-		Position bestXZ = context.getCuboidFinder()
-				.getBestXZ(p, material);
-		Position bestXYZ = context.getCuboidFinder()
-				.getBestXYZ(p, material);
 		
 		String east = material.getProperty(Property.east);
 		String north = material.getProperty(Property.north);
@@ -35,11 +26,6 @@ public class Wall extends Action {
 		String waterlogged = material.getProperty(Property.waterlogged);
 		String west = material.getProperty(Property.west);
 		String up = material.getProperty(Property.up);
-		
-		//Position offset = new Position(0, 0, 0);
-		//Position negativeOffset = new Position(0, 0, 0);
-		//int parts = 16;
-		//end = bestX;
 		
 		String str = "";
 		boolean low = false;
@@ -67,159 +53,109 @@ public class Wall extends Action {
 		if(west.equals("low")) low = true;
 		if(north.equals("low")) low = true;
 		if(south.equals("low")) low = true;
-		// post
-		if(up.equals("true")) str += "U";
+
 		//Loggger.log("DEBUG:  Pane Directions " + str);
 
-
-
+		Loggger.log("str: "+str);
 		switch (str) {
-			case "EU":
-				Post(context, p, material, bestY);
-				ETall(context, p, material, bestXY, low);
-				//context.markAsConverted(p);
-				break;
-				
-			case "WU":
-				Post(context, p, material, bestY);
-				WTall(context, p, material, bestXY, low);
-				//context.markAsConverted(p);
-				break;
-				
-			case "NU":
-				Post(context, p, material, bestY);
-				NTall(context, p, material, bestYZ, low);
-				//context.markAsConverted(p);
-				break;
-				
-			case "SU":
-				Post(context, p, material, bestY);
-				STall(context, p, material, bestYZ, low);
-				//context.markAsConverted(p);
-				break;
-			
-			//up position, single post	
-			case "U":
-				Post(context, p, material, bestY);
-				//context.markAsConverted(p);
-				break;
-				
 			//east to west full pane
-			case "EW":
-				ETall(context, p, material, bestXY, low);
-				WTall(context, p, material, bestXY, low);
-				//context.markAsConverted(p);
+			case "":
+				if(up.equals("true")) Post(context, p, material, bestY);
 				break;
-				
+
+			case "EW":
+				if(up.equals("true")) Loggger.log("with up: "+str);
+				EWTall(context, p, material, bestXY, low);
+				break;
+
 			//north to south full pane
 			case "NS":
-				NTall(context, p, material, bestYZ, low);
-				STall(context, p, material, bestYZ, low);
-				//context.markAsConverted(p);
+				NSTall(context, p, material, bestYZ, low);
+				break;
+
+			case "E":
+				Post(context, p, material, bestY);
+				ETall(context, p, material, bestXY, low);
 				break;
 				
+			case "W":
+				Post(context, p, material, bestY);
+				WTall(context, p, material, bestXY, low);
+				break;
+				
+			case "N":
+				Post(context, p, material, bestY);
+				NTall(context, p, material, bestYZ, low);
+				break;
+				
+			case "S":
+				Post(context, p, material, bestY);
+				STall(context, p, material, bestYZ, low);
+				break;
+
 			//corner 
-			case "ENU":
+			case "EN":
 				Post(context, p, material, bestY);
 				ETall(context, p, material, bestXY, low);
 				NTall(context, p, material, bestYZ, low);
-				//context.markAsConverted(p);
 				break;
-				
-			case "WNU":
+
+			case "WN":
 				Post(context, p, material, bestY);
 				WTall(context, p, material, bestXY, low);
 				NTall(context, p, material, bestYZ, low);
-				//context.markAsConverted(p);
 				break;
 				
-			case "ESU":
+			case "ES":
 				Post(context, p, material, bestY);
 				ETall(context, p, material, bestXY, low);
 				STall(context, p, material, bestYZ, low);
-				//context.markAsConverted(p);
 				break;
 				
-			case "WSU":
+			case "WS":
 				Post(context, p, material, bestY);
 				WTall(context, p, material, bestXY, low);
 				STall(context, p, material, bestYZ, low);
-				//context.markAsConverted(p);
 				break;
-			
-			//full wall with post
-			case "NSU":
-				Post(context, p, material, bestY);
-				NTall(context, p, material, bestYZ, low);
-				STall(context, p, material, bestYZ, low);
-				//context.markAsConverted(p);
-				break;
-			
-			case "EWU":
-				Post(context, p, material, bestY);
-				ETall(context, p, material, bestXY, low);
-				WTall(context, p, material, bestXY, low);
-				//context.markAsConverted(p);
-				break;
-				
+
 			//full wall with extension
-			case "EWNU":
+			case "EWN":
 				Post(context, p, material, bestY);
 				ETall(context, p, material, bestXY, low);
 				WTall(context, p, material, bestXY, low);
 				NTall(context, p, material, bestYZ, low);
-				//context.markAsConverted(p);
 				break;
 				
-			case "EWSU":
+			case "EWS":
 				Post(context, p, material, bestY);
 				ETall(context, p, material, bestXY, low);
 				WTall(context, p, material, bestXY, low);
 				STall(context, p, material, bestYZ, low);
-				//context.markAsConverted(p);
 				break;
 				
-			case "ENSU":
+			case "ENS":
 				Post(context, p, material, bestY);
 				NTall(context, p, material, bestXY, low);
 				STall(context, p, material, bestYZ, low);
 				ETall(context, p, material, bestXY, low);
-				//context.markAsConverted(p);
 				break;
 				
-			case "WNSU":
+			case "WNS":
 				Post(context, p, material, bestY);
 				NTall(context, p, material, bestYZ, low);
 				STall(context, p, material, bestYZ, low);
 				WTall(context, p, material, bestXY, low);
-				//context.markAsConverted(p);
 				break;
 			
 			//four ways
-			case "EWNSU":
+			case "EWNS":
 				Post(context, p, material, bestY);
 				NTall(context, p, material, bestYZ, low);
 				STall(context, p, material, bestYZ, low);
 				ETall(context, p, material, bestXY, low);
 				WTall(context, p, material, bestXY, low);
-				//EWTall(context, p, material, bestX, low);
-				//context.markAsConverted(p);
 				break;
-
-			//single, no connecting direction
-			//case "":
-			//	//center post, no connections
-			//	offset =         new Position(7, 0, 7);
-			//	negativeOffset = new Position(7, 0, 7);
-			//	end = bestY;
-			//	context.addDetail(context.createCuboid(p, end, parts, offset, negativeOffset, material));
-			//	context.markAsConverted(p, end);
-			//	break;
-				
 		}
-
-		//context.addDetail(context.createCuboid(p, end, parts, offset, negativeOffset, material));
-		//context.markAsConverted(p, end);
 	}
 	private void Post(Mapper c, Position p, Block m, Position end) {
 		int parts = 16;
@@ -227,11 +163,41 @@ public class Wall extends Action {
 		Position negativeOffset = new Position(4, 0, 4);
 		c.addDetail(c.createCuboid(p, end, parts, offset, negativeOffset, m));
 		c.markAsConverted(p, end);
-		//c.getCuboidFinder();
 		//Loggger.log("c.getBlock(p): " + c.getBlock(p) + " p: "+ p);
-		Loggger.log("c.getBlock(p): " + c.getBlock(p) + " p: "+ p);
 	}
 	//corners - tall
+	private void EWTall(Mapper c, Position p, Block m, Position end, boolean low) {
+		String up = c.getBlock(p).getProperty(Property.up);
+		if(up.equals("true")) {
+			int parts = 16;
+			Position offset =         new Position(4, 0, 4);
+			Position negativeOffset = new Position(4, 0, 4);
+			c.addDetail(c.createCuboid(p, end, parts, offset, negativeOffset, m));
+		}
+		int parts = 16;
+		int y = 0;
+		if(low) y = 2;
+		Position offset =         new Position(0, 0, 5);
+		Position negativeOffset = new Position(0, y, 5);
+		c.addDetail(c.createCuboid(p, end, parts, offset, negativeOffset, m));
+		c.markAsConverted(p, end);
+	}
+	private void NSTall(Mapper c, Position p, Block m, Position end, boolean low) {
+		String up = c.getBlock(p).getProperty(Property.up);
+		if(up.equals("true")) {
+			int parts = 16;
+			Position offset =         new Position(4, 0, 4);
+			Position negativeOffset = new Position(4, 0, 4);
+			c.addDetail(c.createCuboid(p, end, parts, offset, negativeOffset, m));
+		}
+		int parts = 16;
+		int y = 0;
+		if(low) y = 2;
+		Position offset =         new Position(5, 0, 0);
+		Position negativeOffset = new Position(5, y, 0);
+		c.addDetail(c.createCuboid(p, end, parts, offset, negativeOffset, m));
+		c.markAsConverted(p, end);
+	}
 	private void ETall(Mapper c, Position p, Block m, Position end, boolean low) {
 		int parts = 16;
 		int y = 0;
@@ -268,5 +234,4 @@ public class Wall extends Action {
 		c.addDetail(c.createCuboid(p, end, parts, offset, negativeOffset, m));
 		c.markAsConverted(p, end);
 	}
-
 }

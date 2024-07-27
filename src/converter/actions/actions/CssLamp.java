@@ -2,11 +2,7 @@ package converter.actions.actions;
 
 import converter.actions.Action;
 import converter.mapper.Mapper;
-import minecraft.Block;
-import minecraft.Blocks;
-import minecraft.Material;
-import minecraft.Position;
-import minecraft.Property;
+import minecraft.*;
 import vmfWriter.Angles;
 import vmfWriter.Color;
 import vmfWriter.entity.pointEntity.pointEntity.Light;

@@ -1,5 +1,6 @@
 package vmfWriter;
 
+import basic.Loggger;
 import converter.Orientation;
 
 /**
@@ -124,6 +125,37 @@ public class Skin {
 		case WEST:
 			this.materialLeft = newMaterialFront;
 			break;
+		}
+		this.scale = newScale;
+	}
+	public Skin(String newMaterial, String newMaterialTop, String newMaterialFront, String newMaterialBottom,
+				String axis, double newScale) {
+		//reset all sides
+		Loggger.log("skin name: "+ newMaterial);
+		this.materialLeft = newMaterial;
+		this.materialRight = newMaterial;
+		this.materialBack = newMaterial;
+		this.materialFront = newMaterial;
+		this.materialTop = newMaterial;
+		this.materialBottom = newMaterial;
+
+		// how to rotate textures when blocks on X, Z axis???
+		// then while were at it, how to adjust texture coordinates
+		// for brushes like trapdoor??
+
+		switch (axis) {
+			case "y":
+				this.materialTop = newMaterialTop;
+				this.materialBottom = newMaterialBottom;
+				break;
+			case "x":
+				this.materialLeft = newMaterialTop;
+				this.materialRight = newMaterialBottom;
+				break;
+			case "z":
+				this.materialFront = newMaterialTop;
+				this.materialBack = newMaterialBottom;
+				break;
 		}
 		this.scale = newScale;
 	}

@@ -1,11 +1,11 @@
 package converter.actions.actions;
 
 import basic.Loggger;
-import converter.Orientation;
 import converter.actions.Action;
 import converter.mapper.Mapper;
 import minecraft.Block;
 import minecraft.Position;
+import vmfWriter.Orientation;
 import vmfWriter.Solid;
 import vmfWriter.entity.Tf2Team;
 import vmfWriter.entity.pointEntity.pointEntity.PropDynamic;
@@ -22,12 +22,6 @@ public class SupplyTf2 extends Action {
 
 	private Orientation orientation;
 	private PropDynamic prop;
-
-//	public SupplyTf2() {
-//		int[] temp = { MaterialLegacy.CHEST$NORTH, MaterialLegacy.CHEST$SOUTH, MaterialLegacy.CHEST$WEST,
-//				MaterialLegacy.CHEST$EAST };
-//		super.setMaterialUsedFor(temp);
-//	}
 
 //	public SupplyTf2(Block material, Orientation orientation) {
 //		super.setMaterialUsedFor(material);

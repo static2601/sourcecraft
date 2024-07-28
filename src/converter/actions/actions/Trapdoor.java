@@ -20,7 +20,12 @@ public class Trapdoor extends Action {
 		} else {
 			this.handleClosed(position, end, block);
 		}
+		// add waterlogged
+		String waterlogged = block.getProperty(Property.waterlogged);
 		context.markAsConverted(position, end);
+		if(waterlogged.equals("true")) {
+			addWaterlogged(context, position, block);
+		}
 	}
 
 	private void handleOpen(Position position, Position end, Block block) {

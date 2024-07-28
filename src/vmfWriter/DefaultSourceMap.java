@@ -20,6 +20,7 @@ public class DefaultSourceMap implements SourceMap {
 
 	private String SKY_TEXTURE = "sky_day02_09";
 	private int hammerGridSize;
+	private int detailBrushes = 0; // temp
 
 	private Stack<Solid> solids;
 	private Stack<PointEntity> pointEntities;
@@ -49,6 +50,7 @@ public class DefaultSourceMap implements SourceMap {
 	@Override
 	public void addDetail(Solid... solids) {
 		this.solidEntities.push(new FuncDetail(solids));
+		detailBrushes++;
 	}
 
 	@Override
@@ -122,7 +124,9 @@ public class DefaultSourceMap implements SourceMap {
 		}
 		ConvertingReport report = new ConvertingReport();
 		report.setBrushCount(brushCount);
-		Loggger.log(brushCount + "/8192 brushes added"); // TODO
+		Loggger.log("| Detail Brushes   : " + detailBrushes);
+		Loggger.log("| Geometry Brushes : " + brushCount);
+		Loggger.log("| Total Brushes    : " + (detailBrushes + brushCount) + " / 8192 of engine limit"); // TODO
 		writer.close();
 		this.write(this.solidEntities, writer);
 		this.write(this.pointEntities, writer);

@@ -2,17 +2,49 @@ package minecraft;
 
 import basic.NameSupplier;
 
+
 public enum Property implements NameSupplier {
 	east,
 	half,
 	face,
 	facing,
 	north,
-	open,
-	shape,
+	open,			// true, false
+	shape,			//straight, inner_left, inner_right, outer_left,
 	south,
 	type,
 	waterlogged,
+	age, 			// 0 - 7
+	rotation,		// 0 - 15
+	pickles,		// 1 - 4
+	lit, 		    // true, false
+	powered,        // true, false
+	in_wall,		// true, false
+	stage, 			// 0 - 1 ?
+	hanging,		// true, false
+	signal_fire,	// true, false
+	enabled, 		// true, false
+	hinge, 			// left, right
+	extended, 		// true, false
+	falling, 		// true, false
+	level, 			// 8 - 1
+	delay, 			// 1 - 4
+	locked, 		// true, false
+	mode, 			// subtract, compare
+	power, 			// 0 - 15
+	attached, 		// true, false
+	axis,			// x, y, z
+	has_book,		// true, false
+	honey_level,	//
+	distance, 		// 0 - 6
+	bottom, 		// true, false
+	leaves,			// none, small, large
+	note, 			// 0 - 24
+	instrument, 	// basedrum , ?
+	inverted,		// true, false
+	attachment,		// floor, ceiling, single_wall
+	layers,			// 1 - 8
+	up,				// true, false
 	west;
 
 	public enum East implements NameSupplier {

@@ -1,6 +1,5 @@
 package converter.actions.actions;
 
-import basic.Loggger;
 import converter.Skins;
 import converter.actions.Action;
 import converter.mapper.Mapper;
@@ -17,6 +16,7 @@ public class AxisBlocks2 extends Action {
 		Cuboid axisBlock = context.createCuboid(p, end, block);
 		axisBlock.setSkin(this.constructSkin(block));
 		context.addDetail(axisBlock);
+		context.markAsConverted(p, end);
 	}
 
 	private Skin constructSkin(Block block) {

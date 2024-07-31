@@ -1,7 +1,7 @@
 package vmfWriter;
 
 import java.io.IOException;
-
+import java.util.Objects;
 import basic.Loggger;
 import basic.Tuple;
 import converter.Orientation;
@@ -26,6 +26,7 @@ public class Cuboid extends EightPoint {
 
 	public Cuboid(Position[] p, Skin skin) {
 		this.skin = skin;
+
 		if (p.length < 8) {
 			if (p.length < 1) {
 				Loggger.warn("Less than 8 Points given.");
@@ -169,26 +170,123 @@ public class Cuboid extends EightPoint {
 			writer.open(Solid.SOLID_TAG)
 					.putBrushID();
 
+			Position uTop = TOP_U_AXIS;
+			Position vTop = TOP_V_AXIS;
+			Position uBottom = BOTTOM_U_AXIS;
+			Position vBottom = BOTTOM_V_AXIS;
+			Position uFront = FRONT_U_AXIS;
+			Position vFront = FRONT_V_AXIS;
+			Position uBack = BACK_U_AXIS;
+			Position vBack = BACK_V_AXIS;
+			Position uLeft = LEFT_U_AXIS;
+			Position vLeft = LEFT_V_AXIS;
+			Position uRight = RIGHT_U_AXIS;
+			Position vRight = RIGHT_V_AXIS;
+
+
+			if(this.skin.orientation != null) {
+				if(Objects.equals(this.skin.orientation, Orientation.SOUTH)) {
+					uTop = new Position(1,0,0);
+					vTop = new Position(0,-1,0);
+					uBottom = new Position(1,0,0);
+					vBottom = new Position(0,1,0);
+					uFront = new Position(0,0,1);
+					vFront = new Position(1,0,0);
+					uBack = new Position(0,0,-1);
+					vBack = new Position(1,0,0);
+					uLeft = new Position(0,-1,0);
+					vLeft = new Position(0,0,-1);
+					uRight = new Position(0,-1,0);
+					vRight = new Position(0,0,1);
+				}
+				if(Objects.equals(this.skin.orientation, Orientation.EAST)) {
+					uTop = new Position(0,1,0);
+					vTop = new Position(1,0,0);
+					uBottom = new Position(0,1,0);
+					vBottom = new Position(-1,0,1);
+					uFront = new Position(1,0,0);
+					vFront = new Position(0,0,-1);
+					uBack = new Position(1,0,0);
+					vBack = new Position(0,0,1);
+					uLeft = new Position(0,0,-1);
+					vLeft = new Position(0,1,0);
+					uRight = new Position(0,0,1);
+					vRight = new Position(0,1,0);
+				}
+				if(Objects.equals(this.skin.orientation, Orientation.NORTH)) {
+					uTop = new Position(-1,0,0);
+					vTop = new Position(0,1,0);
+					uBottom = new Position(-1,0,0);
+					vBottom = new Position(0,-1,0);
+					uFront = new Position(0,0,-1);
+					vFront = new Position(-1,0,0);
+					uBack = new Position(0,0,1);
+					vBack = new Position(-1,0,0);
+					uLeft = new Position(0,1,0);
+					vLeft = new Position(0,0,1);
+					uRight = new Position(0,1,0);
+					vRight = new Position(0,0,-1);
+				}
+				if(Objects.equals(this.skin.orientation, Orientation.WEST)) {
+					uTop = new Position(0,-1,0);
+					vTop = new Position(-1,0,0);
+					uBottom = new Position(0,-1,0);
+					vBottom = new Position(1,0,0);
+					uFront = new Position(-1,0,0);
+					vFront = new Position(0,0,1);
+					uBack = new Position(0,0,-1);
+					vBack = new Position(-1,0,0);
+					uLeft = new Position(0,0,1);
+					vLeft = new Position(0,-1,0);
+					uRight = new Position(0,0,-1);
+					vRight = new Position(0,-1,0);
+				}
+			}
+			if(this.skin.axis != null) {
+				if (Objects.equals(this.skin.axis, "x")) {
+					uTop = BOTTOM_V_AXIS;
+					vTop = BACK_U_AXIS;
+					uBottom = RIGHT_U_AXIS;
+					vBottom = BACK_U_AXIS;
+					uRight = FRONT_V_AXIS;
+					vRight = TOP_V_AXIS;
+					uFront = BACK_V_AXIS;
+					vFront = BOTTOM_U_AXIS;
+					uBack = BACK_V_AXIS;
+					vBack = TOP_U_AXIS;
+				}
+				if (Objects.equals(this.skin.axis, "z")) {
+					uTop = TOP_U_AXIS;
+					vTop = BOTTOM_V_AXIS;
+					uBottom = TOP_U_AXIS;
+					vBottom = RIGHT_U_AXIS;
+					uRight = FRONT_V_AXIS;
+					vRight = TOP_V_AXIS;
+					uLeft = FRONT_V_AXIS;
+					vLeft = RIGHT_U_AXIS;
+				}
+			}
+
 //			top
 			this.writeSide(writer, this.aTop, this.eTop, this.hTop, this.skin.materialTop, this.textureScaleX,
-					this.textureScaleY, TOP_U_AXIS, TOP_V_AXIS);
+					this.textureScaleY, uTop, vTop);
 //			bottom
 			this.writeSide(writer, this.e, this.a, this.d, this.skin.materialBottom, this.textureScaleX,
-					this.textureScaleY, BOTTOM_U_AXIS, BOTTOM_V_AXIS);
+					this.textureScaleY, uBottom, vBottom);
 
 //			negative x side
 			this.writeSide(writer, this.a, this.e, this.eTop, this.skin.materialLeft, this.textureScaleX,
-					this.textureScaleZ, LEFT_U_AXIS, LEFT_V_AXIS);
+					this.textureScaleZ, uLeft, vLeft);
 //			positive x side
 			this.writeSide(writer, this.h, this.d, this.dTop, this.skin.materialRight, this.textureScaleX,
-					this.textureScaleZ, RIGHT_U_AXIS, RIGHT_V_AXIS);
+					this.textureScaleZ, uRight, vRight);
 
 //			positive y side
 			this.writeSide(writer, this.e, this.h, this.hTop, this.skin.materialBack, this.textureScaleY,
-					this.textureScaleZ, BACK_U_AXIS, BACK_V_AXIS);
+					this.textureScaleZ, uBack, vBack);
 //			negative y side
 			this.writeSide(writer, this.d, this.a, this.aTop, this.skin.materialFront, this.textureScaleY,
-					this.textureScaleZ, FRONT_U_AXIS, FRONT_V_AXIS);
+					this.textureScaleZ, uFront, vFront);
 
 			writer.open(ValveElement.EDITOR_TAG)
 					.put(ValveElement.COLOR, "0 215 172")

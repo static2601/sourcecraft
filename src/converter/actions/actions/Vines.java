@@ -15,8 +15,8 @@ public class Vines extends Action {
 				.getBestY(p, material);
 		
 		int parts = 16;
-		Position offset = new Position(0, 0, 0);
-		Position negativeOffset = new Position(15, 16, 0);
+		Position offset;
+		Position negativeOffset;
 		
 		String east = material.getProperty(Property.east);
 		String north = material.getProperty(Property.north);
@@ -24,7 +24,9 @@ public class Vines extends Action {
 		String up = material.getProperty(Property.up);
 		String west = material.getProperty(Property.west);
 
-		//Loggger.log(material.get().toString());
+		String down = "false";
+		if(material.get().toString().contains("down="))
+			down = material.getProperty(Property.down);
 		
 		if(east.equals("true")) {
 			offset =         new Position(15, 0, 0);
@@ -46,12 +48,16 @@ public class Vines extends Action {
 			negativeOffset = new Position(0, 0, 0);
 			context.addDetail(context.createCuboid(p, end, parts, offset, negativeOffset, material));
 		}
+		if(down.equals("true")) {
+			offset =         new Position(0, 0, 0);
+			negativeOffset = new Position(0, 15, 0);
+			context.addDetail(context.createCuboid(p, end, parts, offset, negativeOffset, material));
+		}
 		if(west.equals("true")) { //default for trees
 			offset =         new Position(0, 0, 0);
 			negativeOffset = new Position(15, 0, 0);//(15, 16, 0);
 			context.addDetail(context.createCuboid(p, end, parts, offset, negativeOffset, material));
 		}
-		
 		context.markAsConverted(p, end);
 
 	}

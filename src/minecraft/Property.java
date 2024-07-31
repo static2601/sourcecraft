@@ -45,7 +45,9 @@ public enum Property implements NameSupplier {
 	attachment,		// floor, ceiling, single_wall
 	layers,			// 1 - 8
 	up,				// true, false
-	west;
+	down,			//
+	west,
+	berries;		// true, false
 
 	public enum East implements NameSupplier {
 		true$,

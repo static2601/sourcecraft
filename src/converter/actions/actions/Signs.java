@@ -21,14 +21,16 @@ public class Signs extends Action {
 
 	// mcBlock prefix names in order as listed in QC file
 	private static final String[] skins = {
-			"birch", "jungle", "dark_oak", "oak", "spruce", "acacia",
-			"mangrove", "cherry", "bamboo", "crimson", "warped"
+			"oak", "spruce", "birch",
+			"jungle", "acacia", "dark_oak",
+			"mangrove", "cherry", "bamboo",
+			"crimson", "warped"
 	};
 
 	@Override
 	public void add(Mapper context, Position p, Block material) {
 
-		Loggger.log("get: " + material.get());
+		//Loggger.log("get: " + material.get());
 		String signType = material.getName();
 		String waterlogged = material.getProperty(Property.waterlogged);
 

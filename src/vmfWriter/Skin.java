@@ -16,6 +16,8 @@ public class Skin {
 	public String materialBottom;
 	public String materialBack;
 	public double scale;
+	public String axis;
+	public Orientation orientation;
 
 	public Skin() {
 		this.materialFront = null;
@@ -71,6 +73,7 @@ public class Skin {
 
 		this.materialTop = newMaterialTop;
 		this.materialBottom = newMaterialTop;
+		this.orientation = orientation;
 
 		switch (orientation) {
 		case SOUTH:
@@ -111,6 +114,7 @@ public class Skin {
 
 		this.materialTop = newMaterialTop;
 		this.materialBottom = newMaterialBottom;
+		this.orientation = orientation;
 
 		switch (orientation) {
 		case SOUTH:
@@ -131,13 +135,13 @@ public class Skin {
 	public Skin(String newMaterial, String newMaterialTop, String newMaterialFront, String newMaterialBottom,
 				String axis, double newScale) {
 		//reset all sides
-		Loggger.log("skin name: "+ newMaterial);
 		this.materialLeft = newMaterial;
 		this.materialRight = newMaterial;
 		this.materialBack = newMaterial;
 		this.materialFront = newMaterial;
 		this.materialTop = newMaterial;
 		this.materialBottom = newMaterial;
+		this.axis = axis;
 
 		// how to rotate textures when blocks on X, Z axis???
 		// then while were at it, how to adjust texture coordinates

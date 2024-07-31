@@ -56,7 +56,7 @@ public class Wall extends Action {
 
 		//Loggger.log("DEBUG:  Pane Directions " + str);
 
-		Loggger.log("str: "+str);
+		//Loggger.log("str: "+str);
 		switch (str) {
 			//east to west full pane
 			case "":
@@ -64,7 +64,7 @@ public class Wall extends Action {
 				break;
 
 			case "EW":
-				if(up.equals("true")) Loggger.log("with up: "+str);
+				//if(up.equals("true")) Loggger.log("with up: "+str);
 				EWTall(context, p, material, bestXY, low);
 				break;
 

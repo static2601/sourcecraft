@@ -1,6 +1,5 @@
 package converter.actions.actions;
 
-import basic.Loggger;
 import converter.actions.Action;
 import converter.mapper.Mapper;
 import minecraft.Block;
@@ -8,8 +7,7 @@ import minecraft.Position;
 import minecraft.Property;
 
 public class Wall extends Action {
-	//get best not working properly, major overlapping of brushes
-	//needs further work
+
 	@Override
 	public void add(Mapper context, Position p, Block material) {
 

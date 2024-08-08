@@ -67,8 +67,11 @@ public abstract class EightPoint extends Solid {
 
 	protected static final Position TOP_U_AXIS = new Position(1, 0, 0);
 	protected static final Position TOP_V_AXIS = new Position(0, -1, 0);
-	protected static final Position BOTTOM_U_AXIS = new Position(-1, 0, 0);
-	protected static final Position BOTTOM_V_AXIS = new Position(0, -1, 0);
+	// possibly incorrect? barrels facing down were not correct
+	//protected static final Position BOTTOM_U_AXIS = new Position(-1, 0, 0);
+	//protected static final Position BOTTOM_V_AXIS = new Position(0, -1, 0);
+	protected static final Position BOTTOM_U_AXIS = new Position(1, 0, 0);
+	protected static final Position BOTTOM_V_AXIS = new Position(0, 1, 0);
 
 	protected static final Position LEFT_U_AXIS = new Position(0, -1, 0);
 	protected static final Position LEFT_V_AXIS = new Position(0, 0, -1);
@@ -81,15 +84,15 @@ public abstract class EightPoint extends Solid {
 	protected static final Position BACK_V_AXIS = new Position(0, 0, -1);
 
 	public final void writeSide(ValveWriter writer, Position first, Position second, Position third, String skin,
-			double textureScale1, double textureScale2, Position uAxis, Position vAxis) throws IOException {
+			double textureScale1, double textureScale2, Position uAxis, Position vAxis, double uAdjust, double vAdjust) throws IOException {
 
 		writer.open(SIDE_TAG)
 				.put(ValveElement.ID_TAG, writer.getCounter()
 						.getNewSideId())
 				.put(PLANE_TAG, "(" + first.getString() + ") (" + second.getString() + ") (" + third.getString() + ")")
 				.put(MATERIAL_TAG, skin)
-				.put(UAXIS_TAG, "[" + uAxis.toAxisString() + " 0] " + this.skin.scale * textureScale1)
-				.put(VAXIS_TAG, "[" + vAxis.toAxisString() + " 0] " + this.skin.scale * textureScale2)
+				.put(UAXIS_TAG, "[" + uAxis.toAxisString() + " " + uAdjust + "] " + this.skin.scale * textureScale1)
+				.put(VAXIS_TAG, "[" + vAxis.toAxisString() + " " + vAdjust + "] " + this.skin.scale * textureScale2)
 				.put(ROTATION_TAG, 0)
 				.put(LIGHTMAPSCALE_TAG, LIGHTMAPSCALE)
 				.put(SMOOTHING_GROUPS_TAG, 0);

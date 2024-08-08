@@ -11,10 +11,10 @@ public class AxisBlocks2 extends Action {
 
 	@Override
 	public void add(Mapper context, Position p, Block block) {
-		Position end = context.getCuboidFinder()
-				.getBestY(p, block);
+		Position end = context.getCuboidFinder().getBestXYZ(p, block);
 		Cuboid axisBlock = context.createCuboid(p, end, block);
-		axisBlock.setSkin(this.constructSkin(block));
+		Skin newSkin = this.constructSkin(block);
+		axisBlock.setSkin(newSkin);
 		context.addDetail(axisBlock);
 		context.markAsConverted(p, end);
 	}

@@ -170,20 +170,21 @@ public class Cuboid extends EightPoint {
 			writer.open(Solid.SOLID_TAG)
 					.putBrushID();
 
-			Position uTop = TOP_U_AXIS;
-			Position vTop = TOP_V_AXIS;
-			Position uBottom = BOTTOM_U_AXIS;
-			Position vBottom = BOTTOM_V_AXIS;
-			Position uFront = FRONT_U_AXIS;
-			Position vFront = FRONT_V_AXIS;
-			Position uBack = BACK_U_AXIS;
-			Position vBack = BACK_V_AXIS;
-			Position uLeft = LEFT_U_AXIS;
-			Position vLeft = LEFT_V_AXIS;
-			Position uRight = RIGHT_U_AXIS;
-			Position vRight = RIGHT_V_AXIS;
+			//set default position up, axis y
+			Position uTop = TOP_U_AXIS;       //  1,  0,  0
+			Position vTop = TOP_V_AXIS;       //  0, -1,  0
+			Position uBottom = BOTTOM_U_AXIS; // -1,  0,  0
+			Position vBottom = BOTTOM_V_AXIS; //  0, -1,  0
+			Position uFront = FRONT_U_AXIS;   //  1,  0,  0
+			Position vFront = FRONT_V_AXIS;   //  0,  0, -1
+			Position uBack = BACK_U_AXIS;     // -1,  0,  0
+			Position vBack = BACK_V_AXIS;     //  0,  0, -1
+			Position uLeft = LEFT_U_AXIS;     //  0, -1,  0
+			Position vLeft = LEFT_V_AXIS;     //  0,  0, -1
+			Position uRight = RIGHT_U_AXIS;   //  0,  1,  0
+			Position vRight = RIGHT_V_AXIS;   //  0,  0, -1
 
-
+			// non - axis specifically setup for terracotta
 			if(this.skin.orientation != null) {
 				if(Objects.equals(this.skin.orientation, Orientation.SOUTH)) {
 					uTop = new Position(1,0,0);
@@ -248,8 +249,12 @@ public class Cuboid extends EightPoint {
 					vTop = BACK_U_AXIS;
 					uBottom = RIGHT_U_AXIS;
 					vBottom = BACK_U_AXIS;
-					uRight = FRONT_V_AXIS;
-					vRight = TOP_V_AXIS;
+					uLeft = new Position(0,1,0);
+					vLeft = new Position(0,0,-1);
+					//uRight = FRONT_V_AXIS;
+					//vRight = TOP_V_AXIS;
+					uRight = new Position(0,-1,0);
+					vRight = new Position(0,0,-1);
 					uFront = BACK_V_AXIS;
 					vFront = BOTTOM_U_AXIS;
 					uBack = BACK_V_AXIS;
@@ -260,33 +265,38 @@ public class Cuboid extends EightPoint {
 					vTop = BOTTOM_V_AXIS;
 					uBottom = TOP_U_AXIS;
 					vBottom = RIGHT_U_AXIS;
-					uRight = FRONT_V_AXIS;
-					vRight = TOP_V_AXIS;
 					uLeft = FRONT_V_AXIS;
 					vLeft = RIGHT_U_AXIS;
+					uRight = FRONT_V_AXIS;
+					vRight = TOP_V_AXIS;
+					uFront = new Position(-1,0,0);
+					vFront = new Position(0,0,1);
+					uBack =  new Position(1,0,0);
+					vBack =  new Position(0,0,1);
+
 				}
 			}
 
 //			top
 			this.writeSide(writer, this.aTop, this.eTop, this.hTop, this.skin.materialTop, this.textureScaleX,
-					this.textureScaleY, uTop, vTop);
+					this.textureScaleY, uTop, vTop, this.skin.uAdjust[0], this.skin.vAdjust[0]);
 //			bottom
 			this.writeSide(writer, this.e, this.a, this.d, this.skin.materialBottom, this.textureScaleX,
-					this.textureScaleY, uBottom, vBottom);
+					this.textureScaleY, uBottom, vBottom, this.skin.uAdjust[1], this.skin.vAdjust[1]);
 
 //			negative x side
 			this.writeSide(writer, this.a, this.e, this.eTop, this.skin.materialLeft, this.textureScaleX,
-					this.textureScaleZ, uLeft, vLeft);
+					this.textureScaleZ, uLeft, vLeft, this.skin.uAdjust[2], this.skin.vAdjust[2]);
 //			positive x side
 			this.writeSide(writer, this.h, this.d, this.dTop, this.skin.materialRight, this.textureScaleX,
-					this.textureScaleZ, uRight, vRight);
+					this.textureScaleZ, uRight, vRight, this.skin.uAdjust[3], this.skin.vAdjust[3]);
 
 //			positive y side
 			this.writeSide(writer, this.e, this.h, this.hTop, this.skin.materialBack, this.textureScaleY,
-					this.textureScaleZ, uBack, vBack);
+					this.textureScaleZ, uBack, vBack, this.skin.uAdjust[4], this.skin.vAdjust[4]);
 //			negative y side
 			this.writeSide(writer, this.d, this.a, this.aTop, this.skin.materialFront, this.textureScaleY,
-					this.textureScaleZ, uFront, vFront);
+					this.textureScaleZ, uFront, vFront, this.skin.uAdjust[5], this.skin.vAdjust[5]);
 
 			writer.open(ValveElement.EDITOR_TAG)
 					.put(ValveElement.COLOR, "0 215 172")

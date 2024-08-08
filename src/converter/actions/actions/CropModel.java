@@ -15,7 +15,7 @@ public class CropModel extends Action {
 	private int solid;
 
 	private static String MODEL = "models/props/minecraft_original/CropModel1.mdl";
-	private PropStatic crossModel = new PropStatic(CropModel.MODEL);
+	private PropStatic cropModel = new PropStatic(CropModel.MODEL);
 
 	/**
 	 * Add Plant model instance with selected skin
@@ -26,7 +26,7 @@ public class CropModel extends Action {
 	public CropModel(int skin, int solid) {
 		this.skin = skin;
 		this.solid = solid;
-		this.crossModel.setSkin(skin, solid);
+		this.cropModel.setSkin(skin, solid);
 	}
 
 	@Override
@@ -45,11 +45,12 @@ public class CropModel extends Action {
 		//turn off random rotation for now, later set per object type
 		//int verticalRotation = (int) (Math.random() * 360);
 		int verticalRotation = 0;
-		crossModel.getAngles()
+		cropModel.getAngles()
 				.setY(verticalRotation);
-		crossModel.setSkin(skin);
-		crossModel.setSolid(this.solid);
-		context.addPointEntity(crossModel);
+		cropModel.setSkin(skin);
+		cropModel.setSolid(this.solid);
+		cropModel.disableShadows(1);
+		context.addPointEntity(cropModel);
 		context.markAsConverted(p);
 	}
 }

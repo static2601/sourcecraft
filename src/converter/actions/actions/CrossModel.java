@@ -4,6 +4,7 @@ import basic.Loggger;
 import converter.actions.Action;
 import converter.mapper.Mapper;
 import minecraft.Block;
+import minecraft.Blocks;
 import minecraft.Position;
 import minecraft.Property;
 import vmfWriter.entity.pointEntity.pointEntity.PropStatic;
@@ -12,9 +13,7 @@ import java.util.Objects;
 
 public class CrossModel extends Action {
 
-	// skin, make index for all skin names
 	private int skin;
-	// not solid = 0, use bounding box = 2, use vphysics = 6
 	private int solid;
 	private boolean hasAge = false;
 
@@ -23,12 +22,6 @@ public class CrossModel extends Action {
 	private static String MODEL3 = "models/props/minecraft_original/CrossModel3.mdl";
 	private PropStatic crossModel = new PropStatic(CrossModel.MODEL);
 
-	/**
-	 * Add Plant model instance with selected skin
-	 * 
-	 * @skin skin index
-	 * @solid not solid = 0, use bounding box = 2, use vphysics = 6
-	 */
 	public CrossModel(int skin, int solid) {
 		this.skin = skin;
 		this.solid = solid;
@@ -46,7 +39,8 @@ public class CrossModel extends Action {
 		int skin = this.skin;
 
 		//TODO make getProperties() return empty if non to avoid error
-		if(material.get().toString().contains("half=")) {
+		//if(material.get().toString().contains("half=")) {
+		if(material.toString().contains("half=")) {
 			String half = material.getProperty(Property.half);
 			if(Objects.equals(half, "upper")) {
 				skin++;
@@ -56,6 +50,7 @@ public class CrossModel extends Action {
 
 		// cave_vines/cave_vines_plant with/without berries,
 		//TODO make function to return minecraft name instead of doing split by colon
+		//Loggger.log(material.getName());
 		if(material.getName().split(":")[1].startsWith("cave_vines")) {
 			String berries = material.getProperty(Property.berries);
 			if(berries.equals("true")) skin++;
@@ -79,7 +74,7 @@ public class CrossModel extends Action {
 			crossModel = new PropStatic(CrossModel.MODEL3);
 			skin = skin - 62;
 		}
-		Loggger.log("this.skin after reduce: "+skin);
+		//Loggger.log("this.skin after reduce: "+skin);
 		context.setPointToGrid(p);
 		context.movePointInGridDimension(0.5, 0, 0.5);
 
@@ -90,6 +85,7 @@ public class CrossModel extends Action {
 				.setY(verticalRotation);
 		crossModel.setSkin(skin);
 		crossModel.setSolid(this.solid);
+		crossModel.disableShadows(1);
 		context.addPointEntity(crossModel);
 		context.markAsConverted(p);
 	}

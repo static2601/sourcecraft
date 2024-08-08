@@ -32,7 +32,6 @@ public class Terracotta extends Action {
 	}
 
 	private Orientation getOrientation(Block block) {
-		Loggger.log("terracotta: "+block.get().toString());
 		String dir = block.getProperty(Property.facing);
         switch (dir) {
             case "north":

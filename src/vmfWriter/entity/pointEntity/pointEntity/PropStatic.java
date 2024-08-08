@@ -40,7 +40,7 @@ public class PropStatic extends PointEntity {
 	public void setSolid(int solid) {
 		this.solid = solid;
 	}
-
+	/** 0 - 1 */
 	public void disableShadows(int shadows) {
 		this.shadows = shadows;
 	}

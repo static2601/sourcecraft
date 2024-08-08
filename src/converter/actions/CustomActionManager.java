@@ -33,18 +33,20 @@ public class CustomActionManager extends ActionManager {
 				Material.detector_rail,
 				Material.fire,
 //				Material.sea_lantern
+				Material.water,
+				Material.lava
 		}) {
 			this.actions.put(m, NoAction.INSTANCE);
 		}
 		for (Material m : new Material[] {
-				Material._leaves,
+				//Material._leaves,
 				Material.glass,
 				Material.ice
 		}) {
 			this.actions.put(m, new DetailBlock());
 		}
 		for (Material m : new Material[] {
-				Material.water,
+				//Material.water,
 				Material.lava
 		}) {
 			this.actions.put(m, new Liquid());
@@ -62,8 +64,13 @@ public class CustomActionManager extends ActionManager {
 
 		// tf2
 		//this.actions.put(Material.grass_block, new TallGrassTf2());
-		this.actions.put(Material.tall_grass, new TallGrassTf2());
+		//this.actions.put(Material.tall_grass, new TallGrassTf2());
+		this.actions.put(Material.jack_o_lantern, new NoAction());
+		this.actions.put(Material.sea_lantern, new NoAction());
 		this.actions.put(Material.lantern, new LanternGround());
+		this.actions.put(Material.soul_lantern, new LanternGround());
+		//this.actions.put(Material.lantern, new TestDrawFromCoords());
+
 		this.actions.put(Material._carpet, new Carpet());
 
 		// plants test
@@ -225,22 +232,44 @@ public class CustomActionManager extends ActionManager {
 			if(m.getName().endsWith("_fence")) {
 				this.actions.put(Blocks.get(m.getName()), new Fences());
 			}
+			if(m.getName().endsWith("_fence_gate")) {
+				this.actions.put(Blocks.get(m.getName()), new FenceGate());
+			}
 			if(m.getName().endsWith("_sign")) {
 				this.actions.put(Blocks.get(m.getName()), new Signs());
 			}
 			if(m.getName().endsWith("_log")) {
 				this.actions.put(Blocks.get(m.getName()), new AxisBlocks2());
 			}
-			if(m.getName().endsWith("_terracotta") && m.getName().contains("glazed_")) {
+			if(m.getName().endsWith("_wood")) {
+				this.actions.put(Blocks.get(m.getName()), new AxisBlocks2());
+			}
+			if(m.getName().endsWith("_hyphae")) {
+				this.actions.put(Blocks.get(m.getName()), new AxisBlocks2());
+			}
+			if(m.getName().endsWith("_terracotta")
+					&& m.getName().contains("glazed_")) {
 				this.actions.put(Blocks.get(m.getName()), new Terracotta());
 			}
-			this.actions.put(Material.quartz_pillar, new AxisBlocks2());
-			this.actions.put(Material.warped_stem, new AxisBlocks2());
-			this.actions.put(Material.crimson_stem, new AxisBlocks2());
-			this.actions.put(Material.bamboo_block, new AxisBlocks2());
-			this.actions.put(Material.stripped_bamboo_block, new AxisBlocks2());
-			//mushroom stems
+			if(m.getName().endsWith("_pressure_plate") && !m.getName().startsWith("_")) {
+				this.actions.put(Blocks.get(m.getName()), new PressurePlate());
+			}
 		}
+
+		this.actions.put(Material.quartz_pillar, new AxisBlocks2());
+		this.actions.put(Material.warped_stem, new AxisBlocks2());
+		this.actions.put(Material.crimson_stem, new AxisBlocks2());
+		this.actions.put(Material.bamboo_block, new AxisBlocks2());
+		this.actions.put(Material.stripped_bamboo_block, new AxisBlocks2());
+		//mushroom stems
+
+		this.actions.put(Material.bamboo, new Bamboo());
+		this.actions.put(Material.azalea, new AzaleaPlant(0, 2));
+		this.actions.put(Material.flowering_azalea, new AzaleaPlant(1, 2));
+		this.actions.put(Material.grindstone, new Grindstone());
+		this.actions.put(Material.pink_petals, new PinkPetals());
+		this.actions.put(Material.barrel, new Barrel());
+		this.actions.put(Material.lectern, new Lectern());
 
 		this.actions.put(Material.redstone_wire, new RedstoneDustLine());
 		this.actions.put(Material.vine, new Vines());

@@ -4,5 +4,7 @@ public enum Orientation {
 	NORTH,
 	WEST,
 	SOUTH,
-	EAST
+	EAST,
+	UP,
+	DOWN
 }

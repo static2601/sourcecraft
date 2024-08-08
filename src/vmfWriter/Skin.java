@@ -1,12 +1,7 @@
 package vmfWriter;
 
-import basic.Loggger;
 import converter.Orientation;
 
-/**
- *
- *
- */
 public class Skin {
 
 	public String materialFront;
@@ -15,9 +10,15 @@ public class Skin {
 	public String materialTop;
 	public String materialBottom;
 	public String materialBack;
+
 	public double scale;
+
+	public double[] uAdjust = {0,0,0,0,0,0};
+	public double[] vAdjust = {0,0,0,0,0,0};
+	//public int[] vAdjust = new int[6];
 	public String axis;
 	public Orientation orientation;
+
 
 	public Skin() {
 		this.materialFront = null;
@@ -27,6 +28,38 @@ public class Skin {
 		this.materialBottom = null;
 		this.materialBack = null;
 		this.scale = 64 / 256;
+	}
+
+	/**
+	 * Adjust texture UV Regular
+	 * @param side front face is looking north in hammer at a face, right is blocks right face, etc
+	 * @param u x, pixels (0-128); default - 0
+	 * @param v y, pixels (0-128); default - 0
+	 */
+	public void adjustUV(int side, double u, double v) {
+
+		Skin.this.uAdjust[side] = u;
+		Skin.this.vAdjust[side] = v;
+	}
+	/**
+	 * Adjust texture UV Multiplied by 8
+	 * @param side front face is looking north in hammer at a face, right is blocks right face, etc
+	 * @param u x, pixels (0-16); default - 0
+	 * @param v y, pixels (0-16); default - 0
+	 */
+	public void adjustUVs(Enum side, double u, double v) {
+		int sides = side.ordinal();
+		Skin.this.uAdjust[sides] = u * 8;
+		Skin.this.vAdjust[sides] = v * 8;
+	}
+	public enum sides {
+		TOP,
+		BOTTOM,
+		LEFT,
+		RIGHT,
+		BACK,
+		FRONT;
+
 	}
 
 	public Skin(String newMaterial, double newScale) {
@@ -63,7 +96,7 @@ public class Skin {
 
 		this.scale = newScale;
 	}
-
+	/** Top, bottom, front face with E, W, N, S Directions*/
 	public Skin(String newMaterial, String newMaterialTop, String newMaterialFront, Orientation orientation,
 			double newScale) {
 		this.materialLeft = newMaterial;
@@ -89,6 +122,7 @@ public class Skin {
 			this.materialLeft = newMaterialFront;
 			break;
 		}
+
 		this.scale = newScale;
 	}
 
@@ -104,7 +138,7 @@ public class Skin {
 
 		this.scale = newScale;
 	}
-
+	/** Top, bottom, front face with E, W, N, S, U, D Directions*/
 	public Skin(String newMaterial, String newMaterialTop, String newMaterialFront, String newMaterialBottom,
 			Orientation orientation, double newScale) {
 		this.materialLeft = newMaterial;
@@ -112,22 +146,41 @@ public class Skin {
 		this.materialBack = newMaterial;
 		this.materialFront = newMaterial;
 
-		this.materialTop = newMaterialTop;
-		this.materialBottom = newMaterialBottom;
-		this.orientation = orientation;
+		this.materialTop = newMaterial;
+		this.materialBottom = newMaterial;
 
+		// use axis even though not a property since
+		// they rotate faces the same way
 		switch (orientation) {
 		case SOUTH:
-			this.materialFront = newMaterialFront;
+			this.materialFront = newMaterialTop;
+			this.materialBack = newMaterialBottom;
+			this.axis = "z";
 			break;
 		case EAST:
-			this.materialRight = newMaterialFront;
+			this.materialRight = newMaterialTop;
+			this.materialLeft = newMaterialBottom;
+			this.axis = "x";
 			break;
 		case NORTH:
-			this.materialBack = newMaterialFront;
+			this.materialFront = newMaterialBottom;
+			this.materialBack = newMaterialTop;
+			this.axis = "z";
 			break;
 		case WEST:
-			this.materialLeft = newMaterialFront;
+			this.materialLeft = newMaterialTop;
+			this.materialRight = newMaterialBottom;
+			this.axis = "x";
+			break;
+		case DOWN:
+			this.materialBottom = newMaterialTop;
+			this.materialTop = newMaterialBottom;
+			this.axis = "y";
+			break;
+		case UP:
+			this.materialTop = newMaterialTop;
+			this.materialBottom = newMaterialBottom;
+			this.axis = "y";
 			break;
 		}
 		this.scale = newScale;
@@ -142,10 +195,6 @@ public class Skin {
 		this.materialTop = newMaterial;
 		this.materialBottom = newMaterial;
 		this.axis = axis;
-
-		// how to rotate textures when blocks on X, Z axis???
-		// then while were at it, how to adjust texture coordinates
-		// for brushes like trapdoor??
 
 		switch (axis) {
 			case "y":

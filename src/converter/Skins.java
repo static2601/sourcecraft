@@ -2,9 +2,11 @@ package converter;
 
 import java.util.function.Supplier;
 
+import basic.Loggger;
 import basic.NameSupplier;
 import converter.actions.BlockMap;
 import minecraft.*;
+import org.w3c.dom.Text;
 import periphery.TexturePack;
 import vmfWriter.Skin;
 
@@ -47,7 +49,12 @@ public class Skins {
 	private Skin createSkinTopBottom(NameSupplier side, NameSupplier top, NameSupplier bottom) {
 
 		return new Skin(this.folder + side.getName(), this.folder + top.getName(), this.folder + side.getName(),
-				this.folder + bottom.getName(), Orientation.NORTH, this.textureScale);
+				this.folder + bottom.getName(), Orientation.UP, this.textureScale);
+	}
+
+	private Skin createSkinTopBottom2(String side, NameSupplier top, String bottom) {
+
+		return new Skin(side, this.folder + top.getName(), side, bottom, this.textureScale);
 	}
 
 	private Skin createSkinTopBottomDir(NameSupplier side, NameSupplier top, NameSupplier bottom, String axis) {
@@ -114,11 +121,15 @@ public class Skins {
 		// set based on common
 		for (Material material : Material.values()) {
 			String name = material.name();
-
+			Loggger.log(name);
+			//if(name.equals("_pressure_plate")) this.put(material, Texture.redstone_block);
+			//else
 			if (name.endsWith("_log")) {
+				//Loggger.log(Blocks.get(name).getName() + " <--------------------------------");
 				this.put(material,
 						this.createSkinTopBottomDir(() -> name, () -> name+"_top", () -> name+"_top", "y"));
 			}
+			// should wood/hyphae go here?
 			if (name.endsWith("crimson_stem")) {
 				this.put(material,
 						this.createSkinTopBottomDir(() -> name, () -> name+"_top", () -> name+"_top", "y"));
@@ -131,22 +142,37 @@ public class Skins {
 				this.put(material,
 						this.createSkinTopBottomDir(() -> name, () -> name+"_top", () -> name+"_top", "y"));
 			}
-			else
+			if (name.endsWith("_pressure_plate") && !name.startsWith("_")) {
+				String mat = name.replace("_pressure_plate", "");
+
+				if(mat.equals("light_weighted")) this.put(material, Texture.gold_block);
+				else if(mat.equals("heavy_weighted")) this.put(material, Texture.iron_block);
+				else if(mat.equals("stone")) this.put(material, Texture.stone);
+				else if(mat.equals("polished_blackstone")) this.put(material, Texture.polished_blackstone);
+				else this.put(material, Texture.valueOf(mat + "_planks"));
+			}
+			//else
 			if (name.equals("quartz_pillar")) {
 				this.put(material,
 						this.createSkinTopBottomDir(Texture.quartz_pillar,
 								Texture.quartz_pillar_top, Texture.quartz_pillar_top, "y"));
 			}
-			else
+			//else
 			if (name.equals("chest")) {
 				this.put(material, this.createSkinTopFront(() -> "chest_side", () -> "chest_top", () -> "chest_front",
 						Orientation.NORTH));
 			}
+
 		}
 		// this.skins.put(Blocks.get("sourcecraft:ramp"), PLAYER_CLIP);
 
+		this.put(Material.barrel, this.createSkinTopBottom(() -> "barrel_side", () -> "barrel_top", () -> "barrel_bottom"));
+
+		this.put(Material.stripped_acacia_wood, Texture.stripped_acacia_log);
+		this.put(Material.acacia_wood, Texture.acacia_log);
 		this.put(Material.acacia_slab, Texture.acacia_planks);
 		this.put(Material.acacia_stairs, Texture.acacia_planks);
+
 		this.put(Material.andesite_slab, Texture.andesite);
 		this.put(Material.andesite_stairs, Texture.andesite);
 		this.put(Material.bamboo_slab, Texture.bamboo_planks);
@@ -158,12 +184,25 @@ public class Skins {
 		this.put(Material.blue_carpet, Texture.blue_wool);
 		this.put(Material.brick_slab, Texture.bricks);
 		this.put(Material.brown_carpet, Texture.brown_wool);
+		this.put(Material.cherry_wood, Texture.cherry_log);
+		this.put(Material.stripped_cherry_wood, Texture.stripped_cherry_log);
+		this.put(Material.cherry_stairs, Texture.cherry_planks);
+		this.put(Material.cherry_slab, Texture.cherry_planks);
+
 		this.put(Material.cobblestone_slab, Texture.cobblestone);
+		this.put(Material.stripped_crimson_hyphae, Texture.stripped_crimson_stem);
+		this.put(Material.crimson_hyphae, Texture.crimson_stem);
+		this.put(Material.crimson_stairs, Texture.crimson_planks);
+		this.put(Material.crimson_slab, Texture.crimson_planks);
 		this.put(Material.cut_red_sandstone_slab, Texture.cut_red_sandstone);
 		this.put(Material.cut_sandstone_slab, Texture.cut_sandstone);
 		this.put(Material.cyan_carpet, Texture.cyan_wool);
+
+		this.put(Material.stripped_dark_oak_wood, Texture.stripped_dark_oak_log);
+		this.put(Material.dark_oak_wood, Texture.dark_oak_log);
 		this.put(Material.dark_oak_slab, Texture.dark_oak_planks);
 		this.put(Material.dark_oak_stairs, Texture.dark_oak_planks);
+
 		this.put(Material.dark_prismarine_slab, Texture.dark_prismarine);
 		this.put(Material.diorite_slab, Texture.diorite);
 		this.put(Material.diorite_stairs, Texture.diorite);
@@ -173,17 +212,30 @@ public class Skins {
 		this.put(Material.grass_block, Texture.grass_block_top);
 		this.put(Material.gray_carpet, Texture.gray_wool);
 		this.put(Material.green_carpet, Texture.green_wool);
+
+		this.put(Material.stripped_jungle_wood, Texture.stripped_jungle_log);
+		this.put(Material.jungle_wood, Texture.jungle_log);
 		this.put(Material.jungle_slab, Texture.jungle_planks);
 		this.put(Material.jungle_stairs, Texture.jungle_planks);
+
 		this.put(Material.light_blue_carpet, Texture.light_blue_wool);
 		this.put(Material.light_gray_carpet, Texture.light_gray_wool);
 		this.put(Material.lime_carpet, Texture.lime_wool);
 		this.put(Material.magenta_carpet, Texture.magenta_wool);
+		this.put(Material.stripped_mangrove_wood, Texture.stripped_mangrove_log);
+		this.put(Material.mangrove_wood, Texture.mangrove_log);
+		this.put(Material.mangrove_stairs, Texture.mangrove_planks);
+		this.put(Material.mangrove_slab, Texture.mangrove_planks);
+		this.put(Material.moss_carpet, Texture.moss_block);
 		this.put(Material.mossy_cobblestone_slab, Texture.mossy_cobblestone);
 		this.put(Material.mossy_stone_brick_slab, Texture.mossy_stone_bricks);
 		this.put(Material.nether_brick_slab, Texture.nether_bricks);
+
+		this.put(Material.stripped_oak_wood, Texture.stripped_oak_log);
+		this.put(Material.oak_wood, Texture.oak_log);
 		this.put(Material.oak_slab, Texture.oak_planks);
 		this.put(Material.oak_stairs, Texture.oak_planks);
+
 		this.put(Material.orange_carpet, Texture.orange_wool);
 		this.put(Material.pink_carpet, Texture.pink_wool);
 		this.put(Material.polished_andesite_slab, Texture.polished_andesite);
@@ -198,9 +250,17 @@ public class Skins {
 		this.put(Material.red_sandstone_slab, Texture.red_sandstone);
 		this.put(Material.sandstone_slab, Texture.sandstone);
 		this.put(Material.smooth_stone_slab, Texture.smooth_stone);
+
+		this.put(Material.stripped_spruce_wood, Texture.stripped_spruce_log);
+		this.put(Material.spruce_wood, Texture.spruce_log);
 		this.put(Material.spruce_slab, Texture.spruce_planks);
 		this.put(Material.spruce_stairs, Texture.spruce_planks);
+
 		this.put(Material.stone_brick_slab, Texture.stone_bricks);
+		this.put(Material.stripped_warped_hyphae, Texture.stripped_warped_stem);
+		this.put(Material.warped_hyphae, Texture.warped_stem);
+		this.put(Material.warped_stairs, Texture.warped_planks);
+		this.put(Material.warped_slab, Texture.warped_planks);
 
 		//brick wall
 		this.put(Material.stone_brick_wall, Texture.stone_bricks);
@@ -257,12 +317,21 @@ public class Skins {
 		this.put(Material.grindstone, Texture.grindstone_side);
 		this.put(Material.bell, Texture.bell_side);
 		this.put(Material.hopper, Texture.hopper_outside);
-		this.put(Material.heavy_weighted_pressure_plate, Texture.iron_block);
+
 		this.put(Material.campfire, Texture.campfire_log);
 		this.put(Material.piston_head, Texture.piston_top);
 		this.put(Material.bamboo_sapling, Texture.bamboo_singleleaf);
 		this.put(Material.sticky_piston, Texture.piston_side);
 		this.put(Material.piston, Texture.piston_side);
+
+		//this.put(Material.heavy_weighted_pressure_plate, Texture.iron_block);
+		//this.put(Material.light_weighted_pressure_plate, Texture.gold_block);
+
+
+		//this.put(Material.lantern, Texture.lantern);
+
+		this.put(Material.lantern,
+				this.createSkin(Texture.lantern, Texture.lantern));
 
 		// sides and top block
 		this.put(Material.sandstone,
@@ -289,6 +358,11 @@ public class Skins {
 				this.createSkinTopBottom(Texture.grass_block_side, Texture.grass_block_top, Texture.dirt));
 		this.put(Material.dirt_path,
 				this.createSkinTopBottom(Texture.dirt_path_side, Texture.dirt_path_top, Texture.dirt));
+		this.put(Material.bamboo,
+				// would need to include other skins to make up model?
+				this.createSkinTopBottom(Texture.bamboo_stalk, Texture.bamboo_stalk, Texture.bamboo_stalk));
+		//this.put(Material.water,
+		//		this.createSkinTopBottom2("tools/toolsnodraw", Texture.water_still, "tools/toolsnodraw"));
 
 		this.skins.put(Blocks.get("sourcecraft:ramp"), PLAYER_CLIP);
 

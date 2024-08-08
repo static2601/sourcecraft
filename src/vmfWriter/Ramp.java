@@ -2,6 +2,7 @@ package vmfWriter;
 
 import java.io.IOException;
 
+import basic.Loggger;
 import basic.Tuple;
 import converter.Orientation;
 import minecraft.Position;
@@ -31,71 +32,74 @@ public class Ramp extends Cuboid {
 	public void writeVmf(ValveWriter writer) throws IOException {
 		writer.open(Solid.SOLID_TAG)
 				.putBrushID();
+		int bID = writer.getCounter().getBrushId();
+		//Loggger.log("BrushID: "+ bID);
+
 		switch (this.orientation) {
 		case WEST:
 			// top
 			this.writeSide(writer, this.aTop, this.eTop, this.h, this.skin.materialTop, this.textureScaleX,
-					this.textureScaleY, TOP_U_AXIS, TOP_V_AXIS);
+					this.textureScaleY, TOP_U_AXIS, TOP_V_AXIS, this.skin.uAdjust[0], this.skin.vAdjust[0]);
 //			bottom
 			this.writeSide(writer, this.e, this.a, this.d, this.skin.materialBottom, this.textureScaleX,
-					this.textureScaleY, BOTTOM_U_AXIS, BOTTOM_V_AXIS);
+					this.textureScaleY, BOTTOM_U_AXIS, BOTTOM_V_AXIS, this.skin.uAdjust[1], this.skin.vAdjust[1]);
 
 //			negative x side
 			this.writeSide(writer, this.a, this.e, this.eTop, this.skin.materialLeft, this.textureScaleX,
-					this.textureScaleZ, LEFT_U_AXIS, LEFT_V_AXIS);
+					this.textureScaleZ, LEFT_U_AXIS, LEFT_V_AXIS, this.skin.uAdjust[2], this.skin.vAdjust[2]);
 //			positive y side
 			this.writeSide(writer, this.e, this.h, this.eTop, this.skin.materialBack, this.textureScaleY,
-					this.textureScaleZ, BACK_U_AXIS, BACK_V_AXIS);
+					this.textureScaleZ, BACK_U_AXIS, BACK_V_AXIS, this.skin.uAdjust[4], this.skin.vAdjust[4]);
 //			negative y side
 			this.writeSide(writer, this.d, this.a, this.aTop, this.skin.materialFront, this.textureScaleY,
-					this.textureScaleZ, FRONT_U_AXIS, FRONT_V_AXIS);
+					this.textureScaleZ, FRONT_U_AXIS, FRONT_V_AXIS, this.skin.uAdjust[5], this.skin.vAdjust[5]);
 			break;
 		case EAST:
 //			top
 			this.writeSide(writer, this.a, this.e, this.hTop, this.skin.materialTop, this.textureScaleX,
-					this.textureScaleY, TOP_U_AXIS, TOP_V_AXIS);
+					this.textureScaleY, TOP_U_AXIS, TOP_V_AXIS, this.skin.uAdjust[0], this.skin.vAdjust[0]);
 //			bottom
 			this.writeSide(writer, this.e, this.a, this.d, this.skin.materialBottom, this.textureScaleX,
-					this.textureScaleY, BOTTOM_U_AXIS, BOTTOM_V_AXIS);
+					this.textureScaleY, BOTTOM_U_AXIS, BOTTOM_V_AXIS, this.skin.uAdjust[1], this.skin.vAdjust[1]);
 
 //			positive x side
 			this.writeSide(writer, this.h, this.d, this.dTop, this.skin.materialRight, this.textureScaleX,
-					this.textureScaleZ, RIGHT_U_AXIS, RIGHT_V_AXIS);
+					this.textureScaleZ, RIGHT_U_AXIS, RIGHT_V_AXIS, this.skin.uAdjust[3], this.skin.vAdjust[3]);
 
 //			positive y side
 			this.writeSide(writer, this.e, this.h, this.hTop, this.skin.materialBack, this.textureScaleY,
-					this.textureScaleZ, BACK_U_AXIS, BACK_V_AXIS);
+					this.textureScaleZ, BACK_U_AXIS, BACK_V_AXIS, this.skin.uAdjust[4], this.skin.vAdjust[4]);
 //			negative y side
 			this.writeSide(writer, this.d, this.a, this.dTop, this.skin.materialFront, this.textureScaleY,
-					this.textureScaleZ, FRONT_U_AXIS, FRONT_V_AXIS);
+					this.textureScaleZ, FRONT_U_AXIS, FRONT_V_AXIS, this.skin.uAdjust[5], this.skin.vAdjust[5]);
 			break;
 		case NORTH:
 			this.writeSide(writer, this.hTop, this.d, this.a, this.skin.materialTop, this.textureScaleX,
-					this.textureScaleY, TOP_U_AXIS, TOP_V_AXIS);
+					this.textureScaleY, TOP_U_AXIS, TOP_V_AXIS, this.skin.uAdjust[0], this.skin.vAdjust[0]);
 			this.writeSide(writer, this.d, this.h, this.e, this.skin.materialBottom, this.textureScaleX,
-					this.textureScaleY, TOP_U_AXIS, TOP_V_AXIS);
+					this.textureScaleY, TOP_U_AXIS, TOP_V_AXIS, this.skin.uAdjust[1], this.skin.vAdjust[1]);
 
 			this.writeSide(writer, this.a, this.e, this.eTop, this.skin.materialLeft, this.textureScaleX,
-					this.textureScaleZ, LEFT_U_AXIS, LEFT_V_AXIS);
+					this.textureScaleZ, LEFT_U_AXIS, LEFT_V_AXIS, this.skin.uAdjust[2], this.skin.vAdjust[2]);
 
 			this.writeSide(writer, this.d, this.hTop, this.h, this.skin.materialBack, this.textureScaleX,
-					this.textureScaleZ, LEFT_U_AXIS, LEFT_V_AXIS);
+					this.textureScaleZ, LEFT_U_AXIS, LEFT_V_AXIS, this.skin.uAdjust[4], this.skin.vAdjust[4]);
 			this.writeSide(writer, this.eTop, this.e, this.h, this.skin.materialFront, this.textureScaleY,
-					this.textureScaleZ, FRONT_U_AXIS, FRONT_V_AXIS); // really?
+					this.textureScaleZ, FRONT_U_AXIS, FRONT_V_AXIS, this.skin.uAdjust[5], this.skin.vAdjust[5]); // really?
 			break;
 		case SOUTH:
 			this.writeSide(writer, this.d, this.a, this.aTop, this.skin.materialTop, this.textureScaleX,
-					this.textureScaleY, TOP_U_AXIS, TOP_V_AXIS);
+					this.textureScaleY, TOP_U_AXIS, TOP_V_AXIS, this.skin.uAdjust[0], this.skin.vAdjust[0]);
 			this.writeSide(writer, this.a, this.d, this.h, this.skin.materialBottom, this.textureScaleX,
-					this.textureScaleY, TOP_U_AXIS, TOP_V_AXIS);
+					this.textureScaleY, TOP_U_AXIS, TOP_V_AXIS, this.skin.uAdjust[1], this.skin.vAdjust[1]);
 
 			this.writeSide(writer, this.a, this.e, this.aTop, this.skin.materialLeft, this.textureScaleX,
-					this.textureScaleZ, LEFT_U_AXIS, LEFT_V_AXIS);
+					this.textureScaleZ, LEFT_U_AXIS, LEFT_V_AXIS, this.skin.uAdjust[2], this.skin.vAdjust[2]);
 
 			this.writeSide(writer, this.d, this.dTop, this.h, this.skin.materialBack, this.textureScaleX,
-					this.textureScaleZ, LEFT_U_AXIS, LEFT_V_AXIS);
+					this.textureScaleZ, LEFT_U_AXIS, LEFT_V_AXIS, this.skin.uAdjust[4], this.skin.vAdjust[4]);
 			this.writeSide(writer, this.h, this.dTop, this.aTop, this.skin.materialFront, this.textureScaleY,
-					this.textureScaleZ, FRONT_U_AXIS, FRONT_V_AXIS);
+					this.textureScaleZ, FRONT_U_AXIS, FRONT_V_AXIS, this.skin.uAdjust[5], this.skin.vAdjust[5]);
 			break;
 		}
 		writer.open(ValveElement.EDITOR_TAG)

@@ -6,6 +6,7 @@ import converter.mapper.Mapper;
 import minecraft.Block;
 import minecraft.Position;
 import minecraft.Property;
+import vmfWriter.entity.solidEntity.FuncIllusionary;
 
 public class Vines extends Action {
 
@@ -31,32 +32,38 @@ public class Vines extends Action {
 		if(east.equals("true")) {
 			offset =         new Position(15, 0, 0);
 			negativeOffset = new Position(0, 0, 0);
-			context.addDetail(context.createCuboid(p, end, parts, offset, negativeOffset, material));
+			context.addSolidEntity(
+					new FuncIllusionary(context.createCuboid(p, end, parts, offset, negativeOffset, material)));
 		}
 		if(north.equals("true")) {
 			offset =         new Position(0, 0, 0);
 			negativeOffset = new Position(0, 0, 15);
-			context.addDetail(context.createCuboid(p, end, parts, offset, negativeOffset, material));
+			context.addSolidEntity(
+					new FuncIllusionary(context.createCuboid(p, end, parts, offset, negativeOffset, material)));
 		}
 		if(south.equals("true")) {
 			offset =         new Position(0, 0, 15);
 			negativeOffset = new Position(0, 0, 0);
-			context.addDetail(context.createCuboid(p, end, parts, offset, negativeOffset, material));
+			context.addSolidEntity(
+					new FuncIllusionary(context.createCuboid(p, end, parts, offset, negativeOffset, material)));
 		}
 		if(up.equals("true")) {
 			offset =         new Position(0, 15, 0);
 			negativeOffset = new Position(0, 0, 0);
-			context.addDetail(context.createCuboid(p, end, parts, offset, negativeOffset, material));
+			context.addSolidEntity(
+					new FuncIllusionary(context.createCuboid(p, end, parts, offset, negativeOffset, material)));
 		}
 		if(down.equals("true")) {
 			offset =         new Position(0, 0, 0);
 			negativeOffset = new Position(0, 15, 0);
-			context.addDetail(context.createCuboid(p, end, parts, offset, negativeOffset, material));
+			context.addSolidEntity(
+					new FuncIllusionary(context.createCuboid(p, end, parts, offset, negativeOffset, material)));
 		}
 		if(west.equals("true")) { //default for trees
 			offset =         new Position(0, 0, 0);
 			negativeOffset = new Position(15, 0, 0);//(15, 16, 0);
-			context.addDetail(context.createCuboid(p, end, parts, offset, negativeOffset, material));
+			context.addSolidEntity(
+					new FuncIllusionary(context.createCuboid(p, end, parts, offset, negativeOffset, material)));
 		}
 		context.markAsConverted(p, end);
 

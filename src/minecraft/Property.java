@@ -47,7 +47,8 @@ public enum Property implements NameSupplier {
 	up,				// true, false
 	down,			//
 	west,
-	berries;		// true, false
+	berries,		// true, false
+	flower_amount;
 
 	public enum East implements NameSupplier {
 		true$,

@@ -8,6 +8,7 @@ import minecraft.Blocks;
 import minecraft.Position;
 import minecraft.Property;
 import minecraft.SubBlockPosition;
+import vmfWriter.entity.pointEntity.pointEntity.PropStatic;
 
 public class Stairs extends Action {
 
@@ -171,21 +172,34 @@ public class Stairs extends Action {
 					this.context.addSubBlock(position, SubBlockPosition.TOP_EAST_NORTH, material);
 					this.context.addSubBlock(position, SubBlockPosition.TOP_WEST_NORTH, Blocks._RAMP_EAST);
 					this.context.addSubBlock(position, SubBlockPosition.TOP_EAST_SOUTH, Blocks._RAMP_NORTH);
-					this.context.addSubBlock(position, SubBlockPosition.TOP_WEST_SOUTH, Blocks._RAMP_NORTH_EAST);
-					this.addRampStubEast(position);
-					this.addRampStubNorth(position);
-					this.context.addSubBlock(Position.add(position, STEP_NORTH_EAST),
-							SubBlockPosition.BOTTOM_EAST_NORTH, Blocks._RAMP_NORTH_EAST);
+					//this.context.addSubBlock(position, SubBlockPosition.TOP_WEST_SOUTH, Blocks._RAMP_NORTH_EAST);
+					this.addRampModel(position, STEP_NORTH_EAST, true);
+					this.addRampStubEast(position); // adds bottom stair ramp right/left
+					this.addRampStubNorth(position); // adds bottom stair ramp left/right
+					this.addRampModel(position, STEP_NORTH_EAST, false);
+					//this.context.addSubBlock(
+					//		Position.add(position, STEP_NORTH_EAST),
+					//		SubBlockPosition.BOTTOM_EAST_NORTH, Blocks._RAMP_NORTH_EAST);
+
+//					Position newFrom = new Position(position.x-1,position.y,position.z+1);
+//					Position newTo = new Position(0,0,0);
+//					this.context.addSolid(context.createCuboid(
+//							newFrom, newFrom, 16,
+//							new Position(8,0, 0),
+//							new Position(0,12,8),
+//							material));
 					break;
 				case outer_right:
 					this.context.addSubBlock(position, SubBlockPosition.TOP_EAST_SOUTH, material);
 					this.context.addSubBlock(position, SubBlockPosition.TOP_WEST_SOUTH, Blocks._RAMP_EAST);
 					this.context.addSubBlock(position, SubBlockPosition.TOP_EAST_NORTH, Blocks._RAMP_SOUTH);
-					this.context.addSubBlock(position, SubBlockPosition.TOP_WEST_NORTH, Blocks._RAMP_SOUTH_EAST);
+					//this.context.addSubBlock(position, SubBlockPosition.TOP_WEST_NORTH, Blocks._RAMP_SOUTH_EAST);
+					this.addRampModel(position, STEP_SOUTH_EAST, true);
 					this.addRampStubEast(position);
 					this.addRampStubSouth(position);
-					this.context.addSubBlock(Position.add(position, STEP_SOUTH_EAST),
-							SubBlockPosition.BOTTOM_EAST_SOUTH, Blocks._RAMP_SOUTH_EAST);
+					this.addRampModel(position, STEP_SOUTH_EAST, false);
+					//this.context.addSubBlock(Position.add(position, STEP_SOUTH_EAST),
+					//		SubBlockPosition.BOTTOM_EAST_SOUTH, Blocks._RAMP_SOUTH_EAST);
 					break;
 				case straight:
 				default:
@@ -213,21 +227,25 @@ public class Stairs extends Action {
 					this.context.addSubBlock(position, SubBlockPosition.TOP_WEST_NORTH, material);
 					this.context.addSubBlock(position, SubBlockPosition.TOP_WEST_SOUTH, Blocks._RAMP_NORTH);
 					this.context.addSubBlock(position, SubBlockPosition.TOP_EAST_NORTH, Blocks._RAMP_WEST);
-					this.context.addSubBlock(position, SubBlockPosition.TOP_EAST_SOUTH, Blocks._RAMP_NORTH_WEST);
+					//this.context.addSubBlock(position, SubBlockPosition.TOP_EAST_SOUTH, Blocks._RAMP_NORTH_WEST);
+					this.addRampModel(position, STEP_NORTH_WEST, true);
 					this.addRampStubNorth(position);
 					this.addRampStubWest(position);
-					this.context.addSubBlock(Position.add(position, STEP_NORTH_WEST),
-							SubBlockPosition.BOTTOM_WEST_NORTH, Blocks._RAMP_NORTH_WEST);
+					this.addRampModel(position, STEP_NORTH_WEST, false);
+					//this.context.addSubBlock(Position.add(position, STEP_NORTH_WEST),
+					//		SubBlockPosition.BOTTOM_WEST_NORTH, Blocks._RAMP_NORTH_WEST);
 					break;
 				case outer_right:
 					this.context.addSubBlock(position, SubBlockPosition.TOP_EAST_NORTH, material);
 					this.context.addSubBlock(position, SubBlockPosition.TOP_EAST_SOUTH, Blocks._RAMP_NORTH);
 					this.context.addSubBlock(position, SubBlockPosition.TOP_WEST_NORTH, Blocks._RAMP_EAST);
-					this.context.addSubBlock(position, SubBlockPosition.TOP_WEST_SOUTH, Blocks._RAMP_NORTH_EAST);
+					//this.context.addSubBlock(position, SubBlockPosition.TOP_WEST_SOUTH, Blocks._RAMP_NORTH_EAST);
+					this.addRampModel(position, STEP_NORTH_EAST, true);
 					this.addRampStubNorth(position);
 					this.addRampStubEast(position);
-					this.context.addSubBlock(Position.add(position, STEP_NORTH_EAST),
-							SubBlockPosition.BOTTOM_EAST_NORTH, Blocks._RAMP_NORTH_EAST);
+					this.addRampModel(position, STEP_NORTH_EAST, false);
+					//this.context.addSubBlock(Position.add(position, STEP_NORTH_EAST),
+					//		SubBlockPosition.BOTTOM_EAST_NORTH, Blocks._RAMP_NORTH_EAST);
 					break;
 				case straight:
 				default:
@@ -255,21 +273,25 @@ public class Stairs extends Action {
 					this.context.addSubBlock(position, SubBlockPosition.TOP_EAST_SOUTH, material);
 					this.context.addSubBlock(position, SubBlockPosition.TOP_EAST_NORTH, Blocks._RAMP_SOUTH);
 					this.context.addSubBlock(position, SubBlockPosition.TOP_WEST_SOUTH, Blocks._RAMP_EAST);
-					this.context.addSubBlock(position, SubBlockPosition.TOP_WEST_NORTH, Blocks._RAMP_SOUTH_EAST);
+					//this.context.addSubBlock(position, SubBlockPosition.TOP_WEST_NORTH, Blocks._RAMP_SOUTH_EAST);
+					this.addRampModel(position, STEP_SOUTH_EAST, true);
 					this.addRampStubSouth(position);
 					this.addRampStubEast(position);
-					this.context.addSubBlock(Position.add(position, STEP_SOUTH_EAST),
-							SubBlockPosition.BOTTOM_EAST_SOUTH, Blocks._RAMP_SOUTH_EAST);
+					this.addRampModel(position, STEP_SOUTH_EAST, false);
+					//this.context.addSubBlock(Position.add(position, STEP_SOUTH_EAST),
+					//		SubBlockPosition.BOTTOM_EAST_SOUTH, Blocks._RAMP_SOUTH_EAST);
 					break;
 				case outer_right:
 					this.context.addSubBlock(position, SubBlockPosition.TOP_WEST_SOUTH, material);
 					this.context.addSubBlock(position, SubBlockPosition.TOP_WEST_NORTH, Blocks._RAMP_SOUTH);
 					this.context.addSubBlock(position, SubBlockPosition.TOP_EAST_SOUTH, Blocks._RAMP_WEST);
-					this.context.addSubBlock(position, SubBlockPosition.TOP_EAST_NORTH, Blocks._RAMP_SOUTH_WEST);
+					//this.context.addSubBlock(position, SubBlockPosition.TOP_EAST_NORTH, Blocks._RAMP_SOUTH_WEST);
+					this.addRampModel(position, STEP_SOUTH_WEST, true);
 					this.addRampStubSouth(position);
 					this.addRampStubWest(position);
-					this.context.addSubBlock(Position.add(position, STEP_SOUTH_WEST),
-							SubBlockPosition.BOTTOM_WEST_SOUTH, Blocks._RAMP_SOUTH_WEST);
+					this.addRampModel(position, STEP_SOUTH_WEST, false);
+					//this.context.addSubBlock(Position.add(position, STEP_SOUTH_WEST),
+					//		SubBlockPosition.BOTTOM_WEST_SOUTH, Blocks._RAMP_SOUTH_WEST);
 					break;
 				case straight:
 				default:
@@ -297,22 +319,26 @@ public class Stairs extends Action {
 					this.context.addSubBlock(position, SubBlockPosition.TOP_WEST_SOUTH, material);
 					this.context.addSubBlock(position, SubBlockPosition.TOP_EAST_SOUTH, Blocks._RAMP_WEST);
 					this.context.addSubBlock(position, SubBlockPosition.TOP_WEST_NORTH, Blocks._RAMP_SOUTH);
-					this.context.addSubBlock(position, SubBlockPosition.TOP_EAST_NORTH, Blocks._RAMP_SOUTH_WEST);
+					//this.context.addSubBlock(position, SubBlockPosition.TOP_EAST_NORTH, Blocks._RAMP_SOUTH_WEST);
+					this.addRampModel(position, STEP_SOUTH_WEST, true);
 					this.addRampStubWest(position);
 					this.addRampStubSouth(position);
-					this.context.addSubBlock(Position.add(position, STEP_SOUTH_WEST),
-							SubBlockPosition.BOTTOM_WEST_SOUTH, Blocks._RAMP_SOUTH_WEST);
+					this.addRampModel(position, STEP_SOUTH_WEST, false);
+					//this.context.addSubBlock(Position.add(position, STEP_SOUTH_WEST),
+					//		SubBlockPosition.BOTTOM_WEST_SOUTH, Blocks._RAMP_SOUTH_WEST);
 
 					break;
 				case outer_right:
 					this.context.addSubBlock(position, SubBlockPosition.TOP_WEST_NORTH, material);
 					this.context.addSubBlock(position, SubBlockPosition.TOP_EAST_NORTH, Blocks._RAMP_WEST);
 					this.context.addSubBlock(position, SubBlockPosition.TOP_WEST_SOUTH, Blocks._RAMP_NORTH);
-					this.context.addSubBlock(position, SubBlockPosition.TOP_EAST_SOUTH, Blocks._RAMP_NORTH_WEST);
+					//this.context.addSubBlock(position, SubBlockPosition.TOP_EAST_SOUTH, Blocks._RAMP_NORTH_WEST);
+					this.addRampModel(position, STEP_NORTH_WEST, true);
 					this.addRampStubWest(position);
 					this.addRampStubNorth(position);
-					this.context.addSubBlock(Position.add(position, STEP_NORTH_WEST),
-							SubBlockPosition.BOTTOM_WEST_NORTH, Blocks._RAMP_NORTH_WEST);
+					this.addRampModel(position, STEP_NORTH_WEST, false);
+					//this.context.addSubBlock(Position.add(position, STEP_NORTH_WEST),
+					//		SubBlockPosition.BOTTOM_WEST_NORTH, Blocks._RAMP_NORTH_WEST);
 					break;
 				case straight:
 				default:
@@ -328,6 +354,57 @@ public class Stairs extends Action {
 				break;
 			}
 		}
+	}
+
+	/**  temporary hack to add ramp corner model to replace brushes that create sub blocks above ramp  */
+	private void addRampModel(Position p, Position subblock, boolean up) {
+		PropStatic mdl = new PropStatic("models/props/minecraft_original/stairwedge.mdl");
+
+		int rotation = 0;
+		double x = 0.5;
+		double y = 0;
+		double z = 0.5;
+
+		if (subblock.equals(STEP_NORTH_EAST)) {
+			rotation = 0;
+			if(up) {
+				x = 1; y = 0.5; z = 0;
+			}
+			this.context.setPointToGrid(Position.add(p, subblock));
+			this.context.movePointInGridDimension(x, y, z);
+		}
+
+		if (subblock.equals(STEP_SOUTH_EAST)) {
+			rotation = 270;
+			if(up) {
+				x = 1; y = 0.5; z = 1;
+			}
+			this.context.setPointToGrid(Position.add(p, subblock));
+			this.context.movePointInGridDimension(x, y, z);
+		}
+
+		if (subblock.equals(STEP_SOUTH_WEST)) {
+			rotation = 180;
+			if(up) {
+				x = 0; y = 0.5; z = 1;
+			}
+			this.context.setPointToGrid(Position.add(p, subblock));
+			this.context.movePointInGridDimension(x, y, z);
+		}
+
+		if (subblock.equals(STEP_NORTH_WEST)) {
+			rotation = 90;
+			if(up) {
+				x = 0; y = 0.5; z = 0;
+			}
+			this.context.setPointToGrid(Position.add(p, subblock));
+			this.context.movePointInGridDimension(x, y, z);
+		}
+		mdl.getAngles().setY(rotation);
+		mdl.setSolid(6);
+		mdl.disableShadows(1);
+
+		this.context.addPointEntity(mdl);
 	}
 
 	private void addRampStubWest(Position position) {

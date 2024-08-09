@@ -25,6 +25,10 @@ public class CustomActionManager extends ActionManager {
 		this.actions.put(Material.void_air, NoAction.INSTANCE);
 		this.actions.put(Material.barrier, NoAction.INSTANCE);
 
+
+		// list of all items with waterlogged property, run check if true and add liquuid
+
+
 		// if no action described, none will render
 		for (Material m : new Material[] {
 				Material.ladder,
@@ -33,7 +37,7 @@ public class CustomActionManager extends ActionManager {
 				Material.detector_rail,
 				Material.fire,
 //				Material.sea_lantern
-				Material.water,
+				//Material.water,
 				Material.lava
 		}) {
 			this.actions.put(m, NoAction.INSTANCE);
@@ -46,7 +50,9 @@ public class CustomActionManager extends ActionManager {
 			this.actions.put(m, new DetailBlock());
 		}
 		for (Material m : new Material[] {
-				//Material.water,
+				//Material.kelp,
+				//Material.kelp_plant,
+				Material.water,
 				Material.lava
 		}) {
 			this.actions.put(m, new Liquid());
@@ -67,8 +73,8 @@ public class CustomActionManager extends ActionManager {
 		//this.actions.put(Material.tall_grass, new TallGrassTf2());
 		this.actions.put(Material.jack_o_lantern, new NoAction());
 		this.actions.put(Material.sea_lantern, new NoAction());
-		this.actions.put(Material.lantern, new LanternGround());
-		this.actions.put(Material.soul_lantern, new LanternGround());
+		this.actions.put(Material.lantern, new Lantern());
+		this.actions.put(Material.soul_lantern, new Lantern());
 		//this.actions.put(Material.lantern, new TestDrawFromCoords());
 
 		this.actions.put(Material._carpet, new Carpet());
@@ -287,8 +293,8 @@ public class CustomActionManager extends ActionManager {
 		this.actions.put(Material.sea_pickle, new SeaPickle(0, 6));
 		this.actions.put(Material._wall, new Wall());
 		this.actions.put(Material.dirt_path, new GrassPath());
-		this.actions.put(Material.seagrass, new NoAction());
-		this.actions.put(Material.tall_seagrass, new NoAction());
+		this.actions.put(Material.seagrass, new Liquid());
+		this.actions.put(Material.tall_seagrass, new Liquid());
 
 		// ttt
 		//this.actions.put(Material.zombie_head, new CenteredPointEntity("info_player_start"));

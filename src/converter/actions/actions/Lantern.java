@@ -12,7 +12,7 @@ import vmfWriter.entity.pointEntity.pointEntity.PropStatic;
  *
  *
  */
-public class LanternGround extends Action {
+public class Lantern extends Action {
 
 	private final static String MODEL = "models/props/minecraft_original/lantern.mdl";
 	private final static String MODEL2 = "models/props/minecraft_original/lanternHanging.mdl";

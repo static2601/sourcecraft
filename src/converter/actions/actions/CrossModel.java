@@ -37,6 +37,23 @@ public class CrossModel extends Action {
 	@Override
 	public void add(Mapper context, Position p, Block material) {
 		int skin = this.skin;
+		Position end = context.getCuboidFinder()
+				.getBestXYZ(p, material);
+		if(material.getName().endsWith("sea_grass")) {
+			addWaterlogged(context, p, material);
+		}
+		if(material.getName().endsWith("kelp_plant")) {
+			addWaterlogged(context, p, material);
+		}
+		if(material.getName().endsWith("kelp")) {
+			addWaterlogged(context, p, material);
+		}
+		if(material.getName().endsWith("coral")) {
+			String waterlogged = material.getProperty(Property.waterlogged);
+			if(waterlogged.equals("true")) {
+				addWaterlogged(context, p, material);
+			}
+		}
 
 		//TODO make getProperties() return empty if non to avoid error
 		//if(material.get().toString().contains("half=")) {

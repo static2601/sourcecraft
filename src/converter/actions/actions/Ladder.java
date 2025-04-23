@@ -6,6 +6,7 @@ import minecraft.Block;
 import minecraft.Blocks;
 import minecraft.Position;
 import minecraft.Property;
+import periphery.Minecraft;
 
 public class Ladder extends Action {
 
@@ -58,7 +59,14 @@ public class Ladder extends Action {
 			startOffset = new Position(7, 0, 1);
 			endOffset = new Position(0, 0, 1);
 		}
-		this.context.addDetail(
+		//TODO - add as trigger, with whatever ladder properties set, different for each game
+		// tf2 - no ladders, mod maybe
+
+		//this.context.addSolid(
+		//		context.createCuboid(pos, end, pixels, startOffset, endOffset, Blocks.get(
+		//				t -> t.setName(Minecraft.toMaterial("tools/toolstrigger")))));
+
+		this.context.addSolid(
 				context.createCuboid(pos, end, pixels, startOffset, endOffset, Blocks.get("sourcecraft:ladder")));
 	}
 }

@@ -16,7 +16,11 @@ public class Chest extends Action {
 	private static String MODEL = "models/props/minecraft_original/SingleChest.mdl";
 	private PropStatic chest = new PropStatic(MODEL);
 	private static boolean useModel = true;
+	private final int skin;
 
+	public Chest(int skin) {
+		this.skin = skin;
+	}
 	@Override
 	public void add(Mapper context, Position pos, Block block) {
 		if(useModel) {
@@ -24,11 +28,11 @@ public class Chest extends Action {
 			context.movePointInGridDimension(0.5, 0, 0.5);
 			int rotation = 0;
 			String facing = block.getProperty(Property.facing);
-			String type = block.getProperty(Property.type);
-			int skin = 0;
-			if(block.getName().endsWith("chest")) skin = 0;
-			else if(block.getName().endsWith("ender_chest")) skin = 1;
-			else if(block.getName().endsWith("trapped_chest")) skin = 2;
+
+			//TODO - add double chests
+
+			// get type left or right sections of a double chest
+			//String type = block.getProperty(Property.type);
 
 			if(facing.equals("south")) {
 				rotation = 180;
@@ -47,6 +51,13 @@ public class Chest extends Action {
 			chest.setSkin(skin);
 			chest.setSolid(6);
 			context.addPointEntity(chest);
+
+			//TODO - this could be added to 'add' so every model
+			// gets checked instead of adding for each item?
+			String waterlogged = block.getProperty(Property.waterlogged);
+			if(waterlogged.equals("true")) {
+				addWaterlogged(context, pos, block);
+			}
 			context.markAsConverted(pos);
 
 		} else {
@@ -57,6 +68,7 @@ public class Chest extends Action {
 			Cuboid chest = context.createCuboid(pos, end, pixels, startOffset, endOffset, block);
 			chest.setSkin(this.constructSkin(block));
 			context.addDetail(chest);
+			//TODO - shouldnt there be a markAsConverted() here??
 		}
 	}
 

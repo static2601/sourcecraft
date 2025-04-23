@@ -3,6 +3,7 @@ package converter.actions.actions;
 import converter.actions.Action;
 import converter.mapper.Mapper;
 import minecraft.Block;
+import minecraft.Blocks;
 import minecraft.Position;
 
 /**
@@ -13,9 +14,30 @@ public class Liquid extends Action {
 
 	@Override
 	public void add(Mapper context, Position position, Block material) {
-		Position end = context.getCuboidFinder()
+		Position endXYZ = context.getCuboidFinder()
 				.getBestXYZ(position, material);
-		context.addSolid(context.createCuboid(position, end, material));
-		context.markAsConverted(position, end);
+		Position endXZ = context.getCuboidFinder()
+				.getBestXZ(position, material);
+
+		Block above = context.getBlock(new Position(position.x,position.y+1,position.z));
+		if(above.getName() != null) {
+			if (!above.getName().contains("minecraft:water")
+				&& !above.get().toString().contains("waterlogged=true")) {
+
+				int parts = 16;
+				Position offset = new Position(0, 0, 0);
+				Position negativeOffset = new Position(0, 2, 0);
+
+				context.addSolid(context.createCuboid(
+						position, endXZ, parts, offset, negativeOffset, Blocks.get("minecraft:water")));
+				context.markAsConverted(position, endXZ);
+
+			} else {
+				// else use full block of water. Should this be all nodraw??
+				// maybe they wouldnt combined as they may be different blocks.
+				context.addSolid(context.createCuboid(position, endXZ, Blocks.get("minecraft:water")));
+				context.markAsConverted(position, endXZ);
+			}
+		}
 	}
 }

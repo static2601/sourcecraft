@@ -16,7 +16,8 @@ public class TreeLeavesB extends Action {
 		Position offset = new Position(0, 0, 0);
 		//Position negativeOffset = new Position(1, 1, 1);
 		Position negativeOffset = new Position(0, 0, 0);
-		context.addDetail(context.createCuboid(position, end, parts, offset, negativeOffset, block));
+		//context.addDetail(context.createCuboid(position, end, parts, offset, negativeOffset, block));
+		context.addDetail(context.createCuboid(position, end, block));
 		context.markAsConverted(position, end);
 	}
 }

@@ -361,10 +361,11 @@ public class Skins {
 		this.put(Material.bamboo,
 				// would need to include other skins to make up model?
 				this.createSkinTopBottom(Texture.bamboo_stalk, Texture.bamboo_stalk, Texture.bamboo_stalk));
-		//this.put(Material.water,
-		//		this.createSkinTopBottom2("tools/toolsnodraw", Texture.water_still, "tools/toolsnodraw"));
+		this.put(Material.water,
+				this.createSkinTopBottom2("tools/toolsnodraw", Texture.water_still, "tools/toolsnodraw"));
 
 		this.skins.put(Blocks.get("sourcecraft:ramp"), PLAYER_CLIP);
+		this.skins.put(Blocks.get("sourcecraft:ladder"), TRIGGER);
 
 	}
 

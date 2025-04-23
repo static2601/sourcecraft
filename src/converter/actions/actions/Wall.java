@@ -27,20 +27,6 @@ public class Wall extends Action {
 		
 		String str = "";
 		boolean low = false;
-		/*
-		if(east.equals("tall")) ETall(context, p, material, bestX, false);
-		if(west.equals("tall")) WTall(context, p, material, bestX, false);
-		if(north.equals("tall")) NTall(context, p, material, bestZ, false);
-		if(south.equals("tall")) STall(context, p, material, bestZ, false);
-		//low wall
-		if(east.equals("low")) ETall(context, p, material, bestX, true);
-		if(west.equals("low")) WTall(context, p, material, bestX, true);
-		if(north.equals("low")) NTall(context, p, material, bestZ, true);
-		if(south.equals("low")) STall(context, p, material, bestZ, true);
-		// post
-		if(up.equals("true")) Post(context, p, material, bestY);
-		//context.markAsConverted(p);
-		*/
 
 		if(east.equals("tall") || east.equals("low")) str += "E";
 		if(west.equals("tall") || west.equals("low")) str += "W";
@@ -52,9 +38,6 @@ public class Wall extends Action {
 		if(north.equals("low")) low = true;
 		if(south.equals("low")) low = true;
 
-		//Loggger.log("DEBUG:  Pane Directions " + str);
-
-		//Loggger.log("str: "+str);
 		switch (str) {
 			//east to west full pane
 			case "":
@@ -62,7 +45,6 @@ public class Wall extends Action {
 				break;
 
 			case "EW":
-				//if(up.equals("true")) Loggger.log("with up: "+str);
 				EWTall(context, p, material, bestXY, low);
 				break;
 
@@ -161,7 +143,6 @@ public class Wall extends Action {
 		Position negativeOffset = new Position(4, 0, 4);
 		c.addDetail(c.createCuboid(p, end, parts, offset, negativeOffset, m));
 		c.markAsConverted(p, end);
-		//Loggger.log("c.getBlock(p): " + c.getBlock(p) + " p: "+ p);
 	}
 	//corners - tall
 	private void EWTall(Mapper c, Position p, Block m, Position end, boolean low) {

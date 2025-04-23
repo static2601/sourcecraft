@@ -31,14 +31,12 @@ public class CustomActionManager extends ActionManager {
 
 		// if no action described, none will render
 		for (Material m : new Material[] {
-				Material.ladder,
-				Material.rail,
+
 //				Material.lever,
-				Material.detector_rail,
 				Material.fire,
 //				Material.sea_lantern
 				//Material.water,
-				Material.lava
+				//Material.lava
 		}) {
 			this.actions.put(m, NoAction.INSTANCE);
 		}
@@ -59,13 +57,18 @@ public class CustomActionManager extends ActionManager {
 		}
 
 		//this.actions.put(Material._fence, new Fence());
+		//TODO - if we have the optimize script in place,
+		// stairs2(removes stair wedge model and checks bottom of stairs for clearance)
+		// used instead. find the script and add as option when converting.
 		this.actions.put(Material._stairs, new Stairs());
 		this.actions.put(Material.cactus, new Cactus());
 		this.actions.put(Material.fire, new Fire());
 		this.actions.put(Material._slab, new Slab());
 		this.actions.put(Material._pane, new GlassPane());
 		this.actions.put(Material.iron_bars, new IronBars());
-		this.actions.put(Material.chest, new Chest());
+		this.actions.put(Material.chest, new Chest(0));
+		this.actions.put(Material.ender_chest, new Chest(1));
+		this.actions.put(Material.trapped_chest, new Chest(2));
 		this.actions.put(Material.lily_pad, new LilyPad());
 
 		// tf2
@@ -73,8 +76,10 @@ public class CustomActionManager extends ActionManager {
 		//this.actions.put(Material.tall_grass, new TallGrassTf2());
 		this.actions.put(Material.jack_o_lantern, new NoAction());
 		this.actions.put(Material.sea_lantern, new NoAction());
+
 		this.actions.put(Material.lantern, new Lantern());
 		this.actions.put(Material.soul_lantern, new Lantern());
+		this.actions.put(Material.glowstone, new Glowstone());
 		//this.actions.put(Material.lantern, new TestDrawFromCoords());
 
 		this.actions.put(Material._carpet, new Carpet());
@@ -201,14 +206,17 @@ public class CustomActionManager extends ActionManager {
 		this.actions.put(Material.dead_horn_coral_wall_fan, new CoralWallFan(9, 0));
 
 		// tree leaves
-//		this.actions.put(Material.birch_leaves, new TreeLeavesB());
-//		this.actions.put(Material.jungle_leaves, new TreeLeavesB());
-//		this.actions.put(Material.dark_oak_leaves, new TreeLeavesB());
-//		this.actions.put(Material.oak_leaves, new TreeLeavesB());
-//		this.actions.put(Material.spruce_leaves, new TreeLeavesB());
-//		this.actions.put(Material.acacia_leaves, new TreeLeavesB());
-//		this.actions.put(Material.oak_leaves, new TreeLeavesB());
-//		this.actions.put(Material.oak_leaves, new TreeLeavesB());
+		this.actions.put(Material.birch_leaves, new TreeLeaves());
+		this.actions.put(Material.jungle_leaves, new TreeLeaves());
+		this.actions.put(Material.dark_oak_leaves, new TreeLeaves());
+		this.actions.put(Material.oak_leaves, new TreeLeaves());
+		this.actions.put(Material.spruce_leaves, new TreeLeaves());
+		this.actions.put(Material.acacia_leaves, new TreeLeaves());
+		this.actions.put(Material.oak_leaves, new TreeLeaves());
+		this.actions.put(Material.oak_leaves, new TreeLeaves());
+		this.actions.put(Material.azalea_leaves, new TreeLeaves());
+		this.actions.put(Material.flowering_azalea_leaves, new TreeLeaves());
+		this.actions.put(Material.cherry_leaves, new TreeLeaves());
 
 		// buttons
 		this.actions.put(Material.birch_button, new ButtonA(0, 0));
@@ -225,8 +233,28 @@ public class CustomActionManager extends ActionManager {
 		this.actions.put(Material.warped_button, new ButtonA(11, 0));
 		this.actions.put(Material.polished_blackstone_button, new ButtonA(12, 0));
 
-		//scaffolding
+		//beds
+		this.actions.put(Material.red_bed, new Bed(0));
+		this.actions.put(Material.black_bed, new Bed(1));
+		this.actions.put(Material.blue_bed, new Bed(2));
+		this.actions.put(Material.brown_bed, new Bed(3));
+		this.actions.put(Material.cyan_bed, new Bed(4));
+		this.actions.put(Material.gray_bed, new Bed(5));
+		this.actions.put(Material.green_bed, new Bed(6));
+		this.actions.put(Material.light_blue_bed, new Bed(7));
+		this.actions.put(Material.light_gray_bed, new Bed(8));
+		this.actions.put(Material.lime_bed, new Bed(9));
+		this.actions.put(Material.magenta_bed, new Bed(10));
+		this.actions.put(Material.orange_bed, new Bed(11));
+		this.actions.put(Material.pink_bed, new Bed(12));
+		this.actions.put(Material.purple_bed, new Bed(13));
+		this.actions.put(Material.white_bed, new Bed(14));
+		this.actions.put(Material.yellow_bed, new Bed(15));
+
+		// utilities
 		this.actions.put(Material.scaffolding, new Scaffolding(0, 6));
+		this.actions.put(Material.ladder, new Ladder());
+		this.actions.put(Material.chain, new Chain());
 
 		for (Material m : Material.values()) {
 			if(m.getName().endsWith("_trapdoor")) {
@@ -260,6 +288,9 @@ public class CustomActionManager extends ActionManager {
 			if(m.getName().endsWith("_pressure_plate") && !m.getName().startsWith("_")) {
 				this.actions.put(Blocks.get(m.getName()), new PressurePlate());
 			}
+			if(m.getName().endsWith("rail")) {
+				this.actions.put(Blocks.get(m.getName()), new Rails());
+			}
 		}
 
 		this.actions.put(Material.quartz_pillar, new AxisBlocks2());
@@ -286,6 +317,8 @@ public class CustomActionManager extends ActionManager {
 		this.actions.put(Material.wall_torch, new Torches(0, 0));
 		this.actions.put(Material.redstone_torch, new Torches(1, 0));
 		this.actions.put(Material.redstone_wall_torch, new Torches(1, 0));
+		this.actions.put(Material.redstone_lamp, new RedstoneLamp());
+
 
 
 		//this.actions.put(Material.water, new NoAction()); // <-------water
@@ -295,6 +328,9 @@ public class CustomActionManager extends ActionManager {
 		this.actions.put(Material.dirt_path, new GrassPath());
 		this.actions.put(Material.seagrass, new Liquid());
 		this.actions.put(Material.tall_seagrass, new Liquid());
+		this.actions.put(Material.comparator, new Redstone());
+		this.actions.put(Material.repeater, new Redstone());
+		this.actions.put(Material.slime_block, new SlimeBlock());
 
 		// ttt
 		//this.actions.put(Material.zombie_head, new CenteredPointEntity("info_player_start"));

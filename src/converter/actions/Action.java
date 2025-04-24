@@ -1,5 +1,9 @@
 package converter.actions;
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,6 +12,10 @@ import converter.Orientation;
 import converter.actions.actions.Liquid;
 import converter.mapper.Mapper;
 import minecraft.*;
+import periphery.Option;
+import periphery.Options;
+import periphery.Periphery;
+import vmfWriter.Color;
 import vmfWriter.entity.pointEntity.RotateablePointEntity;
 
 public abstract class Action {
@@ -15,9 +23,57 @@ public abstract class Action {
 	public static String matSkinFilter = "";
 
 	public Action() {
+
+	}
+
+	public Option getOptions(String className) {
+		return Periphery.OPTIONS.getOption(className);
+	}
+
+	// check for and return blocks around this block
+	//TODO finish this function once we decide how it needs to be done.
+	// Can be used to check for air around light emitting blocks for
+	// where to place a light entity. Or maybe those blocks can actually
+	// emit light but only on the sides with air?
+	public void getBlocksSurrounding(Mapper context, Position p, Block material) {
+		Block above = context.getBlock(new Position(p.x,p.y+1,p.z));
 	}
 
 	public void addWaterlogged(Mapper context, Position p, Block material){
+		//TODO isnt Liquid() already doing this, couldnt we just add that constructor?
+
+		// add block of water to brush or model
+		// if block above water is NOT water, use surface water
+		Block above = context.getBlock(new Position(p.x,p.y+1,p.z));
+		//Loggger.log("Block above: "+above.getName());
+
+		// if above block does not contain water and does not have waterlogged property
+		//TODO needs to check if above block not water, check if one of its sides is FULL water
+		// so cavities under water, under a block are full water and not top water
+		if(!above.getName().contains("minecraft:water")
+				&& !above.getName().contains("kelp") // kelp does not have waterlogged prop as crossmodel
+				&& !above.get().toString().contains("waterlogged=true")) {
+
+			int parts = 16;
+			Position offset = new Position(0, 0, 0);
+			Position negativeOffset = new Position(0, 2, 0);
+
+			context.addSolid(context.createCuboid(p, p, parts, offset,
+					negativeOffset, Blocks.get(t -> t.setName(Material.water))));
+
+		} else {
+			// else use full block of water
+			Loggger.log("this. block: "+material.getName()+", above:"+above.getName() + " contains 'minecraft:water' <-");
+			context.addSolid(context.createCuboid(p, p,
+					Blocks.get(t -> t.setName(Material.water))));
+		}
+		//TODO should we mark as converted? wouldnt that stop it from processing this area again?
+		// should already be set from the plant itself...?
+		// doesnt seem to matter when tried with and without...
+		context.markAsConverted(p);
+	}
+
+	public void addWaterlogged2(Mapper context, Position p, Block material){
 		// add block of water to brush or model
 		// doing this for a regular brush will add that brush instead of water!
 		Position end = context.getCuboidFinder()
@@ -32,8 +88,7 @@ public abstract class Action {
 				negativeOffset, Blocks.get(t -> t.setName(Material.water))));
 		context.markAsConverted(p);
 		//context.addSolid(context.createCuboid(p, end, parts, offset, negativeOffset, material));
-		//Loggger.log("added water to block to "+ material.getName());
-		//waterlog water doubling up under with top space for both. was other way better?
+
 	}
 
 	public void setMatSkinFilter(String filter){

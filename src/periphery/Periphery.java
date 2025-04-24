@@ -14,17 +14,21 @@ public class Periphery {
 
 	private static final Path CONFIG_PATH = new File("config.json").toPath();
 	private static final Path PLACES_PATH = new File("places.json").toPath();
+	private static final Path OPTIONS_PATH = new File("options.json").toPath();
 
 	private static final String SC_TEXTURE_FOLDER = "textures";
 
 	public static Config CONFIG = new Config();
 	public static Places PLACES = new Places();
+	public static Options OPTIONS = new Options();
 
 	public static void init() {
 		CONFIG = new Config();
 		PLACES = new Places();
+		OPTIONS = new Options();
 		obtainConfig();
 		obtainPlaces();
+		obtainOptions();
 	}
 
 	public static void obtainConfig() {
@@ -52,6 +56,19 @@ public class Periphery {
 					.exists()) {
 				String fileAsString = new String(Files.readAllBytes(PLACES_PATH));
 				PLACES = gson.fromJson(fileAsString, Places.class);
+			}
+		} catch (IOException e) {
+			Loggger.log(e.getMessage());
+		}
+	}
+	public static void obtainOptions() {
+		OPTIONS = new Options();
+		try {
+			Gson gson = new GsonBuilder().create();
+			if (OPTIONS_PATH.toFile()
+					.exists()) {
+				String fileAsString = new String(Files.readAllBytes(OPTIONS_PATH));
+				OPTIONS = gson.fromJson(fileAsString, Options.class);
 			}
 		} catch (IOException e) {
 			Loggger.log(e.getMessage());

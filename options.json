@@ -1,0 +1,69 @@
+{
+  "options": [
+    {
+      "className": "lantern",
+      "normalLight": {
+        "red": 255,
+        "green": 236,
+        "blue": 191,
+        "alpha": 46
+      },
+      "soulLight": {
+        "red": 80,
+        "green": 240,
+        "blue": 242,
+        "alpha": 31
+      },
+      "normalDistance": {
+        "distance50": 96,
+        "distance100": 257
+      },
+      "soulDistance": {
+        "distance50": 96,
+        "distance100": 257
+      }
+    },
+    {
+      "className": "torches",
+      "normalLight": {
+        "red": 255,
+        "green": 236,
+        "blue": 191,
+        "alpha": 59
+      },
+      "soulLight": {
+        "red": 40,
+        "green": 100,
+        "blue": 242,
+        "alpha": 59
+      },
+      "redstoneLight": {
+        "red": 200,
+        "green": 20,
+        "blue": 20,
+        "alpha": 59
+      },
+      "normalDistance": {
+        "distance50": 96,
+        "distance100": 255
+      },
+      "soulDistance": {
+        "distance50": 96,
+        "distance100": 255
+      },
+      "redstoneDistance": {
+        "distance50": 96,
+        "distance100": 255
+      }
+    },
+    {
+      "className": "treeleaves",
+      "useModel": false,
+      "brushTrimmed": true,
+      "brushOptimized": true,
+      "brushSetForPropper": false,
+      "translucent": true
+
+    }
+  ]
+}

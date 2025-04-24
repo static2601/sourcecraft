@@ -5,6 +5,7 @@ import converter.mapper.Mapper;
 import minecraft.Block;
 import minecraft.Position;
 import minecraft.Property;
+import periphery.Option;
 import vmfWriter.Color;
 import vmfWriter.entity.pointEntity.PointEntity;
 import vmfWriter.entity.pointEntity.pointEntity.EnvFire;
@@ -16,27 +17,27 @@ import java.util.Vector;
 
 public class Torches extends Action {
 
-//	public final static int red = 255;
-//	public final static int blue = 191;
-//	public final static int green = 236;
-//	public final static int brigthness = 60;
-//	public final static int distance50 = 96;
-//	public final static int distance100 = 256;
-	public final static Color LIGHT_COLOR = new Color(255, 236, 191, 60);
-	public final static Color LIGHT_COLOR2 = new Color(40, 100, 242, 60);
-	public final static Color LIGHT_COLOR3 = new Color(200, 20, 20, 60);
-	public final static Light TORCH = new Light(Torches.LIGHT_COLOR, 96, 256);
-	public final static Light SOUL_TORCH = new Light(Torches.LIGHT_COLOR2, 96, 256);
-	public final static Light REDSTONE_TORCH = new Light(Torches.LIGHT_COLOR3, 96, 256);
+    private final Light TORCH;
+	private final Light SOUL_TORCH;
+	private final Light REDSTONE_TORCH;
 	private final static String EFFECT_NAME = "flaming_arrow";
-	public final static InfoParticleSystem PARTICLE_SYSTEM = new InfoParticleSystem(Torches.EFFECT_NAME, 270, 0, 0);
+	private final static InfoParticleSystem PARTICLE_SYSTEM = new InfoParticleSystem(Torches.EFFECT_NAME, 270, 0, 0);
 	protected static final PointEntity FLAME = new EnvFire().setFireSize(3);
 
-	private static String MODEL = "models/props/minecraft_original/Torch.mdl";
-	private PropStatic torch = new PropStatic(Torches.MODEL);
+	private static final String MODEL = "models/props/minecraft_original/Torch.mdl";
+	private final PropStatic torch = new PropStatic(Torches.MODEL);
 
 	public Torches() {
 		this.torch.setSolid(0);
+		Option option = getOptions(this.getName().toLowerCase());
+        Color LIGHT_COLOR1 = option.getNormalLight();
+        Color LIGHT_COLOR2 = option.getSoulLight();
+        Color LIGHT_COLOR3 = option.getRedstoneLight();
+        int[] normalDistance = option.getNormalDistance().getDistances();
+        int[] soulDistance = option.getSoulDistance().getDistances();
+		TORCH = new Light(LIGHT_COLOR1, normalDistance[0], normalDistance[1]);
+		SOUL_TORCH = new Light(LIGHT_COLOR2, soulDistance[0], soulDistance[1]);
+		REDSTONE_TORCH = new Light(LIGHT_COLOR3, soulDistance[0], soulDistance[1]);
 	}
 
 	@Override
@@ -191,19 +192,19 @@ public class Torches extends Action {
 		context.movePointInGridDimension(x, y, z);
 		context.addPointEntity(Torches.PARTICLE_SYSTEM);
 		//context.addPointEntity(Torches.FLAME);
-		context.addPointEntity(Torches.TORCH);
+		context.addPointEntity(TORCH);
 	}
 	public void addSoulFlame(Mapper context, double x, double y, double z) {
 		context.movePointInGridDimension(x, y, z);
 		context.addPointEntity(Torches.PARTICLE_SYSTEM);
 		context.addPointEntity(Torches.FLAME);
-		context.addPointEntity(Torches.SOUL_TORCH);
+		context.addPointEntity(SOUL_TORCH);
 	}
 	public void addRedstone(Mapper context, double x, double y, double z, boolean addLight) {
 		context.movePointInGridDimension(x, y, z);
 		//context.addPointEntity(Torches.PARTICLE_SYSTEM);
 		//context.addPointEntity(Torches.FLAME);
-		if (addLight) context.addPointEntity(Torches.REDSTONE_TORCH);
+		if (addLight) context.addPointEntity(REDSTONE_TORCH);
 	}
 }
 

@@ -1,54 +1,33 @@
 package converter.actions.actions;
 
-import basic.Loggger;
 import converter.actions.Action;
 import converter.mapper.Mapper;
 import minecraft.Block;
 import minecraft.Position;
 import minecraft.Property;
-import periphery.LightDistance;
-import periphery.Lights;
 import periphery.Option;
 import vmfWriter.Color;
 import vmfWriter.entity.pointEntity.pointEntity.Light;
 import vmfWriter.entity.pointEntity.pointEntity.PropStatic;
 
-/**
- *
- *
- */
 public class Lantern extends Action {
 
-//	public final static int red = 255;
-//	public final static int blue = 191;
-//	public final static int green = 236;
-//	public final static int brigthness = 60;
-//	public final static int distance50 = 96;
-//	public final static int distance100 = 256;
-	public Color LIGHT_COLOR1;// = new Color(255, 236, 191, 60);
-	public Color LIGHT_COLOR2;// = new Color(80, 240, 242, 60);
-	public int[] normalDistance;// = new int[2];
-	public int[] soulDistance;// = new int[2];
-	public Light LIGHT1;
-	public Light LIGHT2;
-//	public static Light LIGHT1 = new Light(Lantern.LIGHT_COLOR1, normalDistance[0], normalDistance[1]);
-//	public static Light LIGHT2 = new Light(Lantern.LIGHT_COLOR2, soulDistance[0], soulDistance[1]);
-	//public final static Light LIGHT1 = new Light(Lantern.LIGHT_COLOR1, 96, 256);
-	//public final static Light LIGHT2 = new Light(Lantern.LIGHT_COLOR2, 96, 256);
+    private final Light LIGHT1;
+	private final Light LIGHT2;
 	private final static String MODEL = "models/props/minecraft_original/lantern.mdl";
 	private final static String MODEL2 = "models/props/minecraft_original/lanternHanging.mdl";
 	private static final PropStatic lantern = new PropStatic(MODEL);
 
 	public Lantern() {
+		//TODO probably should be a error catch here or whatever
+		// try to simplify code, maybe move to Action
 		Option option = getOptions(this.getName().toLowerCase());
-		this.LIGHT_COLOR1 = option.getNormalLight();
-		this.LIGHT_COLOR2 = option.getSoulLight();
-		this.normalDistance = option.getNormalDistance().getDistances();
-		this.soulDistance = option.getSoulDistance().getDistances();
-		//Lights lights = option.getNormalLight();
-		//this.LIGHT1 = new Light(lights.getColor(), lights.getDistance()[0], lights.getDistance()[1]);
-		this.LIGHT1 = new Light(this.LIGHT_COLOR1, normalDistance[0], normalDistance[1]);
-		this.LIGHT2 = new Light(this.LIGHT_COLOR2, soulDistance[0], soulDistance[1]);
+        Color LIGHT_COLOR1 = option.getNormalLight();
+        Color LIGHT_COLOR2 = option.getSoulLight();
+        int[] normalDistance = option.getNormalDistance().getDistances();
+        int[] soulDistance = option.getSoulDistance().getDistances();
+		LIGHT1 = new Light(LIGHT_COLOR1, normalDistance[0], normalDistance[1]);
+		LIGHT2 = new Light(LIGHT_COLOR2, soulDistance[0], soulDistance[1]);
 	}
 	@Override
 	public void add(Mapper context, Position p, Block material) {

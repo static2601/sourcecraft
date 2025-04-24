@@ -313,15 +313,14 @@ public class CustomActionManager extends ActionManager {
 		this.actions.put(Material.glow_lichen, new Vines());
 		this.actions.put(Material.sculk_vein, new Vines());
 
-		this.actions.put(Material.torch, new Torches(0, 0));
-		this.actions.put(Material.wall_torch, new Torches(0, 0));
-		this.actions.put(Material.redstone_torch, new Torches(1, 0));
-		this.actions.put(Material.redstone_wall_torch, new Torches(1, 0));
+		this.actions.put(Material.torch, new Torches());
+		this.actions.put(Material.wall_torch, new Torches());
+		this.actions.put(Material.redstone_torch, new Torches());
+		this.actions.put(Material.redstone_wall_torch, new Torches());
+		this.actions.put(Material.soul_torch, new Torches());
+		this.actions.put(Material.soul_wall_torch, new Torches());
 		this.actions.put(Material.redstone_lamp, new RedstoneLamp());
 
-
-
-		//this.actions.put(Material.water, new NoAction()); // <-------water
 		this.actions.put(Material.snow, new Snow());
 		this.actions.put(Material.sea_pickle, new SeaPickle(0, 6));
 		this.actions.put(Material._wall, new Wall());

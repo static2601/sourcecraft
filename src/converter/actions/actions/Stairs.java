@@ -2,12 +2,7 @@ package converter.actions.actions;
 
 import converter.actions.Action;
 import converter.mapper.Mapper;
-import minecraft.Area;
-import minecraft.Block;
-import minecraft.Blocks;
-import minecraft.Position;
-import minecraft.Property;
-import minecraft.SubBlockPosition;
+import minecraft.*;
 import vmfWriter.entity.pointEntity.pointEntity.PropStatic;
 
 public class Stairs extends Action {

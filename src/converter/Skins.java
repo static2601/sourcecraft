@@ -191,6 +191,8 @@ public class Skins {
 
 		this.put(Material.cobblestone_slab, Texture.cobblestone);
 		this.put(Material.stripped_crimson_hyphae, Texture.stripped_crimson_stem);
+		this.put(Material.infested_cracked_stone_bricks, Texture.cracked_stone_bricks);
+		this.put(Material.cracked_stone_bricks, Texture.cracked_stone_bricks);
 		this.put(Material.crimson_hyphae, Texture.crimson_stem);
 		this.put(Material.crimson_stairs, Texture.crimson_planks);
 		this.put(Material.crimson_slab, Texture.crimson_planks);

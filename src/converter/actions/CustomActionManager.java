@@ -79,7 +79,7 @@ public class CustomActionManager extends ActionManager {
 
 		this.actions.put(Material.lantern, new Lantern());
 		this.actions.put(Material.soul_lantern, new Lantern());
-		this.actions.put(Material.glowstone, new Glowstone());
+		//this.actions.put(Material.glowstone, new Glowstone());
 		//this.actions.put(Material.lantern, new TestDrawFromCoords());
 
 		this.actions.put(Material._carpet, new Carpet());

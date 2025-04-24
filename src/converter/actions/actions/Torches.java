@@ -33,11 +33,13 @@ public class Torches extends Action {
         Color LIGHT_COLOR1 = option.getNormalLight();
         Color LIGHT_COLOR2 = option.getSoulLight();
         Color LIGHT_COLOR3 = option.getRedstoneLight();
+		//TODO - ugly, clean up/remake getDistances
         int[] normalDistance = option.getNormalDistance().getDistances();
         int[] soulDistance = option.getSoulDistance().getDistances();
+		int[] redstoneDistance = option.getRedstoneDistance().getDistances();
 		TORCH = new Light(LIGHT_COLOR1, normalDistance[0], normalDistance[1]);
 		SOUL_TORCH = new Light(LIGHT_COLOR2, soulDistance[0], soulDistance[1]);
-		REDSTONE_TORCH = new Light(LIGHT_COLOR3, soulDistance[0], soulDistance[1]);
+		REDSTONE_TORCH = new Light(LIGHT_COLOR3, redstoneDistance[0], redstoneDistance[1]);
 	}
 
 	@Override

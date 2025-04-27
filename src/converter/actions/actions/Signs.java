@@ -24,7 +24,7 @@ public class Signs extends Action {
 			"oak", "spruce", "birch",
 			"jungle", "acacia", "dark_oak",
 			"mangrove", "cherry", "bamboo",
-			"crimson", "warped"
+			"crimson", "warped", "pale_oak"
 	};
 
 	@Override

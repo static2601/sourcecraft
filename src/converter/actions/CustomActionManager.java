@@ -152,6 +152,9 @@ public class CustomActionManager extends ActionManager {
 		this.actions.put(Material.weeping_vines_plant, new CrossModel(73, 0));
 		this.actions.put(Material.white_tulip, new CrossModel(74, 0));
 		this.actions.put(Material.wither_rose, new CrossModel(75, 0));
+		this.actions.put(Material.pale_oak_sapling, new CrossModel(76, 0));
+		this.actions.put(Material.pale_hanging_moss, new CrossModel(77, 0));
+		this.actions.put(Material.firefly_bush, new CrossModel(78, 0));
 
 		this.actions.put(Material.beetroots, new CropModel(0, 0));
 		//this.actions.put(Material.beetroots_stage1, new CropModel(1, 0));
@@ -232,6 +235,7 @@ public class CustomActionManager extends ActionManager {
 		this.actions.put(Material.crimson_button, new ButtonA(10, 0));
 		this.actions.put(Material.warped_button, new ButtonA(11, 0));
 		this.actions.put(Material.polished_blackstone_button, new ButtonA(12, 0));
+		this.actions.put(Material.pale_oak_button, new ButtonA(13, 0));
 
 		//beds
 		this.actions.put(Material.red_bed, new Bed(0));

@@ -22,7 +22,7 @@ public class Fences extends Action {
 			"birch", "jungle", "dark_oak",
 			"oak", "spruce", "acacia", "mangrove",
 			"cherry", "bamboo", "crimson", "warped",
-			"nether_brick"
+			"nether_brick", "pale_oak"
 	};
 
 	@Override

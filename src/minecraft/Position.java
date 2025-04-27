@@ -126,7 +126,9 @@ public class Position implements Comparable<Position>, VmfValue {
 	public Position getOffset(int x, int y, int z) {
 		return new Position(this.x + x, this.y + y, this.z + z);
 	}
-
+	public Position getOffset(Position position) {
+		return new Position(this.x + position.x, this.y + position.y, this.z + position.z);
+	}
 	public String getString() {
 		return this.x + " " + this.y + " " + this.z;
 	}

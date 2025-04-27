@@ -11,6 +11,7 @@ import vmfWriter.entity.pointEntity.pointEntity.PropStatic;
 public class Door extends Action {
 
 	private static String DOOR = "models/props/minecraft_original/door.mdl";
+	private static String DOOR2 = "models/props/minecraft_original/door2.mdl";
 	private static String TRAPDOOR = "models/props/minecraft_original/trapdoor.mdl";
 	private PropStatic door = new PropStatic(Door.DOOR);
 
@@ -18,7 +19,8 @@ public class Door extends Action {
 	private static final String[] skins = {
 			"oak", "spruce", "birch", "jungle", "acacia", "dark_oak",
 			"mangrove", "cherry", "bamboo", "crimson", "warped", "iron",
-			"copper", "exposed_copper", "oxidized_copper", "weathered_copper"
+			"copper", "exposed_copper", "oxidized_copper", "weathered_copper",
+			"pale_oak"
 	};
 
 	@Override
@@ -80,7 +82,20 @@ public class Door extends Action {
 			door.getAngles().setZ(zRotation);
 			door.getAngles().setX(xRotation);
 			setMatSkinFilter("waxed_");
-			door.setSkin(getMatSkin(material, skins));
+			// max skins for a model is 32, including second skin part and base skin
+			// so 31 is max, 30(15)
+			int skin = getMatSkin(material, skins);
+			if (skin > 15) {
+				skin -= 15;
+				door.setModel(DOOR2);
+				// since using a new model, start from 0,
+				// but add one since base material is oak_door
+				// qc skins must be oak_door top/bottom,
+				// then extra skins pale_door top/bottom, etc
+				door.setSkin(skin);
+			}
+			else door.setSkin(getMatSkin(material, skins));
+
 			door.setSolid(6);
 			context.addPointEntity(door);
 			context.markAsConverted(p);

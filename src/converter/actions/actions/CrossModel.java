@@ -1,13 +1,13 @@
 package converter.actions.actions;
 
-import basic.Loggger;
 import converter.actions.Action;
 import converter.mapper.Mapper;
 import minecraft.Block;
-import minecraft.Blocks;
 import minecraft.Position;
 import minecraft.Property;
+import vmfWriter.Solid;
 import vmfWriter.entity.pointEntity.pointEntity.PropStatic;
+import vmfWriter.entity.solidEntity.TriggerHurt;
 
 import java.util.Objects;
 
@@ -104,6 +104,15 @@ public class CrossModel extends Action {
 		crossModel.setSolid(this.solid);
 		crossModel.disableShadows(1);
 		context.addPointEntity(crossModel);
+
+		// sweet berry bush, skin 58(earliest stage) - 31 + 3(full growth)
+		if (skin == 30) {
+			context.addSolidEntity(new TriggerHurt(this.createArea(
+					context, p, end, material), 1, 128));
+		}
 		context.markAsConverted(p);
+	}
+	private Solid createArea(Mapper context, Position p, Position end, Block material) {
+		return context.createCuboid(p, end.getOffset(0, 0, 0), material);
 	}
 }

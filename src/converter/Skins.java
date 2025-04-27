@@ -24,8 +24,8 @@ public class Skins {
 	public static final Skin NODRAW = new Skin(NODRAW_TEXTURE, DEFAULT_SCALE);
 	public static final Skin TRIGGER = new Skin("tools/toolstrigger", DEFAULT_SCALE);
 	public static final Skin SKYBOX = new Skin("tools/toolsskybox", DEFAULT_SCALE);
-	private static final Skin PLAYER_CLIP = new Skin("tools/toolsplayerclip", DEFAULT_SCALE);
-	//private static final Skin LADDER = new Skin("tools/toolsinvisibleladder", DEFAULT_SCALE);
+	public static final Skin PLAYER_CLIP = new Skin("tools/toolsplayerclip", DEFAULT_SCALE);
+	public static final Skin LADDER = new Skin("tools/toolsinvisibleladder", DEFAULT_SCALE);
 
 	public static final String DEFAULT_TEXTURE = "dev/dev_measurecrate02";
 
@@ -239,6 +239,10 @@ public class Skins {
 		this.put(Material.oak_stairs, Texture.oak_planks);
 
 		this.put(Material.orange_carpet, Texture.orange_wool);
+		this.put(Material.stripped_pale_oak_wood, Texture.stripped_pale_oak_log);
+		this.put(Material.pale_oak_wood, Texture.pale_oak_log);
+		this.put(Material.pale_oak_slab, Texture.pale_oak_planks);
+		this.put(Material.pale_oak_stairs, Texture.pale_oak_planks);
 		this.put(Material.pink_carpet, Texture.pink_wool);
 		this.put(Material.polished_andesite_slab, Texture.polished_andesite);
 		this.put(Material.polished_diorite_slab, Texture.polished_diorite);

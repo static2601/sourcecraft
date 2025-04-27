@@ -32,7 +32,7 @@ public class Ramp extends Cuboid {
 	public void writeVmf(ValveWriter writer) throws IOException {
 		writer.open(Solid.SOLID_TAG)
 				.putBrushID();
-		int bID = writer.getCounter().getBrushId();
+		//int bID = writer.getCounter().getBrushId();
 		//Loggger.log("BrushID: "+ bID);
 
 		switch (this.orientation) {

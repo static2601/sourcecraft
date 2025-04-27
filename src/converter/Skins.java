@@ -2,11 +2,9 @@ package converter;
 
 import java.util.function.Supplier;
 
-import basic.Loggger;
 import basic.NameSupplier;
 import converter.actions.BlockMap;
 import minecraft.*;
-import org.w3c.dom.Text;
 import periphery.TexturePack;
 import vmfWriter.Skin;
 
@@ -121,11 +119,8 @@ public class Skins {
 		// set based on common
 		for (Material material : Material.values()) {
 			String name = material.name();
-			Loggger.log(name);
-			//if(name.equals("_pressure_plate")) this.put(material, Texture.redstone_block);
-			//else
+
 			if (name.endsWith("_log")) {
-				//Loggger.log(Blocks.get(name).getName() + " <--------------------------------");
 				this.put(material,
 						this.createSkinTopBottomDir(() -> name, () -> name+"_top", () -> name+"_top", "y"));
 			}
@@ -164,7 +159,6 @@ public class Skins {
 			}
 
 		}
-		// this.skins.put(Blocks.get("sourcecraft:ramp"), PLAYER_CLIP);
 
 		this.put(Material.barrel, this.createSkinTopBottom(() -> "barrel_side", () -> "barrel_top", () -> "barrel_bottom"));
 

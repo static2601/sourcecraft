@@ -79,7 +79,24 @@ public class CrossModel extends Action {
 			if (age != null) {
 				// age is stage of growth, add to current skin number
 				skin += Integer.parseInt(age);
+				// add to _skin if it as an age
+				//this._skin += Integer.parseInt(age);
 			}
+		}
+
+		//TODO does this still work on gmod? should it be disabled if not tf2?
+
+		// sweet berry bush, skin 58(earliest stage) + 3(full growth)
+		if (skin == 61) {
+			context.addSolidEntity(new TriggerHurt(this.createArea(
+					context, p, end, material), 1, 128));
+		}
+		//75 - wither rose
+		else
+		if (skin == 75) {
+			//131072 - poison
+			context.addSolidEntity(new TriggerHurt(this.createArea(
+					context, p, end, material), 1, 131072));
 		}
 
 		// if multiple skins over max of 31, change models
@@ -91,7 +108,6 @@ public class CrossModel extends Action {
 			crossModel = new PropStatic(CrossModel.MODEL3);
 			skin = skin - 62;
 		}
-		//Loggger.log("this.skin after reduce: "+skin);
 		context.setPointToGrid(p);
 		context.movePointInGridDimension(0.5, 0, 0.5);
 
@@ -104,15 +120,9 @@ public class CrossModel extends Action {
 		crossModel.setSolid(this.solid);
 		crossModel.disableShadows(1);
 		context.addPointEntity(crossModel);
-
-		// sweet berry bush, skin 58(earliest stage) - 31 + 3(full growth)
-		if (skin == 30) {
-			context.addSolidEntity(new TriggerHurt(this.createArea(
-					context, p, end, material), 1, 128));
-		}
 		context.markAsConverted(p);
 	}
 	private Solid createArea(Mapper context, Position p, Position end, Block material) {
-		return context.createCuboid(p, end.getOffset(0, 0, 0), material);
+		return context.createCuboid(p, end, material);
 	}
 }

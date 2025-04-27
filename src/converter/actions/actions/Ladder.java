@@ -1,12 +1,16 @@
 package converter.actions.actions;
 
+import basic.Loggger;
 import converter.actions.Action;
 import converter.mapper.Mapper;
 import minecraft.Block;
-import minecraft.Blocks;
 import minecraft.Position;
 import minecraft.Property;
-import periphery.Minecraft;
+import periphery.Periphery;
+import periphery.SourceGame;
+import vmfWriter.Solid;
+import vmfWriter.entity.solidEntity.AddTfPlayerCondition;
+import vmfWriter.entity.solidEntity.FuncLadder;
 
 public class Ladder extends Action {
 
@@ -26,47 +30,65 @@ public class Ladder extends Action {
 		Position startOffset, endOffset;
 		String dir = block.getProperty(Property.facing);
 		int pixels = 16;
-		if (dir.equals("north")) {
-			startOffset = new Position(0, 0, 15);
-			endOffset = new Position(0, 0, 0);
-		} else if (dir.equals("south")) {
-			startOffset = new Position(0, 0, 0);
-			endOffset = new Position(0, 0, 15);
-		} else if (dir.equals("east")) {
-			startOffset = new Position(0, 0, 0);
-			endOffset = new Position(15, 0, 0);
-		} else {
-			startOffset = new Position(15, 0, 0);
-			endOffset = new Position(0, 0, 0);
-		}
-		this.context.addDetail(context.createCuboid(pos, end, pixels, startOffset, endOffset, block));
+        switch (dir) {
+            case "north":
+                startOffset = new Position(0, 0, 15);
+                endOffset = new Position(0, 0, 0);
+                break;
+            case "south":
+                startOffset = new Position(0, 0, 0);
+                endOffset = new Position(0, 0, 15);
+                break;
+            case "east":
+                startOffset = new Position(0, 0, 0);
+                endOffset = new Position(15, 0, 0);
+                break;
+            default:
+                startOffset = new Position(15, 0, 0);
+                endOffset = new Position(0, 0, 0);
+                break;
+        }
+		this.context.addDetail(context.createCuboid(
+                pos, end, pixels, startOffset, endOffset, block));
 	}
 
 	private void handleClipDirection(Position pos, Position end, Block block) {
 		Position startOffset, endOffset;
+
 		String dir = block.getProperty(Property.facing);
 		int pixels = 8;
-		if (dir.equals("north")) {
-			startOffset = new Position(1, 0, 7);
-			endOffset = new Position(1, 0, 0);
-		} else if (dir.equals("south")) {
-			startOffset = new Position(1, 0, 0);
-			endOffset = new Position(1, 0, 7);
-		} else if (dir.equals("east")) {
-			startOffset = new Position(0, 0, 1);
-			endOffset = new Position(7, 0, 1);
-		} else {
-			startOffset = new Position(7, 0, 1);
-			endOffset = new Position(0, 0, 1);
-		}
-		//TODO - add as trigger, with whatever ladder properties set, different for each game
-		// tf2 - no ladders, mod maybe
+        switch (dir) {
+            case "north":
+                startOffset = new Position(1, 0, 7);
+                endOffset = new Position(1, 0, 0);
+                break;
+            case "south":
+                startOffset = new Position(1, 0, 0);
+                endOffset = new Position(1, 0, 7);
+                break;
+            case "east":
+                startOffset = new Position(0, 0, 1);
+                endOffset = new Position(7, 0, 1);
+                break;
+            default:
+                startOffset = new Position(7, 0, 1);
+                endOffset = new Position(0, 0, 1);
+                break;
+        }
 
-		//this.context.addSolid(
-		//		context.createCuboid(pos, end, pixels, startOffset, endOffset, Blocks.get(
-		//				t -> t.setName(Minecraft.toMaterial("tools/toolstrigger")))));
+        SourceGame game = Periphery.CONFIG.getGame();
 
-		this.context.addSolid(
-				context.createCuboid(pos, end, pixels, startOffset, endOffset, Blocks.get("sourcecraft:ladder")));
+        if (game.getShortName().equals("tf")){
+            this.context.addSolidEntity(new AddTfPlayerCondition(this.createArea(
+                    this.context, pos, end, pixels, startOffset, endOffset, block), 107, -1));
+        }
+        else {
+            this.context.addSolidEntity(new FuncLadder(this.createArea(
+                    this.context, pos, end, pixels, startOffset, endOffset, block)));
+        }
 	}
+    private Solid createArea(Mapper context, Position p, Position end,
+            int pixels, Position startOffset, Position endOffset, Block material) {
+        return context.createCuboid(p, end, pixels, startOffset, endOffset, material);
+    }
 }

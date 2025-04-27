@@ -9,8 +9,6 @@ import java.util.Queue;
 
 import basic.Loggger;
 import converter.actions.actions.CenteredPointEntity;
-import converter.actions.actions.CssLamp;
-import converter.actions.actions.TallGrassTf2;
 import main.ConvertTask;
 import minecraft.Material;
 import minecraft.World;
@@ -61,6 +59,21 @@ public class Config {
 
 		for (int i = 0; i < length; i++) {
 			result[i] = (ConvertOption) optionsArray[i];
+		}
+		return result;
+	}
+
+	public int getScale(String defaultConvertOption) {
+		int result = 0;
+		Object[] optionArray = this.options.toArray();
+
+		int length = optionArray.length;
+		for (int i = 0; i < length; i++) {
+			ConvertOption test = (ConvertOption) optionArray[i];
+			String gameName = test.getName();
+			if (gameName.equals(defaultConvertOption)) {
+				result = test.getScale();
+			}
 		}
 		return result;
 	}

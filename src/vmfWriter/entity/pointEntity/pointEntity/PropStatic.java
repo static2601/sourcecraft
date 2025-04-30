@@ -3,7 +3,10 @@ package vmfWriter.entity.pointEntity.pointEntity;
 import java.io.IOException;
 
 import minecraft.Position;
+import periphery.Config;
+import periphery.Periphery;
 import vmfWriter.Angles;
+import vmfWriter.ValveWriter;
 import vmfWriter.entity.pointEntity.PointEntity;
 
 public class PropStatic extends PointEntity {
@@ -86,7 +89,24 @@ public class PropStatic extends PointEntity {
 	}
 
 	@Override
-	public void writeVmfSpecific(vmfWriter.ValveWriter writer) throws IOException {
+	public void writeVmfSpecific(ValveWriter writer) throws IOException {
+		// get scale, append it to models directory so we know which scaled models to use
+		// find in string the materials folder and append _ + scale
+		//TODO - test
+		// scale will have to get from config and materials folder could change,
+		// maybe change model to only be the model name or subfolder and name of model.
+		// maybe an option would be 'use custom model' and a path to it.
+
+		Config config = Periphery.CONFIG;
+		int scale = config.getScale(config.getConvertOption());
+		String game = config.getConvertOption();
+
+		//Loggger.log("game scale: " + scale + ", game: " + game);
+
+		String modelPath = this.model;
+		if (modelPath.contains("/minecraft_original/")) {
+			modelPath = this.model.replace("/minecraft_original", "/minecraft_original_"+ scale);
+		}
 		writer.put("angles", this.angles)
 				.put("disableselfshadowing", false)
 				.put("disableshadows", this.shadows)
@@ -97,7 +117,7 @@ public class PropStatic extends PointEntity {
 				.put("ignorenormals", false)
 				.put("maxdxlevel", 0)
 				.put("mindxlevel", 0)
-				.put("model", this.model)
+				.put("model", modelPath)
 				.put("screenspacefade", 0)
 				.put("skin", this.skin)
 				.put("solid", this.solid);

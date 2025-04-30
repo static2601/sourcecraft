@@ -63,7 +63,7 @@ public abstract class Action {
 
 		} else {
 			// else use full block of water
-			Loggger.log("this. block: "+material.getName()+", above:"+above.getName() + " contains 'minecraft:water' <-");
+			//Loggger.log("this. block: "+material.getName()+", above:"+above.getName() + " contains 'minecraft:water' <-");
 			context.addSolid(context.createCuboid(p, p,
 					Blocks.get(t -> t.setName(Material.water))));
 		}

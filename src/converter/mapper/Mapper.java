@@ -68,6 +68,11 @@ public abstract class Mapper extends SourceMapper {
 		this.target.movePointExactly(translated);
 	}
 
+
+	public void movePointByPixel(double x, double y, double z) {
+		this.movePointInGridDimension(x/16, y/16, z/16);
+	}
+
 	protected Position convert(Position p) {
 		// z and y axis are switched
 		// NORTH-SOUTH axis is flipped

@@ -28,14 +28,15 @@ public class CustomActionManager extends ActionManager {
 
 		// list of all items with waterlogged property, run check if true and add liquuid
 
+		//TODO have DEBUG option for showing/hiding blocks not set
+		// preventing orange texture/unmapped blocks from showing.
 
 		// if no action described, none will render
 		for (Material m : new Material[] {
 
-//				Material.lever,
+				Material.lever,
 				Material.fire,
-//				Material.sea_lantern
-				//Material.water,
+				Material.sea_lantern,
 				//Material.lava
 		}) {
 			this.actions.put(m, NoAction.INSTANCE);
@@ -48,8 +49,8 @@ public class CustomActionManager extends ActionManager {
 			this.actions.put(m, new DetailBlock());
 		}
 		for (Material m : new Material[] {
-				//Material.kelp,
-				//Material.kelp_plant,
+//				Material.kelp,
+//				Material.kelp_plant,
 				Material.water,
 				Material.lava
 		}) {
@@ -84,7 +85,7 @@ public class CustomActionManager extends ActionManager {
 
 		this.actions.put(Material._carpet, new Carpet());
 
-		// plants test
+		// plants
 		this.actions.put(Material.acacia_sapling, new CrossModel(0, 0));
 		this.actions.put(Material.allium, new CrossModel(1, 0));
 		this.actions.put(Material.amethyst_cluster, new CrossModel(2, 0));
@@ -156,29 +157,12 @@ public class CustomActionManager extends ActionManager {
 		this.actions.put(Material.pale_hanging_moss, new CrossModel(77, 0));
 		this.actions.put(Material.firefly_bush, new CrossModel(78, 0));
 
+		// crops
 		this.actions.put(Material.beetroots, new CropModel(0, 0));
-		//this.actions.put(Material.beetroots_stage1, new CropModel(1, 0));
-		//this.actions.put(Material.beetroots_stage2, new CropModel(2, 0));
-		//this.actions.put(Material.beetroots_stage3, new CropModel(3, 0));
 		this.actions.put(Material.carrots, new CropModel(4, 0));
-		//this.actions.put(Material.carrots_stage1, new CropModel(5, 0));
-		//this.actions.put(Material.carrots_stage2, new CropModel(6, 0));
-		//this.actions.put(Material.carrots_stage3, new CropModel(7, 0));
 		this.actions.put(Material.nether_wart, new CropModel(8, 0));
-		//this.actions.put(Material.nether_wart_stage1, new CropModel(9, 0));
-		//this.actions.put(Material.nether_wart_stage2, new CropModel(10, 0));
 		this.actions.put(Material.potatoes, new CropModel(11, 0));
-		//this.actions.put(Material.potatoes_stage1, new CropModel(12, 0));
-		//this.actions.put(Material.potatoes_stage2, new CropModel(13, 0));
-		//this.actions.put(Material.potatoes_stage3, new CropModel(14, 0));
 		this.actions.put(Material.wheat, new CropModel(15, 0));
-		//this.actions.put(Material.wheat_stage1, new CropModel(16, 0));
-		//this.actions.put(Material.wheat_stage2, new CropModel(17, 0));
-		//this.actions.put(Material.wheat_stage3, new CropModel(18, 0));
-		//this.actions.put(Material.wheat_stage4, new CropModel(19, 0));
-		//this.actions.put(Material.wheat_stage5, new CropModel(20, 0));
-		//this.actions.put(Material.wheat_stage6, new CropModel(21, 0));
-		//this.actions.put(Material.wheat_stage7, new CropModel(22, 0));
 
 		// coral fan
 		this.actions.put(Material.tube_coral_fan, new CoralFan(0, 0));
@@ -259,39 +243,50 @@ public class CustomActionManager extends ActionManager {
 		this.actions.put(Material.scaffolding, new Scaffolding(0, 6));
 		this.actions.put(Material.ladder, new Ladder());
 		this.actions.put(Material.chain, new Chain());
+		this.actions.put(Material.candle, new Candle());
 
 		for (Material m : Material.values()) {
 			if(m.getName().endsWith("_trapdoor")) {
 				this.actions.put(Blocks.get(m.getName()), new Trapdoor());
 			}
+			else
 			if(m.getName().endsWith("_door")) {
 				this.actions.put(Blocks.get(m.getName()), new Door());
 			}
+			else
 			if(m.getName().endsWith("_fence")) {
 				this.actions.put(Blocks.get(m.getName()), new Fences());
 			}
+			else
 			if(m.getName().endsWith("_fence_gate")) {
 				this.actions.put(Blocks.get(m.getName()), new FenceGate());
 			}
+			else
 			if(m.getName().endsWith("_sign")) {
 				this.actions.put(Blocks.get(m.getName()), new Signs());
 			}
+			else
 			if(m.getName().endsWith("_log")) {
 				this.actions.put(Blocks.get(m.getName()), new AxisBlocks2());
 			}
+			else
 			if(m.getName().endsWith("_wood")) {
 				this.actions.put(Blocks.get(m.getName()), new AxisBlocks2());
 			}
+			else
 			if(m.getName().endsWith("_hyphae")) {
 				this.actions.put(Blocks.get(m.getName()), new AxisBlocks2());
 			}
+			else
 			if(m.getName().endsWith("_terracotta")
 					&& m.getName().contains("glazed_")) {
 				this.actions.put(Blocks.get(m.getName()), new Terracotta());
 			}
+			else
 			if(m.getName().endsWith("_pressure_plate") && !m.getName().startsWith("_")) {
 				this.actions.put(Blocks.get(m.getName()), new PressurePlate());
 			}
+			else
 			if(m.getName().endsWith("rail")) {
 				this.actions.put(Blocks.get(m.getName()), new Rails());
 			}

@@ -364,6 +364,10 @@ public class Skins {
 		this.put(Material.water,
 				this.createSkinTopBottom2("tools/toolsnodraw", Texture.water_still, "tools/toolsnodraw"));
 
+		//TODO lava not working, material may not be created.
+		this.put(Material.lava,
+				this.createSkinTopBottom2("tools/toolsnodraw", Texture.lava_still, "tools/toolsnodraw"));
+
 		this.skins.put(Blocks.get("sourcecraft:ramp"), PLAYER_CLIP);
 		this.skins.put(Blocks.get("sourcecraft:ladder"), TRIGGER);
 

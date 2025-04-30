@@ -1,6 +1,8 @@
 package main;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -22,6 +24,10 @@ public class Main {
 	public static final String AUTHOR = "garten";
 	public static final String LICENSE = "GNU General Public License v3.0";
 	public static final String LICENSE_INFO = "https://www.gnu.org/licenses/gpl-3.0.html";
+
+	public static Place getPlaceCoordinates;
+	public static List<String[]> mainSignTextArr = new ArrayList<>();
+	public static List<String> bookTextArr = new ArrayList<>();
 
 	private Converter converter;
 	private Gui gui;
@@ -52,6 +58,13 @@ public class Main {
 			if (data == null) {
 				return;
 			}
+			//TODO test that this works in all scenarios
+			data.getGame().setGameTargetSavePath(output);
+			Periphery.CONFIG.setConvertData(data);
+			Periphery.CONFIG.setMinecraftPath(this.gui.getMincraftPath());
+			Periphery.CONFIG.setSteamPath(this.gui.getSourcePath());
+			Periphery.write();
+
 			this.converter = new Converter(data);
 			this.converter.convert(output);
 			if (data.getUpdateTextures()) {
@@ -78,12 +91,11 @@ public class Main {
 				}
 			}
 
-			data.getGame()
-					.setGameTargetSavePath(output);
-			Periphery.CONFIG.setConvertData(data);
-			Periphery.CONFIG.setMinecraftPath(this.gui.getMincraftPath());
-			Periphery.CONFIG.setSteamPath(this.gui.getSourcePath());
-			Periphery.write();
+			//data.getGame().setGameTargetSavePath(output);
+			//Periphery.CONFIG.setConvertData(data);
+			//Periphery.CONFIG.setMinecraftPath(this.gui.getMincraftPath());
+			//Periphery.CONFIG.setSteamPath(this.gui.getSourcePath());
+			//Periphery.write(); // change to run before program ran, to save in case something fails
 
 			// result
 			String outputLast = output.getName();
@@ -115,6 +127,7 @@ public class Main {
 		}
 	}
 
+	//TODO Textures move to game directory, May not work properly or at all.
 	private void moveFolder(File materiaPath) {
 		Object[] options = { "Cancel", "Copy" };
 		String title = "Copy textures";
@@ -132,6 +145,7 @@ public class Main {
 		ConvertTask converterData = new ConvertTask();
 
 		Place place = this.gui.getPlaceFromCoordinates();
+		getPlaceCoordinates = place;
 		World world = this.gui.getWorld();
 		if (world == null) {
 			return null;
@@ -146,6 +160,7 @@ public class Main {
 
 		converterData.setGame(this.gui.getSourceGame());
 
+		//TODO add options to details panel
 		// option
 		String optionName = this.gui.getConvertOption();
 		Loggger.log("option = " + optionName);

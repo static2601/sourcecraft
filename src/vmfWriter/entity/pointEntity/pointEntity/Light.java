@@ -12,16 +12,23 @@ public class Light extends PointEntity {
 	private Color color;
 	private int distance50;
 	private int distance100;
+	private int style = 0;
 
 	public Light(Color color, int distance50, int distance100) {
 		this.color = color;
 		this.distance50 = distance50;
 		this.distance100 = distance100;
 	}
+	public Light(Color color, int distance50, int distance100, int style) {
+		this.color = color;
+		this.distance50 = distance50;
+		this.distance100 = distance100;
+		this.style = style;
+	}
 
 	@Override
 	public Light create(Position origin) {
-		Light result = new Light(this.color, this.distance50, this.distance100);
+		Light result = new Light(this.color, this.distance50, this.distance100, this.style);
 		result.setOrigin(origin);
 		return result;
 	}
@@ -45,6 +52,6 @@ public class Light extends PointEntity {
 				.put("_linear_attn", 0)
 				.put("_quadratic_attn", 1)
 				.put("_zero_percent_distance", this.distance100)
-				.put("style", 0);
+				.put("style", this.style);
 	}
 }

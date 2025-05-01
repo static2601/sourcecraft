@@ -76,7 +76,7 @@ public class Vines extends Action {
 							p, end, parts, offset, negativeOffset, material)));
 		}
 		SourceGame game = Periphery.CONFIG.getGame();
-
+		//TODO make vines climbable an option instead of default.
 		if (game.getShortName().equals("tf"))
 			context.addSolidEntity(new AddTfPlayerCondition(this.createArea(
 					context, p, end, parts, offset, negativeOffset, material), 107, -1));

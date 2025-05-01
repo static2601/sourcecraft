@@ -58,15 +58,21 @@ public class Steam {
 		}
 		return null;
 	}
-
+	public static boolean checkSteamPath(Path path) {
+		File dir = new File(path + "/steamapps");
+        return dir.exists();
+    }
 	public static boolean isSteamPath(Path path) {
 		if (path == null) {
 			return false;
 		}
-		if (!Files.isDirectory(path) || !path.getFileName()
-				.toString()
-				.toLowerCase()
-				.equals(STEAM_NAME.toLowerCase())) {
+
+		if (!Files.isDirectory(path)
+//				|| !path.getFileName()
+//				.toString().toLowerCase()
+//				.equals(STEAM_NAME.toLowerCase())
+				// test path to see if it leads to //steamapps folder
+				|| (!checkSteamPath(path))) {
 			return false;
 		}
 		File gamePath = new File(path.toString() + File.separator + STEAM_GAME_PATH());

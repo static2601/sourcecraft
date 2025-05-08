@@ -33,7 +33,7 @@ public class Signs extends Action {
 
 		// check sign text for custom command
 		BlockEntities blockEnt = new BlockEntities();
-		if (blockEnt.getText(p, 0)[0].contains("[SC:")) {
+		if (blockEnt.getText(p, 0)[0].toLowerCase().contains("[sc:")) {
 			blockEnt.doSignCommand(blockEnt.getText(p, 0), context, p, material, sign);
 		}
 		else {

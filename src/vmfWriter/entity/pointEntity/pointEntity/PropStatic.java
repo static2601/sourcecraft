@@ -101,11 +101,15 @@ public class PropStatic extends PointEntity {
 		int scale = config.getScale(config.getConvertOption());
 		String game = config.getConvertOption();
 
-		//Loggger.log("game scale: " + scale + ", game: " + game);
-
 		String modelPath = this.model;
+
+		// the model path set in the class contains minecraft_original in most cases
+		// set it to be the actual location, <selected_texturepack>_<scale_used>
+		// eg: private static final String MODEL = "models/props/minecraft_original/Bed.mdl";
+		// change to "models/props/<texturePack>_<scale>/Bed.mdl"
+		String texturePack = config.getTexturePack();
 		if (modelPath.contains("/minecraft_original/")) {
-			modelPath = this.model.replace("/minecraft_original", "/minecraft_original_"+ scale);
+			modelPath = this.model.replace("/minecraft_original", "/"+ texturePack +"_"+ scale);
 		}
 		writer.put("angles", this.angles)
 				.put("disableselfshadowing", false)

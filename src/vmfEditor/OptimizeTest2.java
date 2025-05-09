@@ -22,11 +22,21 @@ public class OptimizeTest2 {
     private ArrayList<int[]> entityFacesTouching = new ArrayList<>();
     private ArrayList<int[]> solidFacesTouching = new ArrayList<>();
 
-    public static void main(String[] args) {
-        new OptimizeTest2();
+//    public static void main(String[] args) {
+//        new OptimizeTest2();
+//    }
+
+    public OptimizeTest2(File file) {
+        this.file = file;
+        Loggger.log("Running experimental VMF brush merger...");
+        Loggger.log("file: "+ file);
+       if (Optimize()) {
+           String filename = file.getName().split("\\.")[0];
+           writeVMF(filename+"1");
+       }
     }
 
-    public OptimizeTest2() {
+    public boolean Optimize() {
 
         VmfSolid vmfSolid = null;
         VmfSolidSide vmfSolidSide = null;
@@ -35,7 +45,7 @@ public class OptimizeTest2 {
         VmfEntity vmfEntity = null;
 
         //file = new File("C://Users/stati/Desktop/testmergebrushes.vmf");
-        file = new File("D://ProjectFiles/test.vmf");
+        //file = new File("D://ProjectFiles/test.vmf");
         //file = new File("C://Users/stati/Desktop/testMERGEDBRUSHES01.vmf");
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
@@ -200,6 +210,11 @@ public class OptimizeTest2 {
                         inSide = true;
                         vmfSolidSide = new VmfSolidSide();
                         if(lastLine.contains("id")) {
+                            // fails here because of one less tab
+                            // it would error everywhere because of the one less tab
+                            // lastline is "\t\"id\"", single tab and trying to remove line with 2 tabs
+                            // trying to parseInt "id" "5440", should only be "5440"...
+                            //vmfSolid.id = formatLineInt(lastLine, "\t\"id\"");
                             vmfSolid.id = formatLineInt(lastLine, "\t\t\"id\"");
                         }
                     }
@@ -464,11 +479,13 @@ public class OptimizeTest2 {
                 mergePreviousBrushes();
 
             } else {
+                // recent test results, took a long time, merged some brushes leaving the original
+                // in its place, not deleting them with alot of overlapping brushes/details, no stairs merged,
                 mergeStairRamps();
                 // merge solids at runtime
-                //mergeSolids();
+                mergeSolids();
                 // merge func_detail/illusionary
-                //mergeFuncDetail();
+                mergeFuncDetail();
 
                 // save brushes merged to txt file
                 // for later recall at runtime
@@ -497,7 +514,8 @@ public class OptimizeTest2 {
             Loggger.log("Func_Detail Brushes Merged: " + deleteCountDetail);
             Loggger.log("Total Brushed Merged: " + (deleteCountDetail + deleteCount));
             Loggger.log("Writing VMF Content...");
-            writeVMF("test3");
+            //writeVMF("test3");
+            return true;
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -547,7 +565,7 @@ public class OptimizeTest2 {
     }
 
     public void getTextFacesTxt() throws FileNotFoundException {
-        File filetxt = new File("D://ProjectFiles/brusheslist.txt");
+        File filetxt = new File("D://Coding Projects/ProjectFiles/brusheslist.txt");
         //file = new File("C://Users/stati/Desktop/testMERGEDBRUSHES01.vmf");
         try (BufferedReader br = new BufferedReader(new FileReader(filetxt))) {
             String line;
@@ -577,11 +595,16 @@ public class OptimizeTest2 {
     }
         /** remove keyword and quotes from a string and trim */
     public String formatLineStr(String line, String keyword) {
+       // took from here since it was in the wrong place or was it??
         return line.replace(keyword, "").replace("\"", "").trim();
     }
 
     /** remove keyword and quotes from a string, trim and parse to int */
     public int formatLineInt(String line, String keyword) {
+        // probably should trim the line at the space?
+        // line and keyword do not match, one less tab.
+        if (line.contains("\"id\" "))
+            return Integer.parseInt(line.split(" ")[1].replace("\"", "").trim());
         return Integer.parseInt(line.replace(keyword, "")
                 .replace("\"", "").trim());
     }

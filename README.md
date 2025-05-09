@@ -1,3 +1,5 @@
+#  Updated to 1.21.5 in Dev Branch!
+
 # sourcecraft
 
 an easy to use Minecraft to Source Engine Converter. It converts a given piece of Minecraft World into a map in .vmf-format that can be opened by Hammer Editor. It still needs to be compiled by Hammer Editor (/the Source-Engine compile tools). Aim of this project though is that no further steps or Hammer-Editor editing skills are needed. That is sourcecraft createas a (after compiling) a runnable and playable map with spawn-points and so on.

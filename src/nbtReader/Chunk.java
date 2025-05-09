@@ -28,7 +28,7 @@ public class Chunk {
 					int listTag = reader.readTag();
 					int readLength = reader.readLength();
 					BlockEntities blockEntities = new BlockEntities();
-					Loggger.log("new BlockEntities()");
+					//Loggger.log("new BlockEntities()");
 					if (listTag == NbtTag.COMPOUND && readLength > 0) {
 						for(int i = 0; i < readLength; i++) {
 							blockEntities.readSignText(reader);

@@ -1,5 +1,4 @@
 # Updated for Minecraft 1.21.5
-https://github.com/static2601/sourcecraft/tree/dev
 
 More info and a development branch release coming soon.
 

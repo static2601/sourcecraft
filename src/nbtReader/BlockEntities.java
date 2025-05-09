@@ -115,7 +115,7 @@ public class BlockEntities {
 			.put(ID, () -> {
 				this.id = reader.readString();
 				signText[13] = this.id;
-				Loggger.log("this.id:" + this.id);
+				//Loggger.log("this.id:" + this.id);
 			})
 			.put(XX, () -> this.xyz.x = reader.readInt())
 			.put(YY, () -> this.xyz.y = reader.readInt())
@@ -131,7 +131,7 @@ public class BlockEntities {
 						signText[1] = reader.readString();
 						signText[2] = reader.readString();
 						signText[3] = reader.readString();
-						Loggger.log("adding to Main.mainSignTextArr: "+Arrays.toString(signText));
+						//Loggger.log("adding to Main.mainSignTextArr: "+Arrays.toString(signText));
 					} else {
 						reader.skipListOf(listTag);
 					}
@@ -165,11 +165,17 @@ public class BlockEntities {
 		);
 		Main.mainSignTextArr.add(signText);
 
-		Loggger.log("ID = " +this.id);
-		Loggger.log("XYZ: "+ this.xyz.x+", "+this.xyz.y+", "+this.xyz.z);
+		//Loggger.log("ID = " +this.id);
+		//Loggger.log("XYZ: "+ this.xyz.x+", "+this.xyz.y+", "+this.xyz.z);
 	}
 	public void doSignCommand(String[] text, Mapper context, Position p, Block m, PropStatic sign) {
-		if(text[1].toLowerCase().contains("[cs:setmodel]")) {
+		String[] temp = new String[text.length];
+		for(int i=0; i<text.length;i++) {
+			temp[i] = text[i].toLowerCase();
+		}
+		text = temp;
+
+		if(text[1].contains("[cs:setmodel]")) {
 			String mdl = text[2].toLowerCase()
 					.replace("[", "")
 					.replace("]", "")
@@ -191,13 +197,13 @@ public class BlockEntities {
 			context.markAsConverted(p);
 		}
 		else
-		if(text[0].toLowerCase().contains("[cs:teleport]")) {
+		if(text[0].contains("[cs:teleport]")) {
 			// get suffix in code, A = teleport, B = destination
 			//TODO
 		}
 		else
-		if (text[0].toLowerCase().contains("[cs:playerstart]")) {
-			if (text[1].equalsIgnoreCase("team:any")) {
+		if (text[0].contains("[cs:playerstart]")) {
+			if (text[1].equals("team:any")) {
 
 			}
 			else {

@@ -1,7 +1,5 @@
 # Updated for Minecraft 1.21.5
 
-More info and a development branch release coming soon.
-
 # sourcecraft 
 
 an easy to use Minecraft to Source Engine Converter. It converts a given piece of Minecraft World into a map in 

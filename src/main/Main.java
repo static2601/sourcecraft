@@ -169,7 +169,7 @@ public class Main {
 
 		// textures
 		converterData.setTexturePack(TexturePack.getTexturePack(this.gui.getTexturePack()));
-		converterData.setUpdateTextures(this.gui.getUpdateTextures());
+		//converterData.setUpdateTextures(this.gui.getUpdateTextures());
 		return converterData;
 	}
 }

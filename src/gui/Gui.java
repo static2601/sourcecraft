@@ -274,13 +274,13 @@ public class Gui {
 		this.detailsPanel.setRunRunnable(run); // delegate
 	}
 
-	public boolean getUpdateTextures() {
-		return this.detailsPanel.getUpdateTextures();
-	}
+//	public boolean getUpdateTextures() {
+//		return this.detailsPanel.getUpdateTextures();
+//	}
 
-	public void setVisibleTextTexturesUpToDate(boolean visible) {
-		this.detailsPanel.setVisibleTextTexturesUpToDate(visible);
-	}
+//	public void setVisibleTextTexturesUpToDate(boolean visible) {
+//		this.detailsPanel.setVisibleTextTexturesUpToDate(visible);
+//	}
 
 	// result
 	public void setPanelResultVisible() {

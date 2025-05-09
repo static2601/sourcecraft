@@ -10,8 +10,10 @@ compile tools). Aim of this project though is that no further steps or Hammer-Ed
 That is sourcecraft creates as a (after compiling) a runnable and playable map with spawn-points and so on.
 
 ### what is needed
+
 - Minecraft world of version **1.18** through **1.21.5** either created in singleplayer or by a Minecraft server.
-- Java Runtime Environment 1.8 or newer
+- ~~Java Runtime Environment 1.8 or newer~~
+- JDK 24 minimum. Im not sure which Java Runtime Environment version would be required.
 - Recommended: Steam with installed target Source-Engine game and installed 'Source SDK'. The latter includes the Hammer 
 - Editor and the compile tools. You should have launched your target game and 'Source SDK' for your target game at least 
 - once. Then sourcecraft suggests to create the output-map at the correct path for the Hammer Editor. It can also copy the 
@@ -19,7 +21,7 @@ That is sourcecraft creates as a (after compiling) a runnable and playable map w
 
 ### textures
 
-- textures can be generated from my other project 'MCContentConvertor' at https://github.com/static2601/MCContentConvertor.
+- textures can be generated from my other project 'MCContentConvertor' at: https://github.com/static2601/MCContentConvertor.
 This is a work in progress and only just released it. I expect there to be issues, but has been stable in my testings.
 The textures will be extracted from your Minecraft JAR file. I have created a lot of the models (SMDs) and those will 
 compile at runtime and be added to your game 'directory/props' folder. Everything will go where it needs to based on the

@@ -113,6 +113,16 @@ public class SourceGame {
 				SourceGame.MATERIALS_FOLDER, texturePack.getName()));
 	}
 
+	/// returns materials folder of selected game
+	public File getMaterialsPath() {
+		if (Periphery.CONFIG.getSteamPath() == null) {
+			return null;
+		}
+		return new File(String.join(File.separator, Periphery.CONFIG.getSteamPath()
+						.toString(), Steam.STEAM_GAME_PATH(), this.getLongName(), this.getShortName(),
+				SourceGame.MATERIALS_FOLDER ));
+	}
+
 	@Override
 	public String toString() {
 		return this.getLongName();

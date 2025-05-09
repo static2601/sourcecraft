@@ -159,8 +159,8 @@ public class GuiLogic implements Consumer<Gui> {
 		String[] convertOptionNames = Periphery.CONFIG.getConvertOptionNames();
 		this.gui.setPossibleConverterOptions(convertOptionNames);
 		this.gui.setSelectedConverterOptions(Periphery.CONFIG.getConvertOption());
-		String[] textureNames = Periphery.detectTexturePacks();
-		this.gui.setPossibleTextures(textureNames);
+		//String[] textureNames = Periphery.detectTexturePacks();
+		//this.gui.setPossibleTextures(textureNames);
 		final String texturePack = Periphery.CONFIG.getTexturePack();
 		this.gui.setSelectedTexturePack(texturePack);
 		this.informAboutTexturePack(texturePack);
@@ -178,6 +178,9 @@ public class GuiLogic implements Consumer<Gui> {
 				Loggger.log("changing output to " + fileName);
 				this.gui.setOutputFileName(fileName);
 			}
+			// get here instead since it now gets texture packs from game directory/materials
+			String[] textureNames = Periphery.getGameDirTexturePacks(gameName);
+			this.gui.setPossibleTextures(textureNames);
 		});
 		this.gui.setPossibleGames(Periphery.CONFIG.getGames());
 		this.gui.setSelectedGame(Periphery.CONFIG.getGame());
@@ -235,7 +238,7 @@ public class GuiLogic implements Consumer<Gui> {
 	private void informAboutTexturePack(String texturePackName) {
 		TexturePack texturePack = TexturePack.getTexturePack(texturePackName);
 		boolean upToDate = Steam.areTexturesUpToDate(this.gui.getSourceGame(), texturePack);
-		this.gui.setVisibleTextTexturesUpToDate(upToDate);
+		//this.gui.setVisibleTextTexturesUpToDate(upToDate);
 	}
 
 	private void testOutputFile() {

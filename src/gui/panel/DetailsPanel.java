@@ -29,7 +29,7 @@ public class DetailsPanel extends JPanel {
 
 	private JComboBox<String> comboBox_Textures;
 	private JComboBox<String> comboBox_ConverterOptions;
-	private JCheckBox chckbx_CopyTextures;
+	//private JCheckBox chckbx_CopyTextures;
 
 	private Consumer<String> uponSelectTexturePack = place -> {
 	};
@@ -53,9 +53,9 @@ public class DetailsPanel extends JPanel {
 		this.uponSelectTexturePack = uponSelectTexturePack;
 	}
 
-	public boolean getUpdateTextures() {
-		return this.chckbx_CopyTextures.isSelected();
-	}
+//	public boolean getUpdateTextures() {
+//		return this.chckbx_CopyTextures.isSelected();
+//	}
 
 	public String getTexturePack() {
 		return (String) this.comboBox_Textures.getSelectedItem();
@@ -89,10 +89,10 @@ public class DetailsPanel extends JPanel {
 		this.run = run;
 	}
 
-	public void setVisibleTextTexturesUpToDate(boolean visible) {
+//	public void setVisibleTextTexturesUpToDate(boolean visible) {
 //		this.lbl_TexturesUpToDate.setVisible(visible);
-		this.chckbx_CopyTextures.setVisible(!visible);
-	}
+//		this.chckbx_CopyTextures.setVisible(!visible);
+//	}
 
 	public static void main(String[] args) {
 		Tester.main(args);
@@ -182,22 +182,22 @@ public class DetailsPanel extends JPanel {
 		this.comboBox_Textures.setFont(Gui.DEFAULT_FONT);
 		panel_Details.add(this.comboBox_Textures);
 
-		this.chckbx_CopyTextures = new JCheckBox(COPY_TEXTURES_FOR_HAMMER_EDITOR);
-		this.chckbx_CopyTextures.setFont(Gui.DEFAULT_FONT);
-		this.chckbx_CopyTextures.setSelected(true);
-		sl_panel_Details.putConstraint(SpringLayout.NORTH, this.chckbx_CopyTextures, 6, SpringLayout.SOUTH,
-				this.comboBox_Textures);
-		sl_panel_Details.putConstraint(SpringLayout.WEST, this.chckbx_CopyTextures, 10, SpringLayout.WEST, this);
-		panel_Details.add(this.chckbx_CopyTextures);
+//		this.chckbx_CopyTextures = new JCheckBox(COPY_TEXTURES_FOR_HAMMER_EDITOR);
+//		this.chckbx_CopyTextures.setFont(Gui.DEFAULT_FONT);
+//		this.chckbx_CopyTextures.setSelected(false);
+//		sl_panel_Details.putConstraint(SpringLayout.NORTH, this.chckbx_CopyTextures, 6, SpringLayout.SOUTH,
+//				this.comboBox_Textures);
+//		sl_panel_Details.putConstraint(SpringLayout.WEST, this.chckbx_CopyTextures, 10, SpringLayout.WEST, this);
+//		panel_Details.add(this.chckbx_CopyTextures);
 
-		this.lbl_TexturesUpToDate = new JLabel(TEXTURES_ARE_UP_TO_DATE);
-		sl_panel_Details.putConstraint(SpringLayout.NORTH, this.lbl_TexturesUpToDate, 6, SpringLayout.SOUTH,
-				this.chckbx_CopyTextures);
-		sl_panel_Details.putConstraint(SpringLayout.WEST, this.lbl_TexturesUpToDate, 0, SpringLayout.WEST,
-				this.comboBox_ConverterOptions);
-		this.lbl_TexturesUpToDate.setFont(Gui.DEFAULT_FONT);
-		this.lbl_TexturesUpToDate.setVisible(false);
-		panel_Details.add(this.lbl_TexturesUpToDate);
+//		this.lbl_TexturesUpToDate = new JLabel(TEXTURES_ARE_UP_TO_DATE);
+//		sl_panel_Details.putConstraint(SpringLayout.NORTH, this.lbl_TexturesUpToDate, 6, SpringLayout.SOUTH,
+//				this.chckbx_CopyTextures);
+//		sl_panel_Details.putConstraint(SpringLayout.WEST, this.lbl_TexturesUpToDate, 0, SpringLayout.WEST,
+//				this.comboBox_ConverterOptions);
+//		this.lbl_TexturesUpToDate.setFont(Gui.DEFAULT_FONT);
+//		this.lbl_TexturesUpToDate.setVisible(false);
+//		panel_Details.add(this.lbl_TexturesUpToDate);
 
 		this.comboBox_Textures.addActionListener(arg0 -> {
 			String texturePack = (String) this.comboBox_Textures.getSelectedItem();

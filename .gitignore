@@ -31,3 +31,6 @@ textures/*
 /.idea/jarRepositories.xml
 /.idea/misc.xml
 /.idea/vcs.xml
+/META-INF/MANIFEST.MF
+/.idea/artifacts/sourcecraft_jar.xml
+/.idea/uiDesigner.xml

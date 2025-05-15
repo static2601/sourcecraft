@@ -16,6 +16,11 @@ public abstract class Block implements Supplier<Block>, Predicate<Block> {
 				.get(property.name());
 	}
 
+	public boolean hasProperty(Property property) {
+		if (this.getProperties() == null) return false;
+        return this.getProperties().get(property.getName()) != null;
+	}
+
 	@Override
 	public Block get() {
 		return this;

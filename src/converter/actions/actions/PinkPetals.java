@@ -1,5 +1,6 @@
 package converter.actions.actions;
 
+import basic.Loggger;
 import converter.actions.Action;
 import converter.mapper.Mapper;
 import minecraft.Block;
@@ -16,6 +17,7 @@ public class PinkPetals extends Action {
 
 	@Override
 	public void add(Mapper context, Position position, Block material) {
+		int skin = 0;
 		context.setPointToGrid(position);
 		context.movePointInGridDimension(0.5, 0, 0.5);
 		int rotation = 0;
@@ -33,6 +35,12 @@ public class PinkPetals extends Action {
 		pinkPetals.getAngles().setY(rotation);
 		pinkPetals.setSolid(0);
 		pinkPetals.disableShadows(1);
+
+		Loggger.log("pink pedals material name: "+material.getName());
+		if(material.getName().endsWith("wildflowers")) {
+			pinkPetals.setSkin(1);
+		}
+		else pinkPetals.setSkin(0);
 
 		if(flowersAmount == 1) {
 			pinkPetals.setModel(MODEL1);

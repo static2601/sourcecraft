@@ -33,7 +33,6 @@ public class Scaffolding extends Action {
 	@Override
 	public void add(Mapper context, Position p, Block material) {
 
-		String waterlogged = material.getProperty(Property.waterlogged);
 		String bottom = material.getProperty(Property.bottom);
 		
 		if(bottom.equals("false")) {
@@ -53,11 +52,9 @@ public class Scaffolding extends Action {
 		scaffolding.setSolid(solid);
 		context.addPointEntity(scaffolding);
 		context.markAsConverted(p);
+		//TODO
 		// after mark as converted seems to stop
-		//doubling up water. test further.
-		if(waterlogged.equals("true")) {
-			addWaterlogged(context, p, material);
-		}
+		// doubling up water. test further.
 		//context.markAsConverted(p);
 	}
 }

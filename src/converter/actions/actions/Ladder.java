@@ -1,6 +1,5 @@
 package converter.actions.actions;
 
-import basic.Loggger;
 import converter.actions.Action;
 import converter.mapper.Mapper;
 import minecraft.Block;
@@ -18,7 +17,7 @@ public class Ladder extends Action {
 
 	@Override
 	public void add(Mapper context, Position pos, Block block) {
-		this.context = context;
+        this.context = context;
 		Position end = context.getCuboidFinder()
 				.getBestY(pos, block);
 		this.handleLadderDirection(pos, end, block);

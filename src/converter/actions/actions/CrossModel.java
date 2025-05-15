@@ -39,9 +39,7 @@ public class CrossModel extends Action {
 		int skin = this.skin;
 		Position end = context.getCuboidFinder()
 				.getBestXYZ(p, material);
-		if(material.getName().endsWith("sea_grass")) {
-			addWaterlogged(context, p, material);
-		}
+
 		if(material.getName().endsWith("kelp_plant")) {
 			addWaterlogged(context, p, material);
 		}
@@ -55,9 +53,7 @@ public class CrossModel extends Action {
 			}
 		}
 
-		//TODO make getProperties() return empty if non to avoid error
-		//if(material.get().toString().contains("half=")) {
-		if(material.toString().contains("half=")) {
+		if (material.hasProperty(Property.half)) {
 			String half = material.getProperty(Property.half);
 			if(Objects.equals(half, "upper")) {
 				skin++;

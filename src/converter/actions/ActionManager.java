@@ -5,6 +5,7 @@ import converter.actions.actions.NoAction;
 import converter.mapper.Mapper;
 import minecraft.Block;
 import minecraft.Position;
+import minecraft.Property;
 
 public class ActionManager {
 
@@ -29,6 +30,12 @@ public class ActionManager {
 	}
 
 	public void add(Mapper context, Position position, Block block) {
+		if (block.hasProperty(Property.waterlogged)) {
+			String waterlogged = block.getProperty(Property.waterlogged);
+			if (waterlogged.equals("true")) {
+				Action.addWaterlogged(context, position, block);
+			}
+		}
 		Action action;
 		if (block == null) {
 			action = NoAction.INSTANCE;

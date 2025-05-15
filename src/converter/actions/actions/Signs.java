@@ -1,6 +1,5 @@
 package converter.actions.actions;
 
-import basic.Loggger;
 import converter.actions.Action;
 import converter.mapper.Mapper;
 import minecraft.Block;
@@ -38,9 +37,7 @@ public class Signs extends Action {
 		}
 		else {
 
-			//Loggger.log("get: " + material.get());
 			String signType = material.getName();
-			String waterlogged = material.getProperty(Property.waterlogged);
 
 			if (signType.endsWith("wall_hanging_sign")) {
 				sign = new PropStatic(Signs.HANGINGWALL);

@@ -48,9 +48,5 @@ public class CoralWallFan extends Action {
 		context.addPointEntity(coralFan);
 		context.markAsConverted(p);
 
-		String waterlogged = material.getProperty(Property.waterlogged);
-		if(waterlogged.equals("true")) {
-			addWaterlogged(context, p, material);
-		}
 	}
 }

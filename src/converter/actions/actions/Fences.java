@@ -31,10 +31,6 @@ public class Fences extends Action {
 		String east = material.getProperty(Property.east);
 		String north = material.getProperty(Property.north);
 		String south = material.getProperty(Property.south);
-
-		String waterlogged = material.getProperty(Property.waterlogged);
-
-
 		String west = material.getProperty(Property.west);
 		
 		if(east.equals("true")) {
@@ -61,8 +57,6 @@ public class Fences extends Action {
 			beamsns.setSolid(6);
 			context.addPointEntity(beamsns);
 		}
-		if(waterlogged.equals("true")) {}
-
 		if(west.equals("true")) {
 			context.setPointToGrid(p);
 			context.movePointInGridDimension(0.5, 0, 0.5);
@@ -80,8 +74,5 @@ public class Fences extends Action {
 		fences.setSolid(6);
 		context.addPointEntity(fences);
 		context.markAsConverted(p);
-		if(waterlogged.equals("true")) {
-			addWaterlogged(context, p, material);
-		}
 	}
 }

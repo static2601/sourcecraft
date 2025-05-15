@@ -25,7 +25,7 @@ public class Chest extends Action {
 	public void add(Mapper context, Position pos, Block block) {
 		if(useModel) {
 			context.setPointToGrid(pos);
-			context.movePointInGridDimension(0.5, 0, 0.5);
+			context.movePointInGridDimension(0.5, -0.025, 0.5);
 			int rotation = 0;
 			String facing = block.getProperty(Property.facing);
 
@@ -51,13 +51,6 @@ public class Chest extends Action {
 			chest.setSkin(skin);
 			chest.setSolid(6);
 			context.addPointEntity(chest);
-
-			//TODO - this could be added to 'add' so every model
-			// gets checked instead of adding for each item?
-			String waterlogged = block.getProperty(Property.waterlogged);
-			if(waterlogged.equals("true")) {
-				addWaterlogged(context, pos, block);
-			}
 			context.markAsConverted(pos);
 
 		} else {
@@ -68,7 +61,7 @@ public class Chest extends Action {
 			Cuboid chest = context.createCuboid(pos, end, pixels, startOffset, endOffset, block);
 			chest.setSkin(this.constructSkin(block));
 			context.addDetail(chest);
-			//TODO - shouldnt there be a markAsConverted() here??
+			context.markAsConverted(pos, end);
 		}
 	}
 

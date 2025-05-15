@@ -39,7 +39,7 @@ public abstract class Action {
 		Block above = context.getBlock(new Position(p.x,p.y+1,p.z));
 	}
 
-	public void addWaterlogged(Mapper context, Position p, Block material){
+	public static void addWaterlogged(Mapper context, Position p, Block material){
 		//TODO isnt Liquid() already doing this, couldnt we just add that constructor?
 
 		// add block of water to brush or model
@@ -52,6 +52,7 @@ public abstract class Action {
 		// so cavities under water, under a block are full water and not top water
 		if(!above.getName().contains("minecraft:water")
 				&& !above.getName().contains("kelp") // kelp does not have waterlogged prop as crossmodel
+				&& !above.getName().contains("seagrass") // kelp does not have waterlogged prop as cropmodel
 				&& !above.get().toString().contains("waterlogged=true")) {
 
 			int parts = 16;

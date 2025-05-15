@@ -25,8 +25,6 @@ public class FenceGate extends Action {
 	@Override
 	public void add(Mapper context, Position p, Block material) {
 
-		String waterlogged = material.getProperty(Property.waterlogged);
-
 		String facing = material.getProperty(Property.facing);
 		String open = material.getProperty(Property.open);
 		context.setPointToGrid(p);

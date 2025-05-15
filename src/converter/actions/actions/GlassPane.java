@@ -25,7 +25,6 @@ public class GlassPane extends Action {
 		String east = material.getProperty(Property.east);
 		String north = material.getProperty(Property.north);
 		String south = material.getProperty(Property.south);
-		String waterlogged = material.getProperty(Property.waterlogged);
 		String west = material.getProperty(Property.west);
 		
 		Position offset;

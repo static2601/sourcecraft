@@ -5,6 +5,8 @@ import converter.actions.actions.*;
 import converter.mapper.Mapper;
 import minecraft.Blocks;
 import minecraft.Material;
+import minecraft.Texture;
+import vmfWriter.entity.solidEntity.FuncDetail;
 
 public class CustomActionManager extends ActionManager {
 
@@ -34,10 +36,11 @@ public class CustomActionManager extends ActionManager {
 		// if no action described, none will render
 		for (Material m : new Material[] {
 
-				Material.lever,
+				//Material.lever,
 				Material.fire,
-				Material.sea_lantern,
+				//Material.sea_lantern,
 				//Material.lava
+				Material.potted_bamboo
 		}) {
 			this.actions.put(m, NoAction.INSTANCE);
 		}
@@ -75,11 +78,15 @@ public class CustomActionManager extends ActionManager {
 		// tf2
 		//this.actions.put(Material.grass_block, new TallGrassTf2());
 		//this.actions.put(Material.tall_grass, new TallGrassTf2());
-		this.actions.put(Material.jack_o_lantern, new NoAction());
-		this.actions.put(Material.sea_lantern, new NoAction());
+		this.actions.put(Material.jack_o_lantern, new Pumpkin());
+		//this.actions.put(Material.pumpkin, new Pumpkin());
+		this.actions.put(Material.carved_pumpkin, new Pumpkin());
 
+		this.actions.put(Material.sea_lantern, new DetailBlock());
+		//this.actions.put(Blocks.get("minecraft:lantern"), new Lantern());
 		this.actions.put(Material.lantern, new Lantern());
 		this.actions.put(Material.soul_lantern, new Lantern());
+		this.actions.put(Material.copper_grate, new DetailBlock());
 		//this.actions.put(Material.glowstone, new Glowstone());
 		//this.actions.put(Material.lantern, new TestDrawFromCoords());
 
@@ -90,12 +97,16 @@ public class CustomActionManager extends ActionManager {
 		this.actions.put(Material.allium, new CrossModel(1, 0));
 		this.actions.put(Material.amethyst_cluster, new CrossModel(2, 0));
 		this.actions.put(Material.azure_bluet, new CrossModel(3, 0));
-		//this.actions.put(Material.bamboo, new CrossModel(4, 0, true));
+		this.actions.put(Material.bamboo_sapling, new CrossModel(4, 0, false));
+		this.actions.put(Material.big_dripleaf_stem, new CrossModel(79, 0));
+		//TODO big_dripleaf as its own model
+
 		this.actions.put(Material.birch_sapling, new CrossModel(5, 0));
 		this.actions.put(Material.blue_orchid, new CrossModel(6, 0));
 		this.actions.put(Material.brain_coral, new CrossModel(7, 0));
 		this.actions.put(Material.brown_mushroom, new CrossModel(8, 0));
 		this.actions.put(Material.bubble_coral, new CrossModel(9, 0));
+		this.actions.put(Material.cactus_flower, new CrossModel(80, 0));
 		this.actions.put(Material.cave_vines, new CrossModel(10, 0));
 		//this.actions.put(Material.cave_vines_lit, new CrossModel(11, 0));
 		this.actions.put(Material.cave_vines_plant, new CrossModel(12, 0));
@@ -115,6 +126,7 @@ public class CustomActionManager extends ActionManager {
 		this.actions.put(Material.dead_tube_coral, new CrossModel(26, 0));
 		this.actions.put(Material.fern, new CrossModel(27, 0));
 		this.actions.put(Material.fire_coral, new CrossModel(28, 0));
+		this.actions.put(Material.firefly_bush, new CrossModel(78, 0));
 		this.actions.put(Material.hanging_roots, new CrossModel(29, 0));
 		this.actions.put(Material.horn_coral, new CrossModel(30, 0));
 		this.actions.put(Material.jungle_sapling, new CrossModel(31, 0));
@@ -124,13 +136,23 @@ public class CustomActionManager extends ActionManager {
 		this.actions.put(Material.large_fern, new CrossModel(35, 0));
 		this.actions.put(Material.lilac, new CrossModel(37, 0));
 		this.actions.put(Material.lily_of_the_valley, new CrossModel(39, 0));
+		//this.actions.put(Material.mangrove_roots) needs its own model plus shape with four sides
+		// muddy_mangrove_roots is an axis block
+		this.actions.put(Material.mangrove_propagule, new CrossModel(81, 0));
+		// mangrove_propagule is its own model, cross with 2x4 block and wings and sides
 		this.actions.put(Material.medium_amethyst_bud, new CrossModel(40, 0));
 		this.actions.put(Material.nether_sprouts, new CrossModel(41, 0));
 		this.actions.put(Material.oak_sapling, new CrossModel(42, 0));
 		this.actions.put(Material.orange_tulip, new CrossModel(43, 0));
 		this.actions.put(Material.oxeye_daisy, new CrossModel(44, 0));
+		this.actions.put(Material.pale_oak_sapling, new CrossModel(76, 0));
+		this.actions.put(Material.pale_hanging_moss, new CrossModel(77, 0));
+		this.actions.put(Material.pointed_dripstone, new Dripstone(0, 0));
 		this.actions.put(Material.peony, new CrossModel(45, 0));
 		this.actions.put(Material.pink_tulip, new CrossModel(47, 0));
+		//this.actions.put(Material.pitcher_plant) skin 82, 83
+		// 2 types crop and just the plant,
+		// crop uses age 1-4, just plant uses age 4 but probably adjust height down by base height
 		this.actions.put(Material.poppy, new CrossModel(48, 0));
 		this.actions.put(Material.red_mushroom, new CrossModel(49, 0));
 		this.actions.put(Material.red_tulip, new CrossModel(50, 0));
@@ -153,15 +175,14 @@ public class CustomActionManager extends ActionManager {
 		this.actions.put(Material.weeping_vines_plant, new CrossModel(73, 0));
 		this.actions.put(Material.white_tulip, new CrossModel(74, 0));
 		this.actions.put(Material.wither_rose, new CrossModel(75, 0));
-		this.actions.put(Material.pale_oak_sapling, new CrossModel(76, 0));
-		this.actions.put(Material.pale_hanging_moss, new CrossModel(77, 0));
-		this.actions.put(Material.firefly_bush, new CrossModel(78, 0));
 
 		// crops
 		this.actions.put(Material.beetroots, new CropModel(0, 0));
 		this.actions.put(Material.carrots, new CropModel(4, 0));
 		this.actions.put(Material.nether_wart, new CropModel(8, 0));
 		this.actions.put(Material.potatoes, new CropModel(11, 0));
+		this.actions.put(Material.seagrass, new CropModel(23, 0));
+		this.actions.put(Material.tall_seagrass, new CropModel(24, 0)); // is this in the game?
 		this.actions.put(Material.wheat, new CropModel(15, 0));
 
 		// coral fan
@@ -244,6 +265,15 @@ public class CustomActionManager extends ActionManager {
 		this.actions.put(Material.ladder, new Ladder());
 		this.actions.put(Material.chain, new Chain());
 		this.actions.put(Material.candle, new Candle());
+		this.actions.put(Material.end_rod, new EndRod());
+		this.actions.put(Material.lightning_rod, new LightningRod());
+		this.actions.put(Material.loom, new Workstations());
+		this.actions.put(Material.smoker, new Workstations());
+		this.actions.put(Material.blast_furnace, new Workstations());
+		this.actions.put(Material.lever, new Lever());
+		this.actions.put(Material.beehive, new Beehive());
+		this.actions.put(Material.bee_nest, new Beehive());
+
 
 		for (Material m : Material.values()) {
 			if(m.getName().endsWith("_trapdoor")) {
@@ -290,6 +320,23 @@ public class CustomActionManager extends ActionManager {
 			if(m.getName().endsWith("rail")) {
 				this.actions.put(Blocks.get(m.getName()), new Rails());
 			}
+			else
+			if(m.getName().endsWith("muddy_mangrove_roots")) {
+				this.actions.put(Blocks.get(m.getName()), new AxisBlocks2());
+			}
+			// frog lights
+			else
+			if(m.getName().endsWith("pearlescent_froglight")) {
+				this.actions.put(Blocks.get(m.getName()), new AxisBlocks2());
+			}
+			else
+			if(m.getName().endsWith("verdant_froglight")) {
+				this.actions.put(Blocks.get(m.getName()), new AxisBlocks2());
+			}
+			else
+			if(m.getName().endsWith("ochre_froglight")) {
+				this.actions.put(Blocks.get(m.getName()), new AxisBlocks2());
+			}
 		}
 
 		this.actions.put(Material.quartz_pillar, new AxisBlocks2());
@@ -304,6 +351,7 @@ public class CustomActionManager extends ActionManager {
 		this.actions.put(Material.flowering_azalea, new AzaleaPlant(1, 2));
 		this.actions.put(Material.grindstone, new Grindstone());
 		this.actions.put(Material.pink_petals, new PinkPetals());
+		this.actions.put(Material.wildflowers, new PinkPetals());
 		this.actions.put(Material.barrel, new Barrel());
 		this.actions.put(Material.lectern, new Lectern());
 
@@ -324,11 +372,12 @@ public class CustomActionManager extends ActionManager {
 		this.actions.put(Material.sea_pickle, new SeaPickle(0, 6));
 		this.actions.put(Material._wall, new Wall());
 		this.actions.put(Material.dirt_path, new GrassPath());
-		this.actions.put(Material.seagrass, new Liquid());
+		//this.actions.put(Material.seagrass, new Liquid());
 		this.actions.put(Material.tall_seagrass, new Liquid());
 		this.actions.put(Material.comparator, new Redstone());
 		this.actions.put(Material.repeater, new Redstone());
 		this.actions.put(Material.slime_block, new SlimeBlock());
+		this.actions.put(Material.honey_block, new HoneyBlock());
 
 		// ttt
 		//this.actions.put(Material.zombie_head, new CenteredPointEntity("info_player_start"));

@@ -7,6 +7,8 @@ import minecraft.Position;
 import minecraft.Property;
 import vmfWriter.entity.pointEntity.pointEntity.PropStatic;
 
+import java.util.Objects;
+
 public class CropModel extends Action {
 
 	// skin, make index for all skin names
@@ -33,10 +35,24 @@ public class CropModel extends Action {
 	public void add(Mapper context, Position p, Block material) {
 		int skin = this.skin;
 
+		if(material.getName().endsWith("seagrass")) {
+			addWaterlogged(context, p, material);
+		}
+
+		if (material.hasProperty(Property.half)) {
+			String half = material.getProperty(Property.half);
+			if(Objects.equals(half, "upper")) {
+				skin++;
+			}
+			// else add as normal using the first skin of the plant
+		}
+
 		// crop age
-		String age = material.getProperty(Property.valueOf("age"));
-		if (age != null) {
-			skin += Integer.parseInt(age);
+		if (material.hasProperty(Property.age)) {
+			String age = material.getProperty(Property.valueOf("age"));
+			if (age != null) {
+				skin += Integer.parseInt(age);
+			}
 		}
 
 		context.setPointToGrid(p);

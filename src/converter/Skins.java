@@ -2,9 +2,11 @@ package converter;
 
 import java.util.function.Supplier;
 
+import basic.Loggger;
 import basic.NameSupplier;
 import converter.actions.BlockMap;
 import minecraft.*;
+import org.w3c.dom.Text;
 import periphery.TexturePack;
 import vmfWriter.Skin;
 
@@ -61,9 +63,20 @@ public class Skins {
 				this.folder + bottom.getName(), axis, this.textureScale);
 	}
 //
+ 	/// only for use with terracotta since faces are adjusted for it only
+	/// anything else will take the same face rotations
+	/// it might be anything with an orientation of cardinal directions
 	public Skin createSkinTopFront(NameSupplier main, NameSupplier top, NameSupplier front, Orientation orientation) {
 		return new Skin(this.folder + main.getName(), this.folder + top.getName(), this.folder + front.getName(),
 				orientation, this.textureScale);
+	}
+	public Skin createSkinTopFrontBottom(NameSupplier main, NameSupplier top, NameSupplier front, NameSupplier bottom, Orientation orientation) {
+		return new Skin(this.folder + main.getName(), this.folder + top.getName(), this.folder + front.getName(),
+				this.folder + bottom.getName(), orientation, this.textureScale, 0);
+	}
+	public Skin createSkinAllSides(NameSupplier top, NameSupplier front, NameSupplier bottom, NameSupplier back, NameSupplier left, NameSupplier right) {
+		return new Skin(this.folder + top.getName(), this.folder + front.getName(), this.folder + bottom.getName(),
+				this.folder + back.getName(), this.folder + left.getName(), this.folder + right.getName(), this.textureScale);
 	}
 //
 //	public Skin createSkinTopFrontBottom(NameSupplier main, NameSupplier top, NameSupplier front, NameSupplier bottom) {
@@ -146,21 +159,97 @@ public class Skins {
 				else if(mat.equals("polished_blackstone")) this.put(material, Texture.polished_blackstone);
 				else this.put(material, Texture.valueOf(mat + "_planks"));
 			}
-			//else
+			if (name.equals("target")) {
+				this.put(material,
+						this.createSkinTopBottomDir(Texture.target_side,
+								Texture.target_top, Texture.target_top, "y"));
+			}
 			if (name.equals("quartz_pillar")) {
 				this.put(material,
 						this.createSkinTopBottomDir(Texture.quartz_pillar,
 								Texture.quartz_pillar_top, Texture.quartz_pillar_top, "y"));
 			}
-			//else
+			if (name.equals("muddy_mangrove_roots")) {
+				this.put(material,
+						this.createSkinTopBottomDir(Texture.muddy_mangrove_roots_side,
+								Texture.muddy_mangrove_roots_top, Texture.muddy_mangrove_roots_top, "y"));
+			}
+			if (name.equals("ochre_froglight")) {
+				this.put(material,
+						this.createSkinTopBottomDir(Texture.ochre_froglight_side,
+								Texture.ochre_froglight_top, Texture.ochre_froglight_top, "y"));
+			}
+			if (name.equals("verdant_froglight")) {
+				this.put(material,
+						this.createSkinTopBottomDir(Texture.verdant_froglight_side,
+								Texture.verdant_froglight_top, Texture.verdant_froglight_top, "y"));
+			}
+			if (name.equals("pearlescent_froglight")) {
+				this.put(material,
+						this.createSkinTopBottomDir(Texture.pearlescent_froglight_side,
+								Texture.pearlescent_froglight_top, Texture.pearlescent_froglight_top, "y"));
+			}
 			if (name.equals("chest")) {
 				this.put(material, this.createSkinTopFront(() -> "chest_side", () -> "chest_top", () -> "chest_front",
 						Orientation.NORTH));
 			}
-
+			if (name.equals("pumpkin")) {
+				this.put(material, this.createSkinTopBottom(Texture.pumpkin_side, Texture.pumpkin_top, Texture.pumpkin_top));
+			}
+			if (name.equals("jack_o_lantern")) {
+				this.put(material, this.createSkinTopFront(Texture.pumpkin_side, Texture.pumpkin_top, Texture.jack_o_lantern,
+						Orientation.NORTH));
+			}
+			if (name.equals("carved_pumpkin")) {
+				this.put(material, this.createSkinTopFront(Texture.pumpkin_side, Texture.pumpkin_top, Texture.carved_pumpkin,
+						Orientation.NORTH));
+			}
+			if (name.equals("blast_furnace")) {
+				this.put(material, this.createSkinTopFront(Texture.blast_furnace_side, Texture.blast_furnace_top, Texture.blast_furnace_front,
+						Orientation.NORTH));
+			}
+			if (name.equals("smoker")) {
+				this.put(material, this.createSkinTopFront(Texture.smoker_side, Texture.smoker_top, Texture.smoker_front,
+						Orientation.NORTH));
+			}
+			if (name.equals("loom")) {
+				this.put(material, this.createSkinTopFront(Texture.loom_side, Texture.loom_top, Texture.loom_front,
+						Orientation.NORTH));
+			}
+			if (name.equals("beehive")) {
+				this.put(material, this.createSkinTopFrontBottom(Texture.beehive_side, Texture.beehive_end, Texture.beehive_front,
+						Texture.beehive_end, Orientation.NORTH));
+			}
+			if (name.equals("bee_nest")) {
+				this.put(material, this.createSkinTopFrontBottom(Texture.bee_nest_side, Texture.bee_nest_top, Texture.bee_nest_front,
+						Texture.bee_nest_bottom, Orientation.NORTH));
+			}
+			if (name.equals("cartography_table")) {
+				this.put(material, this.createSkinAllSides(Texture.cartography_table_top, Texture.cartography_table_side1,
+						Texture.cartography_table_side3, Texture.cartography_table_side3, Texture.cartography_table_side2,
+						Texture.cartography_table_side3));
+			}
+			if (name.equals("smithing_table")) {
+				this.put(material, this.createSkinAllSides(Texture.smithing_table_top, Texture.smithing_table_front,
+						Texture.smithing_table_bottom, Texture.smithing_table_front, Texture.smithing_table_side,
+						Texture.smithing_table_side));
+			}
+			if (name.equals("fletching_table")) {
+				this.put(material, this.createSkinAllSides(Texture.fletching_table_top, Texture.fletching_table_front,
+						Texture.birch_planks, Texture.fletching_table_front, Texture.fletching_table_side,
+						Texture.fletching_table_side));
+			}
+			if (name.equals("sculk_catalyst")) {
+				this.put(material, this.createSkinTopBottom(Texture.sculk_catalyst_side, Texture.sculk_catalyst_top, Texture.sculk_catalyst_bottom));
+			}
 		}
 
 		this.put(Material.barrel, this.createSkinTopBottom(() -> "barrel_side", () -> "barrel_top", () -> "barrel_bottom"));
+		this.put(Material.reinforced_deepslate, this.createSkinTopBottom(() -> "reinforced_deepslate_side",
+				() -> "reinforced_deepslate_top", () -> "reinforced_deepslate_bottom"));
+		//TODO 0-4 side variants, top and top_off variants
+		this.put(Material.respawn_anchor, this.createSkinTopBottom(() -> "respawn_anchor_side0",
+				() -> "respawn_anchor_top_off", () -> "respawn_anchor_bottom"));
 
 		this.put(Material.stripped_acacia_wood, Texture.stripped_acacia_log);
 		this.put(Material.acacia_wood, Texture.acacia_log);
@@ -320,7 +409,7 @@ public class Skins {
 
 		this.put(Material.campfire, Texture.campfire_log);
 		this.put(Material.piston_head, Texture.piston_top);
-		this.put(Material.bamboo_sapling, Texture.bamboo_singleleaf);
+		//this.put(Material.bamboo_sapling, Texture.bamboo_singleleaf);
 		this.put(Material.sticky_piston, Texture.piston_side);
 		this.put(Material.piston, Texture.piston_side);
 
@@ -332,6 +421,9 @@ public class Skins {
 
 		this.put(Material.lantern,
 				this.createSkin(Texture.lantern, Texture.lantern));
+
+		this.put(Material.sea_lantern,
+				this.createSkin(Texture.sea_lantern, Texture.sea_lantern));
 
 		// sides and top block
 		this.put(Material.sandstone,
@@ -362,11 +454,12 @@ public class Skins {
 				// would need to include other skins to make up model?
 				this.createSkinTopBottom(Texture.bamboo_stalk, Texture.bamboo_stalk, Texture.bamboo_stalk));
 		this.put(Material.water,
-				this.createSkinTopBottom2("tools/toolsnodraw", Texture.water_still, "tools/toolsnodraw"));
+				this.createSkinTopBottom2(this.folder + Texture.water_flow.getName(), Texture.water_still,
+						this.folder + Texture.water_flow.getName()));
 
 		//TODO lava not working, material may not be created.
 		this.put(Material.lava,
-				this.createSkinTopBottom2("tools/toolsnodraw", Texture.lava_still, "tools/toolsnodraw"));
+				this.createSkinTopBottom2(this.folder + Texture.lava_flow.getName(), Texture.lava_still, this.folder + Texture.lava_flow.getName()));
 
 		this.skins.put(Blocks.get("sourcecraft:ramp"), PLAYER_CLIP);
 		this.skins.put(Blocks.get("sourcecraft:ladder"), TRIGGER);

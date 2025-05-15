@@ -96,9 +96,45 @@ public class Skin {
 
 		this.scale = newScale;
 	}
+	public Skin(String newMaterial, String newMaterialTop, String newMaterialFront, String newMaterialBottom, Orientation orientation,
+				double newScale, int zero) {
+		//TODO figure out why side faces are being rotated,
+		// or have function to rotate them
+		// this skin method being used for all other blocks
+		// yet like workstations.
+		this.materialLeft = newMaterial;
+		this.materialRight = newMaterial;
+		this.materialBack = newMaterial;
+		this.materialFront = newMaterial;
+
+		this.materialTop = newMaterialTop;
+		this.materialBottom = newMaterialBottom;
+		// setting this.orientation will make it behave like terracotta
+		// flipping faces incorrectly
+		// only set for use for below
+		//this.orientation = orientation;
+
+		switch (orientation) {
+			case SOUTH:
+				this.materialFront = newMaterialFront;
+				break;
+			case EAST:
+				this.materialRight = newMaterialFront;
+				break;
+			case NORTH:
+				this.materialBack = newMaterialFront;
+				break;
+			case WEST:
+				this.materialLeft = newMaterialFront;
+				break;
+		}
+
+		this.scale = newScale;
+	}
 	/** Top, bottom, front face with E, W, N, S Directions*/
 	public Skin(String newMaterial, String newMaterialTop, String newMaterialFront, Orientation orientation,
 			double newScale) {
+
 		this.materialLeft = newMaterial;
 		this.materialRight = newMaterial;
 		this.materialBack = newMaterial;
@@ -106,7 +142,10 @@ public class Skin {
 
 		this.materialTop = newMaterialTop;
 		this.materialBottom = newMaterialTop;
-		this.orientation = orientation;
+		// setting this.orientation will make it behave like terracotta
+		// flipping faces incorrectly
+		// only set for use for below
+		//this.orientation = orientation;
 
 		switch (orientation) {
 		case SOUTH:
@@ -138,6 +177,16 @@ public class Skin {
 
 		this.scale = newScale;
 	}
+	public Skin(String top, String front, String bottom, String back, String left, String right, double newScale) {
+		this.materialLeft = left;
+		this.materialRight = right;
+		this.materialBack = back;
+		this.materialFront = front;
+		this.materialTop = top;
+		this.materialBottom = bottom;
+
+		this.scale = newScale;
+	}
 	/** Top, bottom, front face with E, W, N, S, U, D Directions*/
 	public Skin(String newMaterial, String newMaterialTop, String newMaterialFront, String newMaterialBottom,
 			Orientation orientation, double newScale) {
@@ -145,7 +194,6 @@ public class Skin {
 		this.materialRight = newMaterial;
 		this.materialBack = newMaterial;
 		this.materialFront = newMaterial;
-
 		this.materialTop = newMaterial;
 		this.materialBottom = newMaterial;
 

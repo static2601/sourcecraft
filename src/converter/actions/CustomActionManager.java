@@ -66,7 +66,8 @@ public class CustomActionManager extends ActionManager {
 		// used instead. find the script and add as option when converting.
 		this.actions.put(Material._stairs, new Stairs());
 		this.actions.put(Material.cactus, new Cactus());
-		this.actions.put(Material.fire, new Fire());
+		//this.actions.put(Material.fire, new Fire());
+		this.actions.put(Material.fire, new NoAction());
 		this.actions.put(Material._slab, new Slab());
 		this.actions.put(Material._pane, new GlassPane());
 		this.actions.put(Material.iron_bars, new IronBars());
